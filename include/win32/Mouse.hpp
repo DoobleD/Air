@@ -11,6 +11,7 @@ namespace air
 
     class		Mouse : public IMouse
     {
+    public:
       void		setPosition(double x, double y);
     };
 
