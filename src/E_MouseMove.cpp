@@ -1,7 +1,15 @@
+#ifdef DEBUG_MOD
+#include "Viewer.hpp"
+
+extern air::Viewer	g_viewer;
+#endif
+
+
 #include <stdlib.h>
 
 #include "E_MouseMove.hpp"
 #include "OpenNIBox.hpp"
+#include "Screen.hpp"
 
 using namespace air;
 
@@ -21,8 +29,8 @@ extern Viewer		g_viewer;
 E_MouseMove::E_MouseMove() : XnVPointControl("MouseMove")
 {
   // TODO: multi-platform
-  // m_screenSize[PX] = GetSystemMetrics(SM_CXFULLSCREEN);
-  // m_screenSize[PY] = GetSystemMetrics(SM_CYFULLSCREEN);
+  m_screenSize[PX] = m_screen.getResX();
+  m_screenSize[PY] = m_screen.getResX();
   m_screenMidSize[PX] = m_screenSize[PX] / 2;
   m_screenMidSize[PY] = m_screenSize[PY] / 2;
 }
@@ -74,7 +82,7 @@ void		E_MouseMove::OnPointUpdate(const XnVHandPointContext * cxt)
     prop[PY] += speed[PY] * prop[PY];
 
   // TODO: multi-platform
-  //SetCursorPos(prop[PX], prop[PY]);
+  m_mouse.setPosition(prop[PX], prop[PY]);
 }
 
 void		E_MouseMove::OnPointDestroy(XnUInt32 nID)

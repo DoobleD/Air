@@ -1,3 +1,10 @@
+#ifdef DEBUG_MOD
+#include "Viewer.hpp"
+
+extern air::Viewer	g_viewer;
+#endif
+
+
 #include <iostream>
 
 #include "Launcher.hpp"
@@ -10,11 +17,6 @@ using namespace air;
 extern OpenNIBox	g_openNI;
 extern NITEBox		g_NITE;
 
-#ifdef DEBUG_MOD
-#include "Viewer.hpp"
-
-extern Viewer		g_viewer;
-#endif
 
 void			Launcher::initilize(void)
 {

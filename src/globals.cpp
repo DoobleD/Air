@@ -1,3 +1,9 @@
+#ifdef DEBUG_MOD
+#include "Viewer.hpp"
+
+air::Viewer	g_viewer;
+#endif
+
 
 #include "OpenNIBox.hpp"
 #include "NITEBox.hpp"
@@ -14,14 +20,9 @@
 
 using namespace air;
 
+
 OpenNIBox	g_openNI;
 NITEBox		g_NITE;
-
-#ifdef DEBUG_MOD
-#include "Viewer.hpp"
-
-Viewer		g_viewer;
-#endif
 
 EventListener	g_eventListeners[] =
   {
