@@ -3,12 +3,15 @@
 
 #include <X11/Xlib.h>
 
+#include "IMouse.hpp"
+
+
 namespace air
 {
   namespace os
   {
 
-    class		Mouse
+    class		Mouse : public IMouse
     {
     private:
       Display *		m_display;

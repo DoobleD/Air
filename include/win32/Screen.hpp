@@ -1,16 +1,19 @@
 #ifndef _SCREEN_HPP_
 #define _SCREEN_HPP_
 
+#include "IScreen.hpp"
+
+
 namespace air
 {
   namespace os
   {
     
-    class		Screen
+    class		Screen : public IScreen
     {
     public:
-      static int	getResX(void);
-      static int	getResY(void);
+      int		getResX(void);
+      int		getResY(void);
     };
 
   }
