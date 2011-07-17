@@ -20,6 +20,7 @@ namespace air
   class				Launcher
   {
   private:
+
     // Contains callbacks relative to session events.
     SessionListener		m_sessionListener;
 
@@ -39,6 +40,7 @@ namespace air
     void			shutdown(void);
 
   public:
+
     /**
      * The method to call to launch Air.
      */
