@@ -53,19 +53,19 @@ endif ()
 # Sources
 file(			GLOB 
 			BASE_SRC 
-			src/*
+			src/*.cpp
 )
 if (WINDOWS)
   file(
 			GLOB 
 			OS_SRC 
-			src/win32/*
+			src/win32/*.cpp
   )
 elseif (LINUX)
   file(
 			GLOB 
 			OS_SRC 
-			src/unix/*
+			src/unix/*.cpp
   )
 endif ()
 
