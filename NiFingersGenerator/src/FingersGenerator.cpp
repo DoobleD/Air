@@ -26,6 +26,8 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandCreate(xn::HandsGenerator & handGene
 
   fingersCookie->createHandler((FingersGenerator &) handGenerator, 
 			       id, data, time, cookie);
+
+  delete data;
 }
 
 void XN_CALLBACK_TYPE	FingersGenerator::HandUpdate(xn::HandsGenerator & handGenerator,
@@ -42,6 +44,8 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandUpdate(xn::HandsGenerator & handGene
 
   fingersCookie->updateHandler((FingersGenerator &) handGenerator, 
 			       id, data, time, cookie);
+
+  delete data;
 }
 
 void XN_CALLBACK_TYPE	FingersGenerator::HandDestroy(xn::HandsGenerator& handGenerator,

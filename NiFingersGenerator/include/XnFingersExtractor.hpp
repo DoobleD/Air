@@ -22,13 +22,13 @@ namespace xn
   {
   private:
     vector<XnPoint3D>		m_contour;
-    vector<HandPeak>		m_peaks;
-    vector<vector<HandPeak> >	m_peaksPerLocation;
-    vector<HandPeak>		m_selectedPeaks;
+    list<HandPeak>		m_peaks;
+    list<list<HandPeak> >	m_peaksPerLocation;
+    list<HandPeak>		m_selectedPeaks;
 
     void			ExtractHandContour(DepthGenerator & depthGenerator, 
 						   const XnPoint3D & handPosition);
-    void			SortContourPoints(void);
+    void			SortContourPoints(list<XnPoint3D> & contour);
     void			LocateContourPeaks(void);
     void			GroupPeaksByLocation(void);
     void			SelectGroupBestPeaks(void);

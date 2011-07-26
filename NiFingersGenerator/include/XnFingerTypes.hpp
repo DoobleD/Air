@@ -1,6 +1,8 @@
 #ifndef _XN_FINGER_TYPES_HPP_
 #define _XN_FINGER_TYPES_HPP_
 
+#include <memory>
+
 namespace xn
 {
 
@@ -19,6 +21,9 @@ namespace xn
   {
     XnVector3D *	Fingers;
     XnUInt32		Size;
+
+    ~FingersData()
+    {delete Fingers;}
   };
   
 }

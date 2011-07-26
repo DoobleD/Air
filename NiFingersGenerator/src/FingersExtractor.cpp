@@ -10,6 +10,7 @@ void		FingersExtractor::ExtractHandContour(DepthGenerator & depthGenerator,
 {
   const XnDepthPixel *	depthMap;
   XnPoint3D		contourPoint;
+  list<XnPoint3D>	contour;
 
   depthMap = depthGenerator.GetDepthMap();
   depthMap += 479 * 640;
@@ -27,41 +28,48 @@ void		FingersExtractor::ExtractHandContour(DepthGenerator & depthGenerator,
 		  contourPoint.X = x;
 		  contourPoint.Y = y;
 		  contourPoint.Z = *depthMap;
-		  m_contour.push_back(contourPoint);
+		  contour.push_back(contourPoint);
 		}
 	    }
 	  depthMap++;
 	}
       depthMap -= 640 * 2;
     }
+
+  SortContourPoints(contour);
 }
 
-void			FingersExtractor::SortContourPoints(void)
+void			FingersExtractor::SortContourPoints(list<XnPoint3D> & contour)
 {
-  vector<XnPoint3D>	tmpSorted;
-  float			minDist;
-  float			dist;
-  int			minPos;
+  float				dist;
+  float				minDist;
+  list<XnPoint3D>		sorted;
+  list<XnPoint3D>::iterator	itBegin;
+  list<XnPoint3D>::iterator	itEnd;
+  list<XnPoint3D>::iterator	closestPoint;
 
-  tmpSorted.push_back(m_contour[0]);
-  m_contour.erase(m_contour.begin());
-  while (!m_contour.empty())
+  sorted.push_back(contour.front());
+  contour.erase(contour.begin());
+  while (!contour.empty())
     {
       minDist = -1;
-      for (int i = 0; i < m_contour.size(); i++)
+      itBegin = contour.begin();
+      itEnd = contour.end();
+      while (itBegin != itEnd)
   	{
-  	  dist = Math::PointsDistance(m_contour[i], tmpSorted.back());
-  	  if (dist < minDist || minDist == -1)
+	  dist = Math::PointsDistance(*itBegin, sorted.back());
+  	  if (minDist == -1 || dist < minDist)
   	    {
   	      minDist = dist;
-  	      minPos = i;
+  	      closestPoint = itBegin;
   	    }
+	  ++itBegin;
   	}
-      tmpSorted.push_back(m_contour[minPos]);
-      m_contour.erase(m_contour.begin() + minPos);
+      sorted.push_back(*closestPoint);
+      contour.erase(closestPoint);
     }
 
-  m_contour.swap(tmpSorted);
+  m_contour.assign(sorted.begin(), sorted.end());
 }
 
 void			FingersExtractor::LocateContourPeaks(void)
@@ -93,69 +101,85 @@ void			FingersExtractor::LocateContourPeaks(void)
     }
 }
 
-void			FingersExtractor::GroupPeaksByLocation(void)
+void				FingersExtractor::GroupPeaksByLocation(void)
 {
-  HandPeak			peak;
-  int				nbOfPeaks;
-  int				nbOfLocations;
-  int				peaksDistance;
-  bool				closePeakFound = true;
-    
-  nbOfPeaks = m_peaks.size();
-  for (int i = 0; i < nbOfPeaks; i++)
+  HandPeak				peak;
+  int					peaksDistance;
+  bool					closePeakFound = true;
+  list<HandPeak>::iterator		peaksBegin = m_peaks.begin();
+  list<HandPeak>::iterator		peaksEnd = m_peaks.end();
+  list<list<HandPeak> >::iterator	locBegin;
+  list<list<HandPeak> >::iterator	locEnd;
+  
+  while (peaksBegin != peaksEnd)
     {
-      peak = m_peaks[i];
+      peak = *peaksBegin;
       if (m_peaksPerLocation.empty() || closePeakFound == false)
 	{
-	  m_peaksPerLocation.push_back(vector<HandPeak>());
+	  m_peaksPerLocation.push_back(list<HandPeak>());
 	  m_peaksPerLocation.back().push_back(peak);
 	}
       
       closePeakFound = false;
-      nbOfLocations = m_peaksPerLocation.size();
-      for (int j = 0; j < nbOfLocations && closePeakFound == false; j++)
+      locBegin = m_peaksPerLocation.begin();
+      locEnd = m_peaksPerLocation.end();
+      while (locBegin != locEnd && closePeakFound == false)
       	{
       	  peaksDistance = Math::PointsDistance(peak.Position, 
-      					       m_peaksPerLocation[j].back().Position);
+					       locBegin->front().Position);
       	  if (peaksDistance < PEAK_LOCATION_LENGTH)
       	    {
-      	      m_peaksPerLocation[j].push_back(peak);
+      	      locBegin->push_back(peak);
       	      closePeakFound = true;
       	    }
+	  ++locBegin;
       	}
-    }
 
+      ++peaksBegin;
+    }
 }
 
 void			FingersExtractor::SelectGroupBestPeaks(void)
 {
-  HandPeak		bestPeak;
-  int			nbOfLocation = m_peaksPerLocation.size();
-  int			nbOfPeaks;
+  HandPeak				bestPeak;
+  list<HandPeak>::iterator		peaksBegin;
+  list<HandPeak>::iterator		peaksEnd;
+  list<list<HandPeak> >::iterator	locBegin = m_peaksPerLocation.begin();
+  list<list<HandPeak> >::iterator	locEnd = m_peaksPerLocation.end();
 
-  for (int i = 0; i < nbOfLocation; i++)
+  while (locBegin != locEnd)
     {
-      bestPeak = m_peaksPerLocation[i][0];
-      nbOfPeaks = m_peaksPerLocation[i].size();
-      for (int j = 1; j < nbOfPeaks; j++)
-	{
-	  if (m_peaksPerLocation[i][j].Angle < bestPeak.Angle)
-	    bestPeak = m_peaksPerLocation[i][j];
-	}
+      bestPeak = locBegin->front();
+
+      peaksBegin = locBegin->begin();
+      peaksEnd = locBegin->end();
+      while (peaksBegin != peaksEnd)
+  	{
+  	  if (peaksBegin->Angle < bestPeak.Angle)
+  	    bestPeak = *peaksBegin;
+	  ++peaksBegin;
+  	}
+
       m_selectedPeaks.push_back(bestPeak);
+      ++locBegin;
     }
 }
 
 FingersData *		FingersExtractor::GenerateFingersData(void)
 {
-  FingersData *		data;
+  FingersData *			data;
+  list<HandPeak>::iterator	itBegin = m_selectedPeaks.begin();
+  list<HandPeak>::iterator	itEnd = m_selectedPeaks.end();
   
   data = new FingersData();
   data->Size = m_selectedPeaks.size();
   data->Fingers = new XnVector3D[data->Size];
   
-  for (int i = 0; i < data->Size; i++)
-    memcpy(&data->Fingers[i], &m_selectedPeaks[i], sizeof(FingersData));
+  for (int i = 0; itBegin != itEnd; i++)
+    {
+      memcpy(&data->Fingers[i], &(*itBegin), sizeof(FingersData));
+      ++itBegin;
+    }
   
   return data;
 }
@@ -173,7 +197,6 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   depthGen.ConvertRealWorldToProjective(1, handPosition, &projPos);
 
   ExtractHandContour(depthGen, projPos);
-  SortContourPoints();
   LocateContourPeaks();
   GroupPeaksByLocation();
   SelectGroupBestPeaks();
