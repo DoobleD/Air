@@ -8,7 +8,9 @@ namespace xn
   {
     XnPoint3D		Position;
     float		Angle;
-    
+
+    HandPeak(void)
+    {}
     HandPeak(XnPoint3D position, float angle) 
     {Position = position; Angle = angle;}
   };

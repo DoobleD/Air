@@ -72,39 +72,91 @@ void			FingersExtractor::LocateContourPeaks(void)
 
   XnVector3D		v1;
   XnVector3D		v2;
-  XnVector3D		crossProduct;
   float			vectorsAngle;
 
-  int			stop = m_contour.size() - VECTORS_LENGTH;
+  int			stop = m_contour.size() - PEAK_VECTORS_LENGTH;
 
-  for (int i = VECTORS_LENGTH; i < stop; i++)
+  for (int i = PEAK_VECTORS_LENGTH; i < stop; i++)
     {
       cur = m_contour[i];
-      pre = m_contour[i - VECTORS_LENGTH];
-      nex = m_contour[i + VECTORS_LENGTH];
+      pre = m_contour[i - PEAK_VECTORS_LENGTH];
+      nex = m_contour[i + PEAK_VECTORS_LENGTH];
       
       v1 = Math::PointsVector(cur, pre);
       v2 = Math::PointsVector(cur, nex);
 
       vectorsAngle = Math::VectorsAngle(v1, v2);
-      crossProduct = Math::VectorsCrossProduct(v1, v2);
 
-      if (vectorsAngle < SELECTION_ANGLE && crossProduct.Z < 0)
-	m_handPeaks.push_back(HandPeak(cur, vectorsAngle));
+      if (vectorsAngle < PEAK_SELECTION_ANGLE && 
+	  v1.Y > 0 && v2.Y > 0)
+	m_peaks.push_back(HandPeak(cur, vectorsAngle));
+    }
+}
+
+void			FingersExtractor::GroupPeaksByLocation(void)
+{
+  HandPeak			peak;
+  int				nbOfPeaks;
+  int				nbOfLocations;
+  int				peaksDistance;
+  bool				closePeakFound = true;
+    
+  nbOfPeaks = m_peaks.size();
+  for (int i = 0; i < nbOfPeaks; i++)
+    {
+      peak = m_peaks[i];
+      if (m_peaksPerLocation.empty() || closePeakFound == false)
+	{
+	  m_peaksPerLocation.push_back(vector<HandPeak>());
+	  m_peaksPerLocation.back().push_back(peak);
+	}
+      
+      closePeakFound = false;
+      nbOfLocations = m_peaksPerLocation.size();
+      for (int j = 0; j < nbOfLocations && closePeakFound == false; j++)
+      	{
+      	  peaksDistance = Math::PointsDistance(peak.Position, 
+      					       m_peaksPerLocation[j].back().Position);
+      	  if (peaksDistance < PEAK_LOCATION_LENGTH)
+      	    {
+      	      m_peaksPerLocation[j].push_back(peak);
+      	      closePeakFound = true;
+      	    }
+      	}
+    }
+
+}
+
+void			FingersExtractor::SelectGroupBestPeaks(void)
+{
+  HandPeak		bestPeak;
+  int			nbOfLocation = m_peaksPerLocation.size();
+  int			nbOfPeaks;
+
+  for (int i = 0; i < nbOfLocation; i++)
+    {
+      bestPeak = m_peaksPerLocation[i][0];
+      nbOfPeaks = m_peaksPerLocation[i].size();
+      for (int j = 1; j < nbOfPeaks; j++)
+	{
+	  if (m_peaksPerLocation[i][j].Angle < bestPeak.Angle)
+	    bestPeak = m_peaksPerLocation[i][j];
+	}
+      m_selectedPeaks.push_back(bestPeak);
     }
 }
 
 FingersData *		FingersExtractor::GenerateFingersData(void)
 {
   FingersData *		data;
-
+  
   data = new FingersData();
-  data->Size = m_handPeaks.size();
+  data->Size = m_selectedPeaks.size();
   data->Fingers = new XnVector3D[data->Size];
-
+  
   for (int i = 0; i < data->Size; i++)
-    memcpy(&data->Fingers[i], &m_handPeaks[i], sizeof(FingersData));
-
+    memcpy(&data->Fingers[i], &m_selectedPeaks[i], sizeof(FingersData));
+  
   return data;
 }
 
@@ -123,6 +175,8 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   ExtractHandContour(depthGen, projPos);
   SortContourPoints();
   LocateContourPeaks();
+  GroupPeaksByLocation();
+  SelectGroupBestPeaks();
 
   fingersData = GenerateFingersData();
 
@@ -134,5 +188,7 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
 void			FingersExtractor::ClearAll(void)
 {
   m_contour.clear();
-  m_handPeaks.clear();
+  m_peaks.clear();
+  m_peaksPerLocation.clear();
+  m_selectedPeaks.clear();
 }
