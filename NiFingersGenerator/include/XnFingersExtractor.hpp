@@ -8,9 +8,20 @@
 
 #include "XnFingerTypes.hpp"
 
-#define PEAK_VECTORS_LENGTH	16
-#define PEAK_SELECTION_ANGLE	60
-#define PEAK_LOCATION_LENGTH	15
+#define DEPTH_MAX_DIST			4000
+
+#define HAND_WINDOW_X_MAX		150
+#define HAND_WINDOW_Y_MAX		125
+
+#define CONTOUR_DEPTH_DISTANCE		75
+
+#define PEAK_VECTORS_LENGTH_MAX		25
+#define PEAK_LOCATION_LENGTH_MAX	25
+#define PEAK_SELECTION_ANGLE		70
+
+#define VALLEY_RATIO_OF_HANDP		0.5
+#define VALLEY_AREA_MID_SIZE		10
+
 
 using namespace std;
 
@@ -21,17 +32,28 @@ namespace xn
   class				FingersExtractor
   {
   private:
+    const XnDepthPixel *	m_depthMap;
+
     vector<XnPoint3D>		m_contour;
     list<HandPeak>		m_peaks;
     list<list<HandPeak> >	m_peaksPerLocation;
     list<HandPeak>		m_selectedPeaks;
 
-    void			ExtractHandContour(DepthGenerator & depthGenerator, 
-						   const XnPoint3D & handPosition);
+    float			m_distRatio;
+    XnPoint3D			m_handPosition;
+
+    bool			IsBorderPoint(int x, int y,
+					      const XnDepthPixel * depthMap = NULL);
+    bool			IsHandPoint(int x, int y,
+					    const XnDepthPixel * depthMap = NULL);
+    void			ExtractHandContour(void);
     void			SortContourPoints(list<XnPoint3D> & contour);
+    void			SetHandOrientation(void);
+    bool			IsValley(XnPoint3D & point);
     void			LocateContourPeaks(void);
     void			GroupPeaksByLocation(void);
     void			SelectGroupBestPeaks(void);
+    void			SmoothPeaks(void);
     FingersData *		GenerateFingersData(void);
     void			ClearAll(void);
 

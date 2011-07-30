@@ -38,6 +38,7 @@ namespace xn
     							 FingersDestroy DestroyCB,
     							 void * userCookie);
     virtual void			UnregisterFingersCallbacks(void);
+    virtual XnStatus			SetSmoothing(XnFloat factor);
 
   private:
 
@@ -53,7 +54,6 @@ namespace xn
     FingersCookie *			m_fingersCookie;
     XnCallbackHandle			m_handsCBHandle;
     Context				m_context;
-
 
     static void XN_CALLBACK_TYPE	HandCreate(xn::HandsGenerator & handGenerator,
     						   XnUserID id, 

@@ -45,7 +45,7 @@ void XN_CALLBACK_TYPE Hand_Update(xn::FingersGenerator&,
 {
   for (int i = 0; i < data->Size; i++)
     g_viewer.addCircle(data->Fingers[i].X, data->Fingers[i].Y,
-		       10, "Red");
+  		       10, "Red");
 }
 
 void XN_CALLBACK_TYPE Hand_Destroy(xn::FingersGenerator&,
@@ -68,6 +68,7 @@ void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
   xn::FingersGenerator fg = g_openNI.getFingersGenerator();
 
   fg.RegisterFingersCallbacks(Hand_Create, Hand_Update, Hand_Destroy, NULL);
+  fg.SetSmoothing(0.1f);
   //
 }
 

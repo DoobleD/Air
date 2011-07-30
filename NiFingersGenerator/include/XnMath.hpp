@@ -12,6 +12,9 @@ namespace xn
   class				Math
   {
   public:
+    static XnPoint3D		PointsCenter(XnPoint3D a, XnPoint3D b);
+    static XnPoint3D		PointCreate(int x, int y, int z);
+    static bool			Equal(XnPoint3D a, XnPoint3D b);
     static XnVector3D		PointsVector(XnPoint3D a, XnPoint3D b);
     static float		PointsDistance(XnPoint3D a, XnPoint3D b);
     static float		VectorsDotProduct(XnVector3D a, XnVector3D b);

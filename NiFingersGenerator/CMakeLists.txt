@@ -13,6 +13,12 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   set(LINUX 1)
 endif()
 
+# Find Boost. See FindBoost.cmake module for more information (location CMAKE_DIR/shared/modules/)
+#set(Boost_USE_STATIC_LIBS        ON)
+#set(Boost_USE_MULTITHREADED      ON)
+#set(Boost_USE_STATIC_RUNTIME    OFF)
+find_package(Boost COMPONENTS REQUIRED)
+
 # Includes
 if (WINDOWS)
   include_directories(
@@ -21,6 +27,7 @@ if (WINDOWS)
   )
 elseif (LINUX)
   include_directories(
+			${Boost_INCLUDE_DIRS}
 			/usr/include/ni/
 			include/
   )

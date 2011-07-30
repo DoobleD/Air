@@ -6,6 +6,33 @@
 using namespace xn;
 
 
+XnPoint3D	Math::PointsCenter(XnPoint3D a, XnPoint3D b)
+{
+  XnPoint3D	center;
+
+  center.X = (a.X + b.X) / 2;
+  center.Y = (a.Y + b.Y) / 2;
+  center.Z = (a.Z + b.Z) / 2;
+
+  return center;
+}
+
+XnPoint3D	Math::PointCreate(int x, int y, int z)
+{
+  XnPoint3D	p;
+
+  p.X = x;
+  p.Y = y;
+  p.Z = z;
+
+  return p;
+}
+
+bool		Math::Equal(XnPoint3D a, XnPoint3D b)
+{
+  return a.X == b.X && a.Y == b.Y && a.Z == b.Z;
+}
+
 XnVector3D	Math::PointsVector(XnPoint3D a, XnPoint3D b)
 {
   XnVector3D	v;
@@ -21,8 +48,9 @@ float		Math::PointsDistance(XnVector3D a, XnVector3D b)
 {
   float		x = a.X - b.X;
   float		y = a.Y - b.Y;
+  float		z = 0;//a.Z - b.Z;
 
-  return sqrtf(x * x + y * y);	  
+  return sqrtf(x * x + y * y + z * z);	  
 }
 
 float		Math::VectorsDotProduct(XnVector3D a, XnVector3D b)

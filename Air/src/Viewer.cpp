@@ -91,14 +91,19 @@ void			Viewer::drawDepthMap(void)
   	}
     }
 }
-
+//int toto = 1;
 void			Viewer::drawPoints(void)
 {
   list<sf::Vector2i>::iterator	itBegin = m_points.begin();
   list<sf::Vector2i>::iterator	itEnd = m_points.end();
   unsigned char *		imageDataPtr;
 
-  while (itBegin != itEnd)
+  // static int truc = 1;
+  // int i = 0;
+  // toto++;
+  // if (toto == 200) {m_points.clear(); truc = 1;}
+  // if (toto > 200) {
+  while (itBegin != itEnd)// && i < truc)
     {
       imageDataPtr = m_imageData;
 
@@ -107,9 +112,11 @@ void			Viewer::drawPoints(void)
       imageDataPtr[1] = 0;
       imageDataPtr[2] = 255;
       imageDataPtr[3] = 255;
-
+      //i++;
       ++itBegin;
-    }
+    }//}
+  // truc++;
+  // printf("%d\n", truc);
 }
 
 void			Viewer::drawShapes(void)
@@ -120,13 +127,14 @@ void			Viewer::drawShapes(void)
   while (itBegin != itEnd)
     {
       m_app.Draw(*itBegin);
+      //m_shapes.erase(itBegin);
       ++itBegin;
     }
 }
 
 void			Viewer::generateGlobalSprite(void)
 {
-  drawDepthMap();
+  //drawDepthMap();
   drawPoints();
 
   // Set SFML image and sprite
