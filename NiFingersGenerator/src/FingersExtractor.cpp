@@ -1,10 +1,8 @@
 #include "XnFingersExtractor.hpp"
-#include "XnMath.hpp"
-
-#include <algorithm>
 
 
 using namespace xn;
+
 
 bool		FingersExtractor::IsBorderPoint(int x, int y, 
 						const XnDepthPixel * depthMap)
@@ -64,9 +62,9 @@ bool		FingersExtractor::IsHandPoint(int x, int y,
 
 void			FingersExtractor::ExtractHandContour(void)
 {
-  list<XnPoint3D>	contour;
-  XnPoint3D		distanceToHandPos;
+  list<Point3Df>	contour;
   const XnDepthPixel *	depthMap = m_depthMap;
+  int			distanceToHandPos[2];
   int			handWindow[2];
 
   handWindow[0] = HAND_WINDOW_X_MAX - m_distRatio * HAND_WINDOW_X_MAX;
@@ -77,15 +75,15 @@ void			FingersExtractor::ExtractHandContour(void)
     {
       for (int x = 0; x < 640; x++)
 	{
-	  distanceToHandPos.X = abs((int) (x - m_handPosition.X));
-	  distanceToHandPos.Y = abs((int) (y - m_handPosition.Y));
+	  distanceToHandPos[0] = abs((int) (x - m_handPosition.X));
+	  distanceToHandPos[1] = abs((int) (y - m_handPosition.Y));
 
-	  if (distanceToHandPos.X <= handWindow[0] &&
-	      distanceToHandPos.Y <= handWindow[1])
+	  if (distanceToHandPos[0] <= handWindow[0] &&
+	      distanceToHandPos[1] <= handWindow[1])
 	    {
 	      if (IsHandPoint(x, y, depthMap) && 
 		  IsBorderPoint(x, y, depthMap))
-		contour.push_back(Math::PointCreate(x, y, *depthMap));
+		contour.push_back(Point3Df(x, y, *depthMap));
 	    }
 	  depthMap++;
 	}
@@ -94,49 +92,34 @@ void			FingersExtractor::ExtractHandContour(void)
 
   SortContourPoints(contour);
 }
-
-void				FingersExtractor::SortContourPoints(list<XnPoint3D> & contour)
+#include "../../Air/include/Viewer.hpp"
+extern air::Viewer g_viewer;
+void			FingersExtractor::SortContourPoints(list<Point3Df> & contour)
 {
   float				dist;
-  float				minDist;
-  XnPoint3D			backPoint;
-  list<XnPoint3D>		sorted;
-  list<XnPoint3D>::iterator	itBegin;
-  list<XnPoint3D>::iterator	itEnd;
-  list<XnPoint3D>::iterator	closestPoint;
-
+  list<Point3Df>		sorted;
+  list<Point3Df>::iterator	closest;
+  
   sorted.push_back(contour.front());
   contour.erase(contour.begin());
-  backPoint = sorted.back();
   while (!contour.empty())
     {
-      minDist = -1;
-      itBegin = contour.begin();
-      itEnd = contour.end();
-      while (itBegin != itEnd)
-  	{
-	  dist = Math::PointsDistance(backPoint, *itBegin);
-	  if (minDist == -1 || dist < minDist)
-	    {
-	      minDist = dist;
-	      closestPoint = itBegin;
-	    }
-	  ++itBegin;
-	}
-      contour.erase(closestPoint);
+      dist = math::PointsClosest2D_BruteForce<Point3Df>(contour.begin(), contour.end(),
+      							sorted.back(), closest);
+      contour.erase(closest);
 
-      if (minDist < 10)  // Avoid keeping some forgot points
-	sorted.push_back(*closestPoint);
-      else if (contour.size() > 50) // Hand is turned, reverse to keep right order
+      if (dist < 10)  // Avoid keeping some forgot points
+      	sorted.push_back(*closest);
+      else if (contour.size() > 100) // Hand is turned, reverse to keep right order
 	sorted.reverse();
-
-      backPoint = sorted.back();
     }
 
   m_contour.assign(sorted.begin(), sorted.end());
+  for (int i = 0; i < m_contour.size(); i++)
+    g_viewer.addPoint(m_contour[i].X, m_contour[i].Y, "");
 }
 
-bool			FingersExtractor::IsValley(XnVector3D & point)
+bool			FingersExtractor::IsValley(const Point2Df & point)
 {
   int			startX = point.X - VALLEY_AREA_MID_SIZE;
   int			startY = point.Y - VALLEY_AREA_MID_SIZE;
@@ -171,12 +154,12 @@ bool			FingersExtractor::IsValley(XnVector3D & point)
 
 void			FingersExtractor::LocateContourPeaks(void)
 {
-  XnPoint3D		cur;
-  XnPoint3D		pre;
-  XnPoint3D		nex;
+  Point3Df		cur;
+  Point3Df		pre;
+  Point3Df		nex;
 
-  XnVector3D		v1;
-  XnVector3D		v2;
+  Vector2Df		v1;
+  Vector2Df		v2;
   float			vectorsAngle;
 
   int			vectorLength;
@@ -189,14 +172,11 @@ void			FingersExtractor::LocateContourPeaks(void)
       cur = m_contour[i];
       pre = m_contour[i - vectorLength];
       nex = m_contour[i + vectorLength];      
-      cur.Z = 0;
-      pre.Z = 0;
-      nex.Z = 0;
 
-      v1 = Math::PointsVector(cur, pre);
-      v2 = Math::PointsVector(cur, nex);
+      v1 = math::PointsVector(cur, pre);
+      v2 = math::PointsVector(cur, nex);
 
-      vectorsAngle = Math::VectorsAngle(v1, v2);
+      vectorsAngle = math::VectorsAngle(v1, v2);
 
       if (vectorsAngle < PEAK_SELECTION_ANGLE && !IsValley(cur))
 	m_peaks.push_back(HandPeak(cur, vectorsAngle));
@@ -229,8 +209,8 @@ void					FingersExtractor::GroupPeaksByLocation(void)
       locEnd = m_peaksPerLocation.end();
       while (locBegin != locEnd && closePeakFound == false)
       	{
-      	  peaksDistance = Math::PointsDistance(peak.Position, 
-					       locBegin->front().Position);
+      	  peaksDistance = math::PointsDistance((Point2Df) peak.Position, 
+					       (Point2Df) locBegin->front().Position);
       	  if (peaksDistance < locationLength)
       	    {
       	      locBegin->push_back(peak);
@@ -281,7 +261,9 @@ FingersData *			FingersExtractor::GenerateFingersData(void)
   
   for (int i = 0; itBegin != itEnd; i++)
     {
-      memcpy(&data->Fingers[i], &(*itBegin), sizeof(FingersData));
+      data->Fingers[i].X = itBegin->Position.X;
+      data->Fingers[i].Y = itBegin->Position.Y;
+      data->Fingers[i].Z = itBegin->Position.Z;
       ++itBegin;
     }
   
@@ -321,10 +303,10 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   SelectGroupBestPeaks();
   gettimeofday(&t5, NULL);
 
-  std::cout << "1 " << t2.tv_usec - t1.tv_usec << std::endl;
-  std::cout << "2 " << t3.tv_usec - t2.tv_usec << std::endl;
-  std::cout << "3 " << t4.tv_usec - t3.tv_usec << std::endl;
-  std::cout << "4 " << t5.tv_usec - t4.tv_usec << std::endl;
+  // std::cout << "1 " << t2.tv_usec - t1.tv_usec << std::endl;
+  // std::cout << "2 " << t3.tv_usec - t2.tv_usec << std::endl;
+  // std::cout << "3 " << t4.tv_usec - t3.tv_usec << std::endl;
+  // std::cout << "4 " << t5.tv_usec - t4.tv_usec << std::endl;
 
   fingersData = GenerateFingersData();
 

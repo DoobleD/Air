@@ -87,8 +87,3 @@ void		FingersGenerator::UnregisterFingersCallbacks(void)
 
   delete m_fingersCookie;
 }
-
-XnStatus	FingersGenerator::SetSmoothing(XnFloat factor)
-{
-  ;
-}

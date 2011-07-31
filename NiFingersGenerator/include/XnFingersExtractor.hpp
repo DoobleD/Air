@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 
+#include "XnMath.hpp"
 #include "XnFingerTypes.hpp"
 
 #define DEPTH_MAX_DIST			4000
@@ -34,7 +35,7 @@ namespace xn
   private:
     const XnDepthPixel *	m_depthMap;
 
-    vector<XnPoint3D>		m_contour;
+    vector<Point3Df>		m_contour;
     list<HandPeak>		m_peaks;
     list<list<HandPeak> >	m_peaksPerLocation;
     list<HandPeak>		m_selectedPeaks;
@@ -47,9 +48,9 @@ namespace xn
     bool			IsHandPoint(int x, int y,
 					    const XnDepthPixel * depthMap = NULL);
     void			ExtractHandContour(void);
-    void			SortContourPoints(list<XnPoint3D> & contour);
+    void			SortContourPoints(list<Point3Df> & contour);
     void			SetHandOrientation(void);
-    bool			IsValley(XnPoint3D & point);
+    bool			IsValley(const Point2Df & point);
     void			LocateContourPeaks(void);
     void			GroupPeaksByLocation(void);
     void			SelectGroupBestPeaks(void);

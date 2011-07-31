@@ -38,7 +38,6 @@ namespace xn
     							 FingersDestroy DestroyCB,
     							 void * userCookie);
     virtual void			UnregisterFingersCallbacks(void);
-    virtual XnStatus			SetSmoothing(XnFloat factor);
 
   private:
 
@@ -55,6 +54,10 @@ namespace xn
     XnCallbackHandle			m_handsCBHandle;
     Context				m_context;
 
+    // Forbid access to certain hand methods
+    virtual XnStatus			SetSmoothing(XnFloat) {}
+
+    // Hand callbacks 
     static void XN_CALLBACK_TYPE	HandCreate(xn::HandsGenerator & handGenerator,
     						   XnUserID id, 
     						   const XnPoint3D * position,

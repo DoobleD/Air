@@ -68,7 +68,6 @@ void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
   xn::FingersGenerator fg = g_openNI.getFingersGenerator();
 
   fg.RegisterFingersCallbacks(Hand_Create, Hand_Update, Hand_Destroy, NULL);
-  fg.SetSmoothing(0.1f);
   //
 }
 
