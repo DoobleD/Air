@@ -7,6 +7,7 @@ extern air::Viewer	g_viewer;
 
 #include "FingersControl.hpp"
 #include "Screen.hpp"
+#include "CoordConverter.hpp"
 
 
 using namespace air;
@@ -27,19 +28,30 @@ void XN_CALLBACK_TYPE	FingersControl::FingersUpdate(xn::FingersGenerator & gen,
 						      void * userData)
 {
   static os::Screen	screen;
-
-#ifdef DEBUG_MOD
-  for (int i = 0; i < fingersData->Size; i++)
-    g_viewer.addDisc(fingersData->Fingers[i].X, fingersData->Fingers[i].Y,
-		     10, Color::Red);
-  g_viewer.addDisc(fingersData->Hand.X, fingersData->Hand.Y, 20, Color::Red);
-#endif
+  XnPoint3D		point;
   
   screen.clear();
+
   for (int i = 0; i < fingersData->Size; i++)
-    screen.drawDisc(fingersData->Fingers[i].X, fingersData->Fingers[i].Y, 
-    		    30, Color::Blue);
+    {
+      point = CoordConverter::realWorldToScreenSize(fingersData->Fingers[i]);
+      screen.drawDisc(point.X, point.Y, 20, Color::Blue);
+      
+#ifdef DEBUG_MOD
+      point = CoordConverter::realWorldToNIScreen(fingersData->Fingers[i]);
+      g_viewer.addDisc(point.X, point.Y, 20, Color::Red);
+#endif
+
+    }
+  point = CoordConverter::realWorldToScreenSize(fingersData->Hand);
+  screen.drawDisc(point.X, point.Y, 40, Color::Blue);
+
   screen.display();
+
+#ifdef DEBUG_MOD
+  point = CoordConverter::realWorldToNIScreen(fingersData->Hand);
+  g_viewer.addDisc(point.X, point.Y, 40, Color::Red);
+#endif
 
   // if (fingersData->Size == 1)
   //   printf("point\n");

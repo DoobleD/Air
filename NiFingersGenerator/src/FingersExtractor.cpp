@@ -131,6 +131,7 @@ void			FingersExtractor::SetHandCenterAndOrientation(void)
 
   m_handCenter.X = handCenter.X;
   m_handCenter.Y = handCenter.Y;
+  m_handCenter.Z = m_handPosition.Z;
 
   // Set orientation
   Vector2Df		v1;
@@ -273,7 +274,7 @@ void					FingersExtractor::SelectGroupBestPeaks(void)
     }
 }
 
-FingersData *			FingersExtractor::GenerateFingersData(void)
+FingersData *			FingersExtractor::GenerateFingersData(DepthGenerator & depthGen)
 {
   FingersData *			data;
   list<HandPeak>::iterator	itBegin = m_selectedPeaks.begin();
@@ -285,11 +286,13 @@ FingersData *			FingersExtractor::GenerateFingersData(void)
   data->Hand = m_handCenter;
   data->HandAngle = m_handAngle;
   
+  depthGen.ConvertProjectiveToRealWorld(1, &data->Hand, &data->Hand);
   for (int i = 0; itBegin != itEnd; i++)
     {
       data->Fingers[i].X = itBegin->Position.X;
       data->Fingers[i].Y = itBegin->Position.Y;
       data->Fingers[i].Z = itBegin->Position.Z;
+      depthGen.ConvertProjectiveToRealWorld(1, &data->Fingers[i], &data->Fingers[i]);
       ++itBegin;
     }
   
@@ -340,7 +343,7 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   // std::cout << "3 " << t4.tv_usec - t3.tv_usec << std::endl;
   // std::cout << "4 " << t5.tv_usec - t4.tv_usec << std::endl;
 
-  fingersData = GenerateFingersData();
+  fingersData = GenerateFingersData(depthGen);
 
   ClearAll();
 

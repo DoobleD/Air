@@ -69,7 +69,7 @@ namespace air
     void		initialize(void);
     void		update(void);
     void		addPoint(int x, int y, const Color & color);
-    void		addDisc(int x, int y, int r, const Color & color);
+    void		addDisc(int x, int y, int d, const Color & color);
   };
 
 }

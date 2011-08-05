@@ -60,7 +60,7 @@ namespace xn
     void			GroupPeaksByLocation(void);
     void			SelectGroupBestPeaks(void);
     void			SmoothPeaks(void);
-    FingersData *		GenerateFingersData(void);
+    FingersData *		GenerateFingersData(DepthGenerator & depthGen);
     void			ClearAll(void);
 
   public:

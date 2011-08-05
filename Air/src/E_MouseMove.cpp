@@ -1,19 +1,10 @@
-#ifdef DEBUG_MOD
-#include "Viewer.hpp"
-
-extern air::Viewer	g_viewer;
-#endif
-
-
-#include <stdlib.h>
-
 #include "E_MouseMove.hpp"
-#include "OpenNIBox.hpp"
 #include "Screen.hpp"
+#include "CoordConverter.hpp"
+
 
 using namespace air;
 
-extern OpenNIBox	g_openNI;
 
 // Defines for coordinate positions.
 #define	PX		0
@@ -34,42 +25,30 @@ E_MouseMove::~E_MouseMove()
 
 void		E_MouseMove::OnPointCreate(const XnVHandPointContext * cxt)
 {
-  xn::DepthMetaData	depthMD;
-  
-  g_openNI.getDepthGenerator().GetMetaData(depthMD);
-
-  m_YRes = depthMD.YRes();
-  m_XRes = depthMD.XRes();
 }
 
 void		E_MouseMove::OnPointUpdate(const XnVHandPointContext * cxt)
 {
-  XnPoint3D	projPos;
-  double	prop[2];
-  double	speed[2];
+  XnPoint3D	prop;
+  float		speed[2];
   
-  g_openNI.getDepthGenerator().ConvertRealWorldToProjective(1, 
-  							    &cxt->ptPosition, 
-  							    &projPos);
-
-  prop[PX] = projPos.X / m_XRes * m_screenSize[PX];
-  prop[PY] = projPos.Y / m_YRes * m_screenSize[PY];
-
-  speed[PX] = (double) abs((int) prop[PX] - m_screenMidSize[PX]) / 
+  prop = CoordConverter::realWorldToScreenSize(cxt->ptPosition);
+  
+  speed[PX] = (double) abs((int) prop.X - m_screenMidSize[PX]) / 
     (double) m_screenMidSize[PX] * SPEED_FACTOR;
-  speed[PY] = (double) abs((int) prop[PY] - m_screenMidSize[PY]) / 
+  speed[PY] = (double) abs((int) prop.Y - m_screenMidSize[PY]) / 
     (double)m_screenMidSize[PY] * SPEED_FACTOR;
-
-  if (prop[PX] <= m_screenMidSize[PX])
-    prop[PX] -= speed[PX] * prop[PX];
+  
+  if (prop.X <= m_screenMidSize[PX])
+    prop.X -= speed[PX] * prop.X;
   else
-    prop[PX] += speed[PX] * prop[PX];
-  if (prop[PY] <= m_screenMidSize[PY])
-    prop[PY] -= speed[PY] * prop[PY];
+    prop.X += speed[PX] * prop.X;
+  if (prop.Y <= m_screenMidSize[PY])
+    prop.Y -= speed[PY] * prop.Y;
   else
-    prop[PY] += speed[PY] * prop[PY];
+    prop.Y += speed[PY] * prop.Y;
 
-  m_mouse.setPosition(prop[PX], prop[PY]);
+  m_mouse.setPosition(prop.X, prop.Y);
 }
 
 void		E_MouseMove::OnPointDestroy(XnUInt32 nID)

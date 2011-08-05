@@ -191,9 +191,9 @@ void			Viewer::addPoint(int x, int y, const Color & color)
 }
 
 
-void			Viewer::addDisc(int x, int y, int r, const Color & color)
+void			Viewer::addDisc(int x, int y, int d, const Color & color)
 {
-  m_shapes.push_back(sf::Shape::Circle(x, y, r, 
+  m_shapes.push_back(sf::Shape::Circle(x, y, d / 2, 
 				       sf::Color(color.r, color.g, color.b)));
 }
 
