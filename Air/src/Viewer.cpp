@@ -91,42 +91,36 @@ void			Viewer::drawDepthMap(void)
   	}
     }
 }
-int toto = 1;
+
 void			Viewer::drawPoints(void)
 {
-  list<sf::Vector2i>::iterator	itBegin = m_points.begin();
-  list<sf::Vector2i>::iterator	itEnd = m_points.end();
+  list<ColoredPoint>::iterator	begin = m_points.begin();
+  list<ColoredPoint>::iterator	end = m_points.end();
   unsigned char *		imageDataPtr;
 
-  static int truc = 1;
-  int i = 0;
-  toto++;
-  if (toto == 200) {m_points.clear(); truc = 1;}
-  if (toto > 200) {
-  while (itBegin != itEnd && i < truc)
+  while (begin != end)
     {
       imageDataPtr = m_imageData;
 
-      imageDataPtr += (itBegin->y * m_XRes + itBegin->x) * 4;
-      imageDataPtr[0] = 0;
-      imageDataPtr[1] = 0;
-      imageDataPtr[2] = 255;
-      imageDataPtr[3] = 255;
-      i++;
-      ++itBegin;
-    }}
-  truc++;
+      imageDataPtr += (begin->p.y * m_XRes + begin->p.x) * 4;
+      imageDataPtr[0] = begin->c.r;
+      imageDataPtr[1] = begin->c.g;
+      imageDataPtr[2] = begin->c.b;
+      imageDataPtr[3] = begin->c.a;
+
+      ++begin;
+    }
 }
 
 void			Viewer::drawShapes(void)
 {
-  list<sf::Shape>::iterator	itBegin = m_shapes.begin();
-  list<sf::Shape>::iterator	itEnd = m_shapes.end();
+  list<sf::Shape>::iterator	begin = m_shapes.begin();
+  list<sf::Shape>::iterator	end = m_shapes.end();
 
-  while (itBegin != itEnd)
+  while (begin != end)
     {
-      m_app.Draw(*itBegin);
-      ++itBegin;
+      m_app.Draw(*begin);
+      ++begin;
     }
 }
 
@@ -182,7 +176,7 @@ void			Viewer::update(void)
 
 void			Viewer::clearPoints(void)
 {
-  //m_points.clear();
+  m_points.clear();
 }
 
 void			Viewer::clearShapes(void)
@@ -190,15 +184,17 @@ void			Viewer::clearShapes(void)
   m_shapes.clear();
 }
 
-void			Viewer::addPoint(int x, int y, const char * color)
+void			Viewer::addPoint(int x, int y, const Color & color)
 {
-  m_points.push_back(sf::Vector2i(x, y));
+  m_points.push_back(ColoredPoint(sf::Vector2i(x, y), 
+				  sf::Color(color.r, color.g, color.b)));
 }
 
 
-void			Viewer::addCircle(int x, int y, int r, const char * color)
+void			Viewer::addDisc(int x, int y, int r, const Color & color)
 {
-  m_shapes.push_back(sf::Shape::Circle(x, y, r, sf::Color(255, 0, 0)));
+  m_shapes.push_back(sf::Shape::Circle(x, y, r, 
+				       sf::Color(color.r, color.g, color.b)));
 }
 
 void			Viewer::clear(void)

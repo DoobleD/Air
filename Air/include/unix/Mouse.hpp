@@ -1,9 +1,10 @@
 #ifndef _MOUSE_HPP_
 #define _MOUSE_HPP_
 
-#include <X11/Xlib.h>
-
+#include "SFML/Graphics.hpp"
 #include "IMouse.hpp"
+
+#include <X11/Xlib.h>
 
 
 namespace air

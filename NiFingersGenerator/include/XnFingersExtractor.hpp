@@ -40,8 +40,13 @@ namespace xn
     list<list<HandPeak> >	m_peaksPerLocation;
     list<HandPeak>		m_selectedPeaks;
 
-    float			m_distRatio;
+    int				m_XRes;
+    int				m_YRes;
+
+    XnFloat			m_distRatio;
+    XnFloat			m_handAngle;
     XnPoint3D			m_handPosition;
+    XnPoint3D			m_handCenter;
 
     bool			IsBorderPoint(int x, int y,
 					      const XnDepthPixel * depthMap = NULL);
@@ -49,7 +54,7 @@ namespace xn
 					    const XnDepthPixel * depthMap = NULL);
     void			ExtractHandContour(void);
     void			SortContourPoints(list<Point3Df> & contour);
-    void			SetHandOrientation(void);
+    void			SetHandCenterAndOrientation(void);
     bool			IsValley(const Point2Df & point);
     void			LocateContourPeaks(void);
     void			GroupPeaksByLocation(void);

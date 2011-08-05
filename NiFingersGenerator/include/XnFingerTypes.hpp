@@ -44,6 +44,8 @@ namespace xn
   struct			FingersData
   {
     XnVector3D *		Fingers;
+    XnVector3D			Hand;
+    XnFloat			HandAngle;
     XnUInt32			Size;
     
     ~FingersData() {delete Fingers;}

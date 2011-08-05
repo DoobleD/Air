@@ -1,6 +1,9 @@
 #ifndef _VIEWER_HPP_
 #define _VIEWER_HPP_
 
+// Air headers
+#include "Color.hpp"
+
 // STL headers
 #include <list>
 
@@ -23,12 +26,23 @@ namespace air
 
   class			Viewer
   {
+
+    struct		ColoredPoint
+    {
+      sf::Vector2i	p;
+      sf::Color		c;
+
+      ColoredPoint(void) {}
+      ColoredPoint(sf::Vector2i _p, sf::Color _c)
+      {p = _p; c = _c;}
+    };
+
   private:
     sf::RenderWindow	m_app;
     sf::Event		m_event;
     sf::Sprite		m_globalSprite;
     sf::Image		m_globalImage;
-    list<sf::Vector2i>	m_points;
+    list<ColoredPoint>	m_points;
     list<sf::Shape>	m_shapes;
 
     unsigned int	m_XRes;
@@ -54,8 +68,8 @@ namespace air
 
     void		initialize(void);
     void		update(void);
-    void		addPoint(int x, int y, const char * color);
-    void		addCircle(int x, int y, int r, const char * color);
+    void		addPoint(int x, int y, const Color & color);
+    void		addDisc(int x, int y, int r, const Color & color);
   };
 
 }

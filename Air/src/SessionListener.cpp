@@ -10,6 +10,7 @@ extern air::Viewer	g_viewer;
 #include "NITEBox.hpp"
 #include "OpenNIBox.hpp"
 #include "EventListener.hpp"
+#include "FingersControl.hpp"
 
 using namespace air;
 
@@ -33,27 +34,6 @@ void			SessionListener::OnFocusStartDetected(const XnChar* strFocus,
   std::cout << "Focus progress" << std::endl;
 }
 
-void XN_CALLBACK_TYPE Hand_Create(xn::FingersGenerator&,
-				  XnUserID nId, const xn::FingersData * data,
-				  XnFloat fTime, void* pCookie)
-{
-}
-
-void XN_CALLBACK_TYPE Hand_Update(xn::FingersGenerator&,
-				  XnUserID nId, const xn::FingersData * data,
-				  XnFloat fTime, void* pCookie)
-{
-  for (int i = 0; i < data->Size; i++)
-    g_viewer.addCircle(data->Fingers[i].X, data->Fingers[i].Y,
-  		       10, "Red");
-}
-
-void XN_CALLBACK_TYPE Hand_Destroy(xn::FingersGenerator&,
-				   XnUserID nId, XnFloat fTime,
-				   void* pCookie)
-{
-}
-
 void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
 {
   XnVBroadcaster &	broadcaster = g_NITE.getMainBroadcaster();
@@ -64,11 +44,11 @@ void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
   for (int i = 0; g_eventListeners[i].name; i++)
     broadcaster.AddListener(g_eventListeners[i].listener);
 
-  // Test
-  xn::FingersGenerator fg = g_openNI.getFingersGenerator();
-
-  fg.RegisterFingersCallbacks(Hand_Create, Hand_Update, Hand_Destroy, NULL);
-  //
+  g_openNI.getFingersGenerator().
+    RegisterFingersCallbacks(FingersControl::FingersCreate, 
+			     FingersControl::FingersUpdate,
+			     FingersControl::FingersDestroy, 
+			     NULL);
 }
 
 void			SessionListener::OnSessionEnd()
