@@ -12,39 +12,48 @@
 #define _FPS		60.f // 60 fps
 
 
+using namespace std;
+
+
 namespace air
 {
   namespace os
   {
     
-    class			Screen : public IScreen, public sf::Thread
+    class		Screen : public IScreen, public sf::Thread
     {
-      struct			Rectangle
+      struct		Rectangle
       {
-	RECT			coord;
-	COLORREF		color;
-	bool			erased;
+	RECT		coord;
+	COLORREF	color;
+	bool		erased;
 
 	Rectangle(void) {erased = false;}
       };
 
     private:
-      HDC			m_screenDC;
-      HDC			m_memDC;
-      HBITMAP			m_bmap;
-      HANDLE			m_bmapHandle;
+      HDC		m_screenDC;
+      HDC		m_memDC;
+      HBITMAP		m_bmap;
+      HANDLE		m_bmapHandle;
 
-      volatile bool		m_threadRunning;
-      sf::Mutex			m_mutex;
+      // No use of mutex and reading/writing on m_threadRunning member
+      // Since it is a boolean, its operations are atomic, and cannot 
+      // be interrupted by another thread
+      bool		m_threadRunning;
 
-      std::list<Rectangle>	m_discs;
+      // A mutex is used to control other members access
+      sf::Mutex		m_mutex;
 
-      void			restore(void);
-      void			drawAll(void);
-      void			shutdownThread(void);
-      void			initThread(void);
+      list<Rectangle>	m_rectangles;
 
-      void			Run(void);
+      void		destroyGDIComponents(void);
+      void		initializeGDIComponents(void);
+      void		restoreOSScreen(void);
+      void		paintRectangles(void);
+      void		paintAll(void);
+
+      void		Run(void);
 
     public:
       Screen(void);

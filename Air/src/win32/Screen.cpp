@@ -1,5 +1,6 @@
 #include "Screen.hpp"
 
+
 using namespace air::os;
 
 
@@ -31,8 +32,8 @@ void		Screen::clear(void)
 {
   m_mutex.Lock();
 
-  std::list<Rectangle>::iterator	begin = m_discs.begin();
-  std::list<Rectangle>::iterator	end = m_discs.end();
+  std::list<Rectangle>::iterator	begin = m_rectangles.begin();
+  std::list<Rectangle>::iterator	end = m_rectangles.end();
 
   while (begin != end)
     {
@@ -57,7 +58,7 @@ void		Screen::drawRectangle(int x, int y,
 
   m_mutex.Lock();
 
-  m_discs.push_back(rect);
+  m_rectangles.push_back(rect);
 
   m_mutex.Unlock();
 }
@@ -71,27 +72,27 @@ void		Screen::display(void)
     }
 }
 
-void		Screen::restore(void)
+void		Screen::restoreOSScreen(void)
 {
   //  Redraw modified zones of screen
-  std::list<Rectangle>::iterator	begin = m_discs.begin();
-  std::list<Rectangle>::iterator	end = m_discs.end();
+  std::list<Rectangle>::iterator	begin = m_rectangles.begin();
+  std::list<Rectangle>::iterator	end = m_rectangles.end();
 
   while (begin != end)
     {
       RedrawWindow(0, &(begin->coord), 0, RDW_INVALIDATE | RDW_ALLCHILDREN);
 
       if (begin->erased)
-	begin = m_discs.erase(begin);
+	begin = m_rectangles.erase(begin);
       else
 	++begin;
     }
 }
 
-void		Screen::drawAll(void)
+void		Screen::paintRectangles(void)
 {
-  std::list<Rectangle>::iterator	begin = m_discs.begin();
-  std::list<Rectangle>::iterator	end = m_discs.end();
+  std::list<Rectangle>::iterator	begin = m_rectangles.begin();
+  std::list<Rectangle>::iterator	end = m_rectangles.end();
   HBRUSH				brush;
   
   while (begin != end)
@@ -110,7 +111,13 @@ void		Screen::drawAll(void)
     }
 }
 
-void		Screen::shutdownThread(void)
+void		Screen::paintAll(void)
+{
+  paintRectangles();
+  // In future: paintCircles, paintPoints, etc
+}
+
+void		Screen::destroyGDIComponents(void)
 {
   SelectObject(m_memDC, m_bmapHandle);
   DeleteObject(m_bmap);
@@ -118,7 +125,7 @@ void		Screen::shutdownThread(void)
   ReleaseDC(0, m_screenDC);
 }
 
-void		Screen::initThread(void)
+void		Screen::initializeGDIComponents(void)
 {
   m_screenDC = GetDC(0);
   m_memDC = CreateCompatibleDC(m_screenDC);
@@ -140,8 +147,8 @@ void		Screen::Run(void)
 
       m_mutex.Lock();
       
-      restore();
-      drawAll();
+      restoreOSScreen();
+      paintAll();
 
       m_mutex.Unlock();
 
