@@ -55,7 +55,7 @@ namespace xn
     Context				m_context;
 
     // Forbid access to certain hand methods
-    virtual XnStatus			SetSmoothing(XnFloat) {}
+    virtual XnStatus			SetSmoothing(XnFloat) {return 0;}
 
     // Hand callbacks 
     static void XN_CALLBACK_TYPE	HandCreate(xn::HandsGenerator & handGenerator,

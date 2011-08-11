@@ -8,7 +8,6 @@
 #include <XnVPointControl.h>
 
 #include "Mouse.hpp"
-#include "Screen.hpp"
 
 
 #define SPEED_FACTOR	3
@@ -26,7 +25,6 @@ namespace air
     int			m_screenMidSize[2];
 
     os::Mouse		m_mouse;
-    os::Screen		m_screen;
 
   public:
     E_MouseMove(void);

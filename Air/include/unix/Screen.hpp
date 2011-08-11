@@ -2,7 +2,6 @@
 #define _SCREEN_HPP_
 
 #include "IScreen.hpp"
-#include "Color.hpp"
 
 #include <X11/Xlib.h>
 
@@ -34,7 +33,8 @@ namespace air
 
       int		getResX(void);
       int		getResY(void);
-      void		drawDisc(int x, int y, int diameter, const air::Color & color);
+      void		drawDisc(int x, int y, int diameter, 
+				 const air::Color & color);
       void		clear(void);
       void		display(void);
     };

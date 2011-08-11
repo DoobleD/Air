@@ -13,8 +13,10 @@ using namespace air;
 
 E_MouseMove::E_MouseMove() : XnVPointControl("MouseMove")
 {
-  m_screenSize[PX] = m_screen.getResX();
-  m_screenSize[PY] = m_screen.getResX();
+  os::Screen	screen;
+
+  m_screenSize[PX] = screen.getResX();
+  m_screenSize[PY] = screen.getResX();
   m_screenMidSize[PX] = m_screenSize[PX] / 2;
   m_screenMidSize[PY] = m_screenSize[PY] / 2;
 }

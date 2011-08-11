@@ -26,7 +26,7 @@ NITEBox		g_NITE;
 
 EventListener	g_eventListeners[] =
   {
-    {"MouseMove", new E_MouseMove()},
+    //    {"MouseMove", new E_MouseMove()},
     {"LeftClick", new E_LeftClick()},
     //{"RightClick", new E_RightClick()},
     {"Minimize", new E_Minimize()},

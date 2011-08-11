@@ -67,8 +67,8 @@ void			FingersExtractor::ExtractHandContour(void)
   int			distanceToHandPos[2];
   int			handWindow[2];
 
-  handWindow[0] = HAND_WINDOW_X_MAX - m_distRatio * HAND_WINDOW_X_MAX;
-  handWindow[1] = HAND_WINDOW_X_MAX - m_distRatio * HAND_WINDOW_X_MAX;
+  handWindow[0] = HAND_WINDOW_X_MAX - (int) m_distRatio * HAND_WINDOW_X_MAX;
+  handWindow[1] = HAND_WINDOW_X_MAX - (int) m_distRatio * HAND_WINDOW_X_MAX;
 
   depthMap += 479 * m_XRes;
   for (int y = m_YRes; y > 0; y--)
@@ -83,7 +83,7 @@ void			FingersExtractor::ExtractHandContour(void)
 	    {
 	      if (IsHandPoint(x, y, depthMap) && 
 		  IsBorderPoint(x, y, depthMap))
-		contour.push_back(Point3Df(x, y, *depthMap));
+		contour.push_back(Point3Df((float) x, (float) y, (float) *depthMap));
 	    }
 	  depthMap++;
 	}
@@ -103,16 +103,18 @@ void			FingersExtractor::SortContourPoints(list<Point3Df> & contour)
   contour.erase(contour.begin());
   while (!contour.empty())
     {
-      dist = math::PointsClosest2D_BruteForce<Point3Df>(contour.begin(), contour.end(),
+      dist = math::PointsClosest2D_BruteForce<Point3Df>(contour.begin(), 
+							contour.end(),
       							sorted.back(), closest);
-      contour.erase(closest);
-
+      
       if (dist < 10)  // Avoid keeping some forgot points
       	sorted.push_back(*closest);
       else if (contour.size() > 100) // Hand is turned, reverse to keep right order
 	sorted.reverse();
-    }
 
+      contour.erase(closest);
+    }
+  
   m_contour.assign(sorted.begin(), sorted.end());
 }
 
@@ -146,10 +148,10 @@ void			FingersExtractor::SetHandCenterAndOrientation(void)
 
 bool			FingersExtractor::IsValley(const Point2Df & point)
 {
-  int			startX = point.X - VALLEY_AREA_MID_SIZE;
-  int			startY = point.Y - VALLEY_AREA_MID_SIZE;
-  int			endX = point.X + VALLEY_AREA_MID_SIZE;
-  int			endY = point.Y + VALLEY_AREA_MID_SIZE;
+  int			startX = (int) point.X - VALLEY_AREA_MID_SIZE;
+  int			startY = (int)point.Y - VALLEY_AREA_MID_SIZE;
+  int			endX = (int) point.X + VALLEY_AREA_MID_SIZE;
+  int			endY = (int) point.Y + VALLEY_AREA_MID_SIZE;
   int			nbOfHandPoint = 0;
   int			areaSize = VALLEY_AREA_MID_SIZE * 2;
 
@@ -190,7 +192,7 @@ void			FingersExtractor::LocateContourPeaks(void)
   int			vectorLength;
   int			stop;
 
-  vectorLength = PEAK_VECTORS_LENGTH_MAX - m_distRatio * PEAK_VECTORS_LENGTH_MAX;
+  vectorLength = PEAK_VECTORS_LENGTH_MAX - (int) m_distRatio * PEAK_VECTORS_LENGTH_MAX;
   stop = m_contour.size() - vectorLength;
   for (int i = vectorLength; i < stop; i++)
     {
@@ -211,7 +213,7 @@ void			FingersExtractor::LocateContourPeaks(void)
 void					FingersExtractor::GroupPeaksByLocation(void)
 {
   HandPeak				peak;
-  int					peaksDistance;
+  float					peaksDistance;
   int					locationLength;
   bool					closePeakFound = true;
   list<HandPeak>::iterator		peaksBegin = m_peaks.begin();
@@ -219,7 +221,7 @@ void					FingersExtractor::GroupPeaksByLocation(void)
   list<list<HandPeak> >::iterator	locBegin;
   list<list<HandPeak> >::iterator	locEnd;
   
-  locationLength = PEAK_LOCATION_LENGTH_MAX - m_distRatio * PEAK_LOCATION_LENGTH_MAX;
+  locationLength = PEAK_LOCATION_LENGTH_MAX - (int) m_distRatio * PEAK_LOCATION_LENGTH_MAX;
   while (peaksBegin != peaksEnd)
     {
       peak = *peaksBegin;

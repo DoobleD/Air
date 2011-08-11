@@ -117,7 +117,7 @@ float		math::VectorsAngle(Vector2Df a, Vector2Df b)
   float		angle = (dotProduct / (aMagnitude * bMagnitude));
 
   // cos -1 gives the angle in radians, we convert it into degrees
-  return acos(angle) * (180 / M_PI);
+  return acosf(angle) * (180 / (float) M_PI);
 }
 
 float		math::VectorsAngle(Vector3Df a, Vector3Df b)
@@ -130,5 +130,5 @@ float		math::VectorsAngle(Vector3Df a, Vector3Df b)
   float		angle = (dotProduct / (aMagnitude * bMagnitude));
 
   // cos -1 gives the angle in radians, we convert it into degrees
-  return acos(angle) * (180 / M_PI);
+  return acosf(angle) * (180 / (float) M_PI);
 }

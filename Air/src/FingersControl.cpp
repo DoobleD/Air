@@ -35,7 +35,7 @@ void XN_CALLBACK_TYPE	FingersControl::FingersUpdate(xn::FingersGenerator & gen,
   for (int i = 0; i < fingersData->Size; i++)
     {
       point = CoordConverter::realWorldToScreenSize(fingersData->Fingers[i]);
-      screen.drawDisc(point.X, point.Y, 20, Color::Blue);
+      screen.drawRectangle((int) point.X, (int) point.Y, 20, 20, Color::Blue);
       
 #ifdef DEBUG_MOD
       point = CoordConverter::realWorldToNIScreen(fingersData->Fingers[i]);
@@ -44,7 +44,7 @@ void XN_CALLBACK_TYPE	FingersControl::FingersUpdate(xn::FingersGenerator & gen,
 
     }
   point = CoordConverter::realWorldToScreenSize(fingersData->Hand);
-  screen.drawDisc(point.X, point.Y, 40, Color::Blue);
+  screen.drawRectangle((int) point.X, (int) point.Y, 40, 40, Color::Blue);
 
   screen.display();
 
