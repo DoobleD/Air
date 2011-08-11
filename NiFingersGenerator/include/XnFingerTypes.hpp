@@ -1,6 +1,7 @@
 #ifndef _XN_FINGER_TYPES_HPP_
 #define _XN_FINGER_TYPES_HPP_
 
+#include <XnTypes.h>
 
 namespace xn
 {

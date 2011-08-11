@@ -17,12 +17,17 @@ namespace air
     private:
       Display *		m_display;
       Window		m_rootWindow;
+      XEvent		m_buttonEvent;
+
+      void		initializeButtonEvent(void);
 
     public:
       Mouse(void);
       ~Mouse(void);
 
       void		setPosition(double x, double y);
+      void		buttonPress(int button);
+      void		buttonRelease(int button);
     };
 
   }

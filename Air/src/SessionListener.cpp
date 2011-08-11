@@ -10,7 +10,7 @@ extern air::Viewer	g_viewer;
 #include "NITEBox.hpp"
 #include "OpenNIBox.hpp"
 #include "EventListener.hpp"
-#include "FingersControl.hpp"
+#include "FingersListener.hpp"
 
 using namespace air;
 
@@ -45,9 +45,9 @@ void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
     broadcaster.AddListener(g_eventListeners[i].listener);
 
   g_openNI.getFingersGenerator().
-    RegisterFingersCallbacks(FingersControl::FingersCreate, 
-			     FingersControl::FingersUpdate,
-			     FingersControl::FingersDestroy, 
+    RegisterFingersCallbacks(FingersListener::FingersCreate, 
+			     FingersListener::FingersUpdate,
+			     FingersListener::FingersDestroy, 
 			     NULL);
 }
 

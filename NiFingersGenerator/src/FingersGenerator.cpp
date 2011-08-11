@@ -20,14 +20,14 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandCreate(xn::HandsGenerator & handGene
 {
   FingersExtractor	extractor;
   FingersCookie *	fingersCookie = (FingersCookie *) cookie;
-  FingersData *		data;
+  FingersData *		outData;
   
-  data = extractor.Extract(fingersCookie->context, position);
+  outData = extractor.Extract(fingersCookie->context, position);
 
   fingersCookie->createHandler((FingersGenerator &) handGenerator, 
-			       id, data, time, cookie);
+			       id, outData, time, cookie);
 
-  delete data;
+  delete outData;
 }
 
 void XN_CALLBACK_TYPE	FingersGenerator::HandUpdate(xn::HandsGenerator & handGenerator,
@@ -38,14 +38,14 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandUpdate(xn::HandsGenerator & handGene
 {
   static FingersExtractor	extractor;
   FingersCookie *		fingersCookie = (FingersCookie *) cookie;
-  FingersData *			data;
+  FingersData *			outData;
 
-  data = extractor.Extract(fingersCookie->context, position);
+  outData = extractor.Extract(fingersCookie->context, position);
 
   fingersCookie->updateHandler((FingersGenerator &) handGenerator, 
-			       id, data, time, cookie);
+			       id, outData, time, cookie);
 
-  delete data;
+  delete outData;
 }
 
 void XN_CALLBACK_TYPE	FingersGenerator::HandDestroy(xn::HandsGenerator& handGenerator,

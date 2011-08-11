@@ -15,12 +15,12 @@ namespace xn
     
     typedef void (XN_CALLBACK_TYPE * FingersCreate)(FingersGenerator & generator, 
 						    XnUserID id,
-						    const xn::FingersData * data,
+						    xn::FingersData * data,
 						    XnFloat time, 
 						    void * cookie);
     typedef void (XN_CALLBACK_TYPE * FingersUpdate)(FingersGenerator & generator, 
 						    XnUserID id, 
-						    const xn::FingersData * data,
+						    xn::FingersData * data,
 						    XnFloat time, 
 						    void * cookie);
     typedef void (XN_CALLBACK_TYPE * FingersDestroy)(FingersGenerator & generator, 
@@ -37,6 +37,7 @@ namespace xn
     							 FingersUpdate UpdateCB, 
     							 FingersDestroy DestroyCB,
     							 void * userCookie);
+
     virtual void			UnregisterFingersCallbacks(void);
 
   private:

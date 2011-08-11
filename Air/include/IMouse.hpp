@@ -9,7 +9,12 @@ namespace air
     class		IMouse
     {
     public:
+      static int	ButtonLeft;
+      static int	ButtonRight;
+
       virtual void	setPosition(double x, double y) = 0;
+      virtual void	buttonPress(int button) = 0;
+      virtual void	buttonRelease(int button) = 0;
     };
 
   }
