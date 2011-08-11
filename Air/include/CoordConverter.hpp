@@ -3,11 +3,17 @@
 
 #include <XnTypes.h>
 
+#include "OS/Screen.hpp"
+
+
 namespace air
 {
 
   class			CoordConverter
   {
+  private:
+    static os::Screen	m_screen;
+    
   public:
     
     static XnPoint3D	realWorldToScreenSize(XnPoint3D point);

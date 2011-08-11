@@ -1,7 +1,7 @@
 #ifndef _MOUSE_HPP_
 #define _MOUSE_HPP_
 
-#include "IMouse.hpp"
+#include "OS/IMouse.hpp"
 
 
 namespace air

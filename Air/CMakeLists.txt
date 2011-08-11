@@ -30,13 +30,11 @@ if (WINDOWS)
   include_directories(
 			$ENV{OPEN_NI_INCLUDE} 
 			$ENV{XN_NITE_INSTALL_PATH}/Include 
-			include/win32
   )
 elseif (LINUX)
   include_directories(
 			/usr/include/nite/
 			/usr/include/ni/
-			include/unix
   )
 endif()
 
@@ -61,13 +59,13 @@ if (WINDOWS)
   file(
 			GLOB 
 			OS_SRC 
-			src/win32/*.cpp
+			src/OS/win32/*.cpp
   )
 elseif (LINUX)
   file(
 			GLOB 
 			OS_SRC 
-			src/unix/*.cpp
+			src/OS/unix/*.cpp
   )
 endif ()
 

@@ -1,7 +1,7 @@
 #ifndef _FINGERS_LISTENER_HPP_
 #define _FINGERS_LISTENER_HPP_
 
-#include "Screen.hpp"
+#include "OS/Screen.hpp"
 #include "MouseControl.hpp"
 
 #include "XnFingersGenerator.hpp"

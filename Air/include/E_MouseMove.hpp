@@ -7,7 +7,7 @@
 // NITE headers
 #include <XnVPointControl.h>
 
-#include "Mouse.hpp"
+#include "OS/Mouse.hpp"
 
 
 #define SPEED_FACTOR	3

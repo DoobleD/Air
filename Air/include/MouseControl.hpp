@@ -3,7 +3,7 @@
 
 #include "XnFingerTypes.hpp"
 
-#include "Mouse.hpp"
+#include "OS/Mouse.hpp"
 
 
 namespace air

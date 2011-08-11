@@ -1,4 +1,4 @@
-#include "Mouse.hpp"
+#include "OS/Mouse.hpp"
 
 #include <string.h>
 

@@ -1,6 +1,6 @@
 #include <Windows.h>
 
-#include "Mouse.hpp"
+#include "OS/Mouse.hpp"
 
 using namespace air::os;
 

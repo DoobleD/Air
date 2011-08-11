@@ -1,5 +1,5 @@
 #include "E_MouseMove.hpp"
-#include "Screen.hpp"
+#include "OS/Screen.hpp"
 #include "CoordConverter.hpp"
 
 
