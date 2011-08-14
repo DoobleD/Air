@@ -32,7 +32,10 @@ void XN_CALLBACK_TYPE		E_MinimizeMaximize::onSwipeUp(XnFloat velocity,
   m_kb.keyRelease(os::Keyboard::F10);
   m_kb.keyRelease(os::Keyboard::AltLeft);
 #elif defined _WIN32
-  
+  m_kb.keyPress(os::Keyboard::SuperLeft);
+  m_kb.keyPress(os::Keyboard::Up);
+  m_kb.keyRelease(os::Keyboard::Up);
+  m_kb.keyRelease(os::Keyboard::SuperLeft);
 #endif
 }
 
@@ -48,6 +51,9 @@ void XN_CALLBACK_TYPE		E_MinimizeMaximize::onSwipeDown(XnFloat velocity,
   m_kb.keyRelease(os::Keyboard::F9);
   m_kb.keyRelease(os::Keyboard::AltLeft);
 #elif defined _WIN32
-  
+  m_kb.keyPress(os::Keyboard::SuperLeft);
+  m_kb.keyPress(os::Keyboard::Down);
+  m_kb.keyRelease(os::Keyboard::Down);
+  m_kb.keyRelease(os::Keyboard::SuperLeft);
 #endif
 }

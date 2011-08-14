@@ -19,14 +19,18 @@ namespace air
       XEvent		m_buttonEvent;
 
       void		initializeButtonEvent(void);
+      void		buttonPress(int button);
+      void		buttonRelease(int button);
 
     public:
       Mouse(void);
       ~Mouse(void);
 
       void		setPosition(double x, double y);
-      void		buttonPress(int button);
-      void		buttonRelease(int button);
+      void		leftButtonPress(void);
+      void		leftButtonRelease(void);
+      void		rightButtonPress(void);
+      void		rightButtonRelease(void);
     };
 
   }

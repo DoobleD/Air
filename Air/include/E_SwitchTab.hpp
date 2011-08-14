@@ -22,12 +22,9 @@ namespace air
     E_SwitchTab(void);
     ~E_SwitchTab(void);
     
-    static void XN_CALLBACK_TYPE	onSwipeLeft(XnFloat velocity, 
-						    XnFloat angle, 
-						    void *userCxt);
-    static void XN_CALLBACK_TYPE	onSwipeRight(XnFloat velocity, 
-						    XnFloat angle, 
-						    void *userCxt);
+    static void XN_CALLBACK_TYPE	onSwipe(XnFloat velocity, 
+						XnFloat angle, 
+						void *userCxt);
   };
 
 }

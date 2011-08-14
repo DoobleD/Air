@@ -13,7 +13,9 @@ int IKeyboard::Escape = XK_Escape;
 int IKeyboard::Tab = XK_Tab;
 int IKeyboard::F9 = XK_F9;
 int IKeyboard::F10 = XK_F10;
-int IKeyboard::d = XK_d;
+int IKeyboard::D = XK_d;
+int IKeyboard::Up = VK_UP;
+int IKeyboard::Down = VK_DOWN;
 
 
 Keyboard::Keyboard(void)

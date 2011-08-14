@@ -60,19 +60,23 @@ void			air::os::Screen::drawRectangle(int x, int y,
 						       int sizeX, int sizeY, 
 						       const air::Color & color)
 {
-  Rectangle		rect;
-
-  rect.x = x;
-  rect.y = y;
-  rect.sizeX = sizeX;
-  rect.sizeY = sizeY;
-  rect.color = color;
-
-  m_mutex.Lock();
-
-  m_rectangles.push_back(rect);
-
-  m_mutex.Unlock();
+  if (x >= 0 && x < getResX() &&
+      y >= 0 && y < getResY())
+    {
+      Rectangle		rect;
+      
+      rect.x = x;
+      rect.y = y;
+      rect.sizeX = sizeX;
+      rect.sizeY = sizeY;
+      rect.color = color;
+      
+      m_mutex.Lock();
+      
+      m_rectangles.push_back(rect);
+      
+      m_mutex.Unlock();
+    }
 }
 
 void			air::os::Screen::display(void)

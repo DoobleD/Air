@@ -6,10 +6,6 @@
 using namespace air::os;
 
 
-int IMouse::ButtonLeft = Button1;
-int IMouse::ButtonRight = Button2;
-
-
 Mouse::Mouse(void)
 {
   m_display = XOpenDisplay(0);
@@ -70,4 +66,24 @@ void		Mouse::buttonRelease(int button)
   XSendEvent(m_display, PointerWindow, True, ButtonReleaseMask, &m_buttonEvent);
 
   XFlush(m_display);
+}
+
+void		Mouse::leftButtonPress(void)
+{
+  buttonPress(Button1);
+}
+
+void		Mouse::leftButtonRelease(void)
+{
+  buttonRelease(Button1);
+}
+
+void		Mouse::rightButtonPress(void)
+{
+  buttonPress(Button2);
+}
+
+void		Mouse::rightButtonRelease(void)
+{
+  buttonRelease(Button2);
 }

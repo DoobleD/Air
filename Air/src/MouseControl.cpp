@@ -35,7 +35,7 @@ void		MouseControl::update(xn::FingersData & fingersData)
 	{
 	  printf("Press!\n");
 	  m_mode = MODE_PRESSED;
-	  m_mouse.buttonPress(os::Mouse::ButtonLeft);
+	  m_mouse.leftButtonPress();
 	}
       // else if (m_mode == MODE_SCROLL)
       // 	{
@@ -63,7 +63,7 @@ void		MouseControl::update(xn::FingersData & fingersData)
 	{
 	  printf("Release!\n");
 	  m_mode = MODE_POINTER;
-	  m_mouse.buttonRelease(os::Mouse::ButtonLeft);	  
+	  m_mouse.leftButtonRelease();
 	}
 
       m_mouse.setPosition(fingersData.Fingers[0].X, fingersData.Fingers[0].Y); 

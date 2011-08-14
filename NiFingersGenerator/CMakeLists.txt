@@ -16,7 +16,7 @@ endif()
 # Includes
 if (WINDOWS)
   include_directories(
-  			$ENV{OPEN_NI_INCLUDE} 
+  			$ENV{OPEN_NI_INCLUDE}
 			include/
   )
 elseif (LINUX)

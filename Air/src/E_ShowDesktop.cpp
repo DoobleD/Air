@@ -26,7 +26,7 @@ void XN_CALLBACK_TYPE		E_ShowDesktop::onPush(XnFloat velocity,
   printf("SHOW DESKTOP!\n");
   
   m_kb.keyPress(os::Keyboard::SuperLeft);
-  m_kb.keyPress(os::Keyboard::d);
-  m_kb.keyRelease(os::Keyboard::d);
+  m_kb.keyPress(os::Keyboard::D);
+  m_kb.keyRelease(os::Keyboard::D);
   m_kb.keyRelease(os::Keyboard::SuperLeft);
 }

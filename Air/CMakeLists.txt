@@ -47,6 +47,8 @@ if (WINDOWS)
   link_directories(
 			$ENV{OPEN_NI_LIB} 
 		 	$ENV{XN_NITE_INSTALL_PATH}/Lib 
+			../NiFingersGenerator/bin/bin/Release
+			../NiFingersGenerator/bin/bin/Debug
   )
 endif ()
 
@@ -77,7 +79,7 @@ if (WINDOWS)
   target_link_libraries(
 			Air 
 			OpenNI 
-			XnVNite_1_3_1
+			XnVNite_1_4_1
 			XnVFingersGenerator
 			${SFML_LIBRARIES}
   )

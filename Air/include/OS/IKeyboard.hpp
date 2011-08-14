@@ -16,7 +16,9 @@ namespace air
       static int	Tab;
       static int	F9;
       static int	F10;
-      static int	d;
+      static int	D;
+      static int	Up;
+      static int	Down;
 
       virtual void	keyPress(int key) = 0;
       virtual void	keyRelease(int key) = 0;

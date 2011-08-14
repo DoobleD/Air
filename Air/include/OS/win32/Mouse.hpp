@@ -13,6 +13,10 @@ namespace air
     {
     public:
       void		setPosition(double x, double y);
+      void		leftButtonPress(void);
+      void		leftButtonRelease(void);
+      void		rightButtonPress(void);
+      void		rightButtonRelease(void);
     };
 
   }

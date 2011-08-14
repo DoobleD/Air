@@ -28,6 +28,7 @@ int		Screen::getResY(void)
   return GetSystemMetrics(SM_CYFULLSCREEN);
 }
 
+
 void		Screen::clear(void)
 {
   m_mutex.Lock();
@@ -48,19 +49,23 @@ void		Screen::drawRectangle(int x, int y,
 				      int sizeX, int sizeY, 
 				      const air::Color & color)
 {
-  Rectangle	rect;
-
-  rect.coord.left = x;
-  rect.coord.top = y;
-  rect.coord.right = x + sizeX;
-  rect.coord.bottom = y + sizeY;
-  rect.color = RGB(color.r, color.g, color.b);
-
-  m_mutex.Lock();
-
-  m_rectangles.push_back(rect);
-
-  m_mutex.Unlock();
+  if (x >= 0 && x < getResX() &&
+      y >= 0 && y < getResY())
+    {
+      Rectangle	rect;
+      
+      rect.coord.left = x;
+      rect.coord.top = y;
+      rect.coord.right = x + sizeX;
+      rect.coord.bottom = y + sizeY;
+      rect.color = RGB(color.r, color.g, color.b);
+      
+      m_mutex.Lock();
+      
+      m_rectangles.push_back(rect);
+      
+      m_mutex.Unlock();
+    }
 }
 
 void		Screen::display(void)
@@ -138,7 +143,7 @@ void		Screen::Run(void)
   sf::Clock	clock;
   float		fps = 1.f / _FPS;
 
-  initThread();
+  initializeGDIComponents();
 
   clock.Reset();
   while (m_threadRunning)
@@ -155,5 +160,5 @@ void		Screen::Run(void)
       sf::Sleep(fps - clock.GetElapsedTime());
     }
 
-  shutdownThread();
+  destroyGDIComponents();
 }
