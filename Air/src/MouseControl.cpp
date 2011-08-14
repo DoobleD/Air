@@ -31,6 +31,7 @@ void		MouseControl::update(xn::FingersData & fingersData)
   
   if (fingersData.Size == 0)
     {
+      //      m_mouse.wheelDown();
       if (m_mode == MODE_POINTER)
 	{
 	  printf("Press!\n");

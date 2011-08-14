@@ -17,6 +17,8 @@ namespace air
       void		leftButtonRelease(void);
       void		rightButtonPress(void);
       void		rightButtonRelease(void);
+      void		wheelUp(void);
+      void		wheelDown(void);
     };
 
   }

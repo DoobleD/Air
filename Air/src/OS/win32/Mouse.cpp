@@ -46,3 +46,21 @@ void		Mouse::rightButtonRelease(void)
 
   mouse_event(MOUSEEVENTF_RIGHTUP, pos.x, pos.y, 0, 0);
 }
+#include <stdio.h>
+void		Mouse::wheelUp(void)
+{
+  POINT		pos;
+  printf("la\n");
+  GetCursorPos(&pos);
+
+  mouse_event(MOUSEEVENTF_WHEEL, pos.x, pos.y, 120, 0);
+}
+
+void		Mouse::wheelDown(void)
+{
+  POINT		pos;
+
+  GetCursorPos(&pos);
+
+  mouse_event(MOUSEEVENTF_WHEEL, pos.x, pos.y, -120, 0);
+}
