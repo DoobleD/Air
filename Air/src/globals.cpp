@@ -10,11 +10,9 @@ air::Viewer	g_viewer;
 
 #include "EventListener.hpp"
 
-#include "E_ShowDesktop.hpp"
-#include "E_SwitchTabLeft.hpp"
-#include "E_SwitchTabRight.hpp"
-#include "E_Minimize.hpp"
-#include "E_Maximize.hpp"
+// #include "E_ShowDesktop.hpp"
+#include "E_SwitchTab.hpp"
+#include "E_MinimizeMaximize.hpp"
 
 
 using namespace air;
@@ -25,10 +23,8 @@ NITEBox		g_NITE;
 
 EventListener	g_eventListeners[] =
   {
-    {"Minimize", new E_Minimize()},
-    {"Maximize", new E_Maximize()},
-    {"SwitchTabLeft", new E_SwitchTabLeft()},
-    {"SwitchTabRight", new E_SwitchTabRight()},
-    {"ShowDesktop", new E_ShowDesktop()},
+    {"MinimizeMaximize", new E_MinimizeMaximize()},
+    {"SwitchTab", new E_SwitchTab()},
+    // {"ShowDesktop", new E_ShowDesktop()},
     {NULL, NULL}
   };
