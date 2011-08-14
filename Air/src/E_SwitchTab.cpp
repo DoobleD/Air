@@ -1,6 +1,6 @@
 #include "E_SwitchTab.hpp"
 
-
+ 
 using namespace air;
 
 
@@ -10,9 +10,10 @@ os::Keyboard	E_SwitchTab::m_kb;
 E_SwitchTab::E_SwitchTab(void) : XnVSwipeDetector(true, "SwitchTab")
 {
   RegisterSwipeLeft(NULL, &E_SwitchTab::onSwipeLeft);
-  RegisterSwipeRight(NULL, &E_SwitchTab::onSwipeRight);
+  RegisterSwipeRight(NULL, &E_SwitchTab::onSwipeLeft);
 
   SetMotionSpeedThreshold(ST_MIN_SPEED);
+  SetSteadyMaxStdDev(10.f);
 }
 
 E_SwitchTab::~E_SwitchTab(void)

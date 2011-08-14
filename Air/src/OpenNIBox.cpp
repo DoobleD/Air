@@ -49,7 +49,8 @@ void			OpenNIBox::waitAndUpdate(void)
 void			OpenNIBox::stop(void)
 {
   // Clean up
-  m_context.Shutdown();
+  m_context.Release();
+  //m_context.Shutdown();
 }
 
 xn::Context &		OpenNIBox::getContext(void)

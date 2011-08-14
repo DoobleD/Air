@@ -12,7 +12,8 @@ E_MinimizeMaximize::E_MinimizeMaximize() : XnVSwipeDetector(true, "MinimizeMaxim
   RegisterSwipeUp(NULL, &E_MinimizeMaximize::onSwipeUp);
   RegisterSwipeDown(NULL, &E_MinimizeMaximize::onSwipeDown);
   
-  SetMotionSpeedThreshold(MINMAX_SPEED);
+  SetMotionSpeedThreshold(MM_MIN_SPEED);
+  SetSteadyMaxStdDev(10.f);
 }
 
 E_MinimizeMaximize::~E_MinimizeMaximize()

@@ -7,7 +7,7 @@
 #include "OS/Keyboard.hpp"
 
 
-#define ST_MIN_SPEED			0.75 // m/s
+#define ST_MIN_SPEED			1.75 // m/s
 
 
 namespace air
@@ -16,7 +16,7 @@ namespace air
   class					E_SwitchTab : public XnVSwipeDetector
   {
   private:
-  static os::Keyboard			m_kb;
+    static os::Keyboard			m_kb;
 
   public:
     E_SwitchTab(void);
