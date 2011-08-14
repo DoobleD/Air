@@ -87,3 +87,15 @@ void		Mouse::rightButtonRelease(void)
 {
   buttonRelease(Button2);
 }
+
+void		Mouse::wheelUp(void)
+{
+  buttonPress(Button4);
+  buttonRelease(Button4);
+}
+
+void		Mouse::wheelDown(void)
+{
+  buttonPress(Button5);
+  buttonRelease(Button5);
+}
