@@ -16,12 +16,11 @@ Mouse::Mouse(void)
   m_rootWindow = XRootWindow(m_display, DefaultScreen(m_display));
 
   XSelectInput(m_display, m_rootWindow, KeyReleaseMask);
-  
-  initializeButtonEvent();
 }
 
 Mouse::~Mouse(void)
 {
+  XCloseDisplay(m_display);
 }
 
 void		Mouse::initializeButtonEvent(void)
@@ -51,6 +50,8 @@ void		Mouse::setPosition(double x, double y)
 
 void		Mouse::buttonPress(int button)
 {
+  initializeButtonEvent();
+  
   m_buttonEvent.xbutton.button = button;
   m_buttonEvent.type = ButtonPress;
 
@@ -61,6 +62,8 @@ void		Mouse::buttonPress(int button)
 
 void		Mouse::buttonRelease(int button)
 {
+  initializeButtonEvent();
+
   m_buttonEvent.xbutton.button = button;
   m_buttonEvent.type = ButtonRelease;
 

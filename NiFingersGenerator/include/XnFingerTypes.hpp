@@ -3,6 +3,7 @@
 
 #include <XnTypes.h>
 
+
 namespace xn
 {
   /**
@@ -28,6 +29,7 @@ namespace xn
 
   typedef Point2Df		Vector2Df;
   typedef Point3Df		Vector3Df;
+
 
   /**
    * More general types

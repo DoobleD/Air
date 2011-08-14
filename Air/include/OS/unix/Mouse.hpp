@@ -1,7 +1,6 @@
 #ifndef _MOUSE_HPP_
 #define _MOUSE_HPP_
 
-#include "SFML/Graphics.hpp"
 #include "OS/IMouse.hpp"
 
 #include <X11/Xlib.h>

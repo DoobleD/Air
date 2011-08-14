@@ -1,15 +1,14 @@
 #ifndef _XN_MATH_HPP_
 #define _XN_MATH_HPP_
 
-#include <XnTypes.h>
-
-#include <list>
-
 #include "XnFingerTypes.hpp"
 
 #ifndef M_PI
 #define M_PI 3.1415926
 #endif
+
+#define RADIAN_TO_DEGREES(x) (x * (180 / (float) M_PI))
+#define DEGREES_TO_RADIAN(x) (x * ((float) M_PI / 180))
 
 using namespace std;
 
@@ -40,6 +39,8 @@ namespace xn
 
     float		VectorsAngle(Vector2Df a, Vector2Df b);
     float		VectorsAngle(Vector3Df a, Vector3Df b);
+
+    Point2Df		PointRotate(Point2Df p, float angle, Point2Df centerOfRot);
   }
 }
 

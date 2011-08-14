@@ -1,4 +1,5 @@
 #include "XnFingersExtractor.hpp"
+#include "XnMath.hpp"
 
 
 using namespace xn;
@@ -144,6 +145,8 @@ void			FingersExtractor::SetHandCenterAndOrientation(void)
   v2 = math::PointsVector(baseCenter, YAxisInvert);
 
   m_handAngle = math::VectorsAngle(v1, v2);
+  if (baseCenter.X < handCenter.X)
+    m_handAngle = -m_handAngle;
 }
 
 bool			FingersExtractor::IsValley(const Point2Df & point)

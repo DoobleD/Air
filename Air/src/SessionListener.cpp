@@ -19,11 +19,11 @@ extern OpenNIBox	g_openNI;
 extern EventListener	g_eventListeners[];
 
 
-SessionListener::SessionListener() : m_sessionState(NOT_IN_SESSION)
+SessionListener::SessionListener(void) : m_sessionState(NOT_IN_SESSION)
 {
 }
 
-SessionListener::~SessionListener()
+SessionListener::~SessionListener(void)
 {
 }
 

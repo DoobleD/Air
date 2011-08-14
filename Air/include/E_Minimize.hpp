@@ -4,7 +4,7 @@
 // NITE headers
 #include <XnVSwipeDetector.h>
 
-#define MIN_SPEED			0.75 // m/s
+#define MINI_MIN_SPEED			0.75 // m/s
 
 namespace air
 {

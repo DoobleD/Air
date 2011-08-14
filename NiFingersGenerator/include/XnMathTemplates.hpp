@@ -1,6 +1,9 @@
 #ifndef _XN_MATH_TEMPLATES_HPP_
 #define _XN_MATH_TEMPLATES_HPP_
 
+#include <list>
+
+
 namespace xn
 {
   namespace math
@@ -32,4 +35,5 @@ namespace xn
     }
   }
 }
+
 #endif //_XN_MATH_TEMPLATES_HPP_

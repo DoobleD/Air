@@ -21,14 +21,14 @@ namespace air
     SessionState	m_sessionState;
 
     void		OnSessionStart(const XnPoint3D & ptPosition); 
-    void		OnSessionEnd();
+    void		OnSessionEnd(void);
     void		OnFocusStartDetected(const XnChar *strFocus, 
 					     const XnPoint3D & ptPosition, 
 					     XnFloat fProgress);
     
   public:
-    SessionListener();
-    ~SessionListener();
+    SessionListener(void);
+    ~SessionListener(void);
   };
 
 }

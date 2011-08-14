@@ -1,13 +1,13 @@
 #ifndef _XN_FINGERS_EXTRACTOR_HPP_
 #define _XN_FINGERS_EXTRACTOR_HPP_
 
+#include "XnFingerTypes.hpp"
+
 #include <XnCppWrapper.h>
 
 #include <list>
 #include <vector>
 
-#include "XnMath.hpp"
-#include "XnFingerTypes.hpp"
 
 #define DEPTH_MAX_DIST			4000
 

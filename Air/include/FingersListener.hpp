@@ -17,6 +17,10 @@ namespace air
     static os::Screen			m_screen;
     static MouseControl			m_mouseControl;
 
+    static void				showDebug(xn::FingersData * fingersData);
+    static void				drawAllFingers(xn::FingersData * fingersData);
+    static void				toScreenCoord(xn::FingersData * fingersData);
+
   public:
 
     static void XN_CALLBACK_TYPE	FingersCreate(xn::FingersGenerator & gen,

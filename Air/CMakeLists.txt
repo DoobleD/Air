@@ -72,11 +72,25 @@ endif ()
 # Creates executable
 add_executable(Air ${BASE_SRC} ${OS_SRC})
 
-# Link libraries
-target_link_libraries(
+if (WINDOWS)
+  # Link libraries
+  target_link_libraries(
 			Air 
 			OpenNI 
 			XnVNite_1_3_1
 			XnVFingersGenerator
 			${SFML_LIBRARIES}
-)
+  )
+endif()
+
+if (LINUX)
+  # Link libraries
+  target_link_libraries(
+			Air 
+			OpenNI 
+			XnVNite_1_3_1
+			XnVFingersGenerator
+			${SFML_LIBRARIES}
+			-lXtst
+  )
+endif()

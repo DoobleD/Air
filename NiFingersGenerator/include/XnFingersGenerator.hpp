@@ -1,9 +1,9 @@
 #ifndef _XN_FINGERS_GENERATOR_HPP_
 #define _XN_FINGERS_GENERATOR_HPP_
 
-#include <XnCppWrapper.h>
-
 #include "XnFingersExtractor.hpp"
+
+#include <XnCppWrapper.h>
 
 
 namespace xn

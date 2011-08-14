@@ -9,13 +9,12 @@ air::Viewer	g_viewer;
 #include "NITEBox.hpp"
 
 #include "EventListener.hpp"
-#include "E_MouseMove.hpp"
-#include "E_LeftClick.hpp"
-#include "E_RightClick.hpp"
-#include "E_SwitchTab.hpp"
+
+#include "E_ShowDesktop.hpp"
+#include "E_SwitchTabLeft.hpp"
+#include "E_SwitchTabRight.hpp"
 #include "E_Minimize.hpp"
 #include "E_Maximize.hpp"
-#include "E_ShowKeyboard.hpp"
 
 
 using namespace air;
@@ -26,12 +25,10 @@ NITEBox		g_NITE;
 
 EventListener	g_eventListeners[] =
   {
-    //    {"MouseMove", new E_MouseMove()},
-    {"LeftClick", new E_LeftClick()},
-    //{"RightClick", new E_RightClick()},
     {"Minimize", new E_Minimize()},
     {"Maximize", new E_Maximize()},
-    {"SwitchTab", new E_SwitchTab()},
-    {"ShowKeyboard", new E_ShowKeyboard()},
+    {"SwitchTabLeft", new E_SwitchTabLeft()},
+    {"SwitchTabRight", new E_SwitchTabRight()},
+    {"ShowDesktop", new E_ShowDesktop()},
     {NULL, NULL}
   };

@@ -117,7 +117,7 @@ float		math::VectorsAngle(Vector2Df a, Vector2Df b)
   float		angle = (dotProduct / (aMagnitude * bMagnitude));
 
   // cos -1 gives the angle in radians, we convert it into degrees
-  return acosf(angle) * (180 / (float) M_PI);
+  return RADIAN_TO_DEGREES(acosf(angle));
 }
 
 float		math::VectorsAngle(Vector3Df a, Vector3Df b)
@@ -130,5 +130,30 @@ float		math::VectorsAngle(Vector3Df a, Vector3Df b)
   float		angle = (dotProduct / (aMagnitude * bMagnitude));
 
   // cos -1 gives the angle in radians, we convert it into degrees
-  return acosf(angle) * (180 / (float) M_PI);
+  return RADIAN_TO_DEGREES(acosf(angle));
+}
+
+Point2Df	math::PointRotate(Point2Df p, float angle, Point2Df centerOfRot)
+{
+  float		sin;
+  float		cos;
+  Point2Df	rotated;
+
+  angle = DEGREES_TO_RADIAN(angle);
+  sin = sinf(angle);
+  cos = cosf(angle);
+
+  // Translate point back to origin:
+  p.X -= centerOfRot.X;
+  p.Y -= centerOfRot.Y;
+
+  // Rotate point
+  rotated.X = p.X * cos - p.Y * sin;
+  rotated.Y = p.X * sin + p.Y * cos;
+
+  // Translate point back:
+  rotated.X += centerOfRot.X;
+  rotated.Y += centerOfRot.Y;
+
+  return rotated;
 }
