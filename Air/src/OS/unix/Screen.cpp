@@ -26,7 +26,11 @@ int			air::os::Screen::getResX(void)
 {
   XWindowAttributes 	attributes;
 
+  m_mutex.Lock();
+
   XGetWindowAttributes(m_display, m_rootWindow, &attributes);
+
+  m_mutex.Unlock();
 
   return attributes.width;
 }
@@ -35,7 +39,11 @@ int			air::os::Screen::getResY(void)
 {
   XWindowAttributes 	attributes;
 
+  m_mutex.Lock();
+      
   XGetWindowAttributes(m_display, m_rootWindow, &attributes);
+
+  m_mutex.Unlock();
 
   return attributes.height;
 }
@@ -90,14 +98,20 @@ void			air::os::Screen::display(void)
 
 void			air::os::Screen::initializeXComponents(void)
 {
+  int			resX = getResX();
+  int			resY = getResY();
+
+  m_mutex.Lock();
 
   m_pixmapBuffer = XCreatePixmap(m_display, m_rootWindow,
-				 getResX(), getResY(), 
+				 resX, resY, 
 				 DefaultDepth(m_display, m_screen));
   
   m_colorMap = DefaultColormap(m_display, m_screen);
 
   buildGraphicContext();
+
+  m_mutex.Unlock();
 }
 
 void			air::os::Screen::buildGraphicContext(void)
@@ -213,10 +227,14 @@ void			air::os::Screen::paintAll(void)
 
 void			air::os::Screen::destroyXComponents(void)
 {
+  m_mutex.Lock();
+
   XFreePixmap(m_display, m_pixmapBuffer);
   XFreeGC(m_display, m_gc);
   XFreeColormap(m_display, m_colorMap);
   XCloseDisplay(m_display);
+
+  m_mutex.Unlock();
 }
 
 void			air::os::Screen::Run(void)
@@ -224,9 +242,7 @@ void			air::os::Screen::Run(void)
   sf::Clock		clock;
   float			fps = 1.f / _FPS;
 
-  m_mutex.Lock();
   initializeXComponents();
-  m_mutex.Unlock();
 
   while (m_threadRunning)
     {
@@ -237,14 +253,12 @@ void			air::os::Screen::Run(void)
       restoreOSScreen();
       paintAll();
 
-      m_mutex.Unlock();
-      
       XFlush(m_display);
+      
+      m_mutex.Unlock();
       
       sf::Sleep(fps - clock.GetElapsedTime());
     }
 
-  m_mutex.Lock();
   destroyXComponents();
-  m_mutex.Unlock();
 }

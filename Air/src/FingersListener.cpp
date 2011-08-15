@@ -52,7 +52,7 @@ void			FingersListener::toScreenCoord(xn::FingersData * fingersData)
     }
   fingersData->Hand = CoordConverter::realWorldToScreenSize(fingersData->Hand);
 }
-
+#include <stdio.h>
 void XN_CALLBACK_TYPE	FingersListener::FingersUpdate(xn::FingersGenerator & gen,
 						       XnUserID id, 
 						       xn::FingersData * fingersData,
@@ -67,13 +67,13 @@ void XN_CALLBACK_TYPE	FingersListener::FingersUpdate(xn::FingersGenerator & gen,
   
   m_screen.clear();
   
-  if (m_mouseControl.isAMouseMode(*fingersData))
-    m_mouseControl.update(*fingersData);
-  else
-    {
-      m_mouseControl.resetMode();
+  // if (m_mouseControl.isAMouseMode(*fingersData))
+  //   m_mouseControl.update(*fingersData);
+  // else
+  //   {
+  //     m_mouseControl.resetMode();
       drawAllFingers(fingersData);
-    }
+    // }
   
   m_screen.display();  
 }

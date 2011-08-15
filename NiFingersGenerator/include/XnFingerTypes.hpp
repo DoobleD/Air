@@ -38,10 +38,11 @@ namespace xn
   {
     Point3Df			Position;
     float			Angle;
+    int				FramesVisible;
 
     HandPeak(void) {}
     HandPeak(Point3Df position, float angle) 
-    {Position = position; Angle = angle;}
+    {Position = position; Angle = angle; FramesVisible = 0;}
   };
   
   struct			FingersData

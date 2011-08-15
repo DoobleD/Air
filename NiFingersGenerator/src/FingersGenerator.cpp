@@ -4,9 +4,12 @@
 using namespace xn;
 
 
-XnStatus	       FingersGenerator::Create(Context & context, 
-							 Query * query, 
-							 EnumerationErrors * errors)
+FingersExtractor	FingersGenerator::m_extractor;
+
+
+XnStatus		FingersGenerator::Create(Context & context, 
+						 Query * query, 
+						 EnumerationErrors * errors)
 {
   m_context = context;
   return HandsGenerator::Create(context, query, errors);
@@ -18,11 +21,10 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandCreate(xn::HandsGenerator & handGene
 						     XnFloat time, 
 						     void * cookie)
 {
-  FingersExtractor	extractor;
   FingersCookie *	fingersCookie = (FingersCookie *) cookie;
   FingersData *		outData;
   
-  outData = extractor.Extract(fingersCookie->context, position);
+  outData = m_extractor.Extract(fingersCookie->context, position);
 
   fingersCookie->createHandler((FingersGenerator &) handGenerator, 
 			       id, outData, time, cookie);
@@ -36,11 +38,10 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandUpdate(xn::HandsGenerator & handGene
 						     XnFloat time, 
 						     void * cookie)
 {
-  static FingersExtractor	extractor;
   FingersCookie *		fingersCookie = (FingersCookie *) cookie;
   FingersData *			outData;
 
-  outData = extractor.Extract(fingersCookie->context, position);
+  outData = m_extractor.Extract(fingersCookie->context, position);
 
   fingersCookie->updateHandler((FingersGenerator &) handGenerator, 
 			       id, outData, time, cookie);
@@ -54,6 +55,8 @@ void XN_CALLBACK_TYPE	FingersGenerator::HandDestroy(xn::HandsGenerator& handGene
 						      void * cookie)
 {
   FingersCookie *	fingersCookie = (FingersCookie *) cookie;
+  
+  m_extractor.Reset();
 
   fingersCookie->destroyHandler((FingersGenerator &) handGenerator, 
 				id, time, cookie);
@@ -86,4 +89,9 @@ void		FingersGenerator::UnregisterFingersCallbacks(void)
   HandsGenerator::UnregisterHandCallbacks(m_handsCBHandle);
 
   delete m_fingersCookie;
+}
+
+void		FingersGenerator::SetPersitence(int nbOfFrames)
+{
+  m_extractor.SetPersistence(nbOfFrames);
 }

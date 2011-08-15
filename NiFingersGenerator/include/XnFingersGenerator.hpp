@@ -32,13 +32,12 @@ namespace xn
     virtual XnStatus			Create(Context & context, 
 					       Query * query = NULL, 
 					       EnumerationErrors * errors = NULL);
-
     virtual XnStatus			RegisterFingersCallbacks(FingersCreate CreateCB, 
     							 FingersUpdate UpdateCB, 
     							 FingersDestroy DestroyCB,
     							 void * userCookie);
-
     virtual void			UnregisterFingersCallbacks(void);
+    virtual void			SetPersitence(int nbOfFrames);
 
   private:
 
@@ -54,6 +53,8 @@ namespace xn
     FingersCookie *			m_fingersCookie;
     XnCallbackHandle			m_handsCBHandle;
     Context				m_context;
+    
+    static FingersExtractor		m_extractor;
 
     // Forbid access to certain hand methods
     virtual XnStatus			SetSmoothing(XnFloat) {return 0;}

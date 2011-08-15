@@ -23,6 +23,8 @@
 #define VALLEY_RATIO_OF_HANDP		0.5
 #define VALLEY_AREA_MID_SIZE		10
 
+#define NO_CLIPPING_MIN_FRAMES		2
+
 
 using namespace std;
 
@@ -38,11 +40,12 @@ namespace xn
     vector<Point3Df>		m_contour;
     list<HandPeak>		m_peaks;
     list<list<HandPeak> >	m_peaksPerLocation;
-    list<HandPeak>		m_selectedPeaks;
+    static list<HandPeak>	m_selectedPeaks;
 
     int				m_XRes;
     int				m_YRes;
 
+    int				m_persitence;
     XnFloat			m_distRatio;
     XnFloat			m_handAngle;
     XnPoint3D			m_handPosition;
@@ -57,15 +60,21 @@ namespace xn
     void			SetHandCenterAndOrientation(void);
     bool			IsValley(const Point2Df & point);
     void			LocateContourPeaks(void);
+    bool			SameLocationPeaks(HandPeak a,HandPeak b);
     void			GroupPeaksByLocation(void);
     void			SelectGroupBestPeaks(void);
-    void			SmoothPeaks(void);
+    void			AvoidClipping(list<HandPeak> & selected);
     FingersData *		GenerateFingersData(DepthGenerator & depthGen);
-    void			ClearAll(void);
+    void			Clear(void);
 
   public:
+    FingersExtractor(void);
+    ~FingersExtractor(void);
+
     FingersData *		Extract(xn::Context & context, 
 					const XnPoint3D * handPosition);
+    void			SetPersistence(int nbOfFrames);
+    void			Reset(void);
   };
   
 }

@@ -5,6 +5,17 @@
 using namespace xn;
 
 
+list<HandPeak>	FingersExtractor::m_selectedPeaks;
+
+
+FingersExtractor::FingersExtractor(void) : m_persitence(NO_CLIPPING_MIN_FRAMES)
+{
+}
+
+FingersExtractor::~FingersExtractor(void)
+{
+}
+
 bool		FingersExtractor::IsBorderPoint(int x, int y, 
 						const XnDepthPixel * depthMap)
 {
@@ -213,18 +224,29 @@ void			FingersExtractor::LocateContourPeaks(void)
     }
 }
 
+bool					FingersExtractor::SameLocationPeaks(HandPeak a,
+									    HandPeak b)
+{
+  static int				locationLength = PEAK_LOCATION_LENGTH_MAX - 
+					(int) m_distRatio * PEAK_LOCATION_LENGTH_MAX;
+
+  float					peaksDistance;
+
+  peaksDistance = math::PointsDistance((Point2Df) a.Position, 
+				       (Point2Df) b.Position);
+
+  return peaksDistance < locationLength;
+}
+
 void					FingersExtractor::GroupPeaksByLocation(void)
 {
   HandPeak				peak;
-  float					peaksDistance;
-  int					locationLength;
   bool					closePeakFound = true;
   list<HandPeak>::iterator		peaksBegin = m_peaks.begin();
   list<HandPeak>::iterator		peaksEnd = m_peaks.end();
   list<list<HandPeak> >::iterator	locBegin;
   list<list<HandPeak> >::iterator	locEnd;
   
-  locationLength = PEAK_LOCATION_LENGTH_MAX - (int) m_distRatio * PEAK_LOCATION_LENGTH_MAX;
   while (peaksBegin != peaksEnd)
     {
       peak = *peaksBegin;
@@ -239,9 +261,7 @@ void					FingersExtractor::GroupPeaksByLocation(void)
       locEnd = m_peaksPerLocation.end();
       while (locBegin != locEnd && closePeakFound == false)
       	{
-      	  peaksDistance = math::PointsDistance((Point2Df) peak.Position, 
-					       (Point2Df) locBegin->front().Position);
-      	  if (peaksDistance < locationLength)
+      	  if (SameLocationPeaks(peak, locBegin->front()))
       	    {
       	      locBegin->push_back(peak);
       	      closePeakFound = true;
@@ -256,6 +276,7 @@ void					FingersExtractor::GroupPeaksByLocation(void)
 void					FingersExtractor::SelectGroupBestPeaks(void)
 {
   HandPeak				bestPeak;
+  list<HandPeak>			selected;
   list<HandPeak>::iterator		peaksBegin;
   list<HandPeak>::iterator		peaksEnd;
   list<list<HandPeak> >::iterator	locBegin = m_peaksPerLocation.begin();
@@ -274,16 +295,79 @@ void					FingersExtractor::SelectGroupBestPeaks(void)
 	  ++peaksBegin;
   	}
 
-      m_selectedPeaks.push_back(bestPeak);
+      selected.push_back(bestPeak);
       ++locBegin;
     }
+
+  if (m_selectedPeaks.empty() || !m_persitence) // First detection or no persistence
+    m_selectedPeaks.assign(selected.begin(), selected.end());
+  else
+    AvoidClipping(selected);
+}
+
+void				FingersExtractor::AvoidClipping(list<HandPeak> & selected)
+{
+  // Current frame peaks
+  list<HandPeak>::iterator	sBegin = selected.begin();
+  list<HandPeak>::iterator	sEnd = selected.end();
+
+  // Previous frame peaks
+  list<HandPeak>::iterator	pBegin;
+  list<HandPeak>::iterator	pEnd;
+
+  list<HandPeak>		noClipping;
+  bool				found;
+
+  while (sBegin != sEnd)
+    {
+      found = false;
+      pBegin = m_selectedPeaks.begin();
+      pEnd = m_selectedPeaks.end();
+
+      while (pBegin != pEnd && !found)
+	{
+      	  if (SameLocationPeaks(*sBegin, *pBegin))
+	    {
+	      sBegin->FramesVisible = pBegin->FramesVisible;
+	      if (sBegin->FramesVisible < m_persitence)
+		sBegin->FramesVisible++;
+	      
+	      noClipping.push_back(*sBegin);
+
+	      sBegin = selected.erase(sBegin);
+	      m_selectedPeaks.erase(pBegin);
+	      found = true;
+	    }
+
+	  pBegin++;
+	}
+      
+      if (!found)
+	++sBegin;      
+    }
+
+  // New fingers appeared.
+  if (!selected.empty()) 
+    noClipping.insert(noClipping.end(), selected.begin(), selected.end());
+
+  // Some fingers disappeared. 
+  for (pBegin = m_selectedPeaks.begin(),
+       pEnd = m_selectedPeaks.end(); pBegin != pEnd; pBegin++)
+    {
+      pBegin->FramesVisible--;
+      if (pBegin->FramesVisible >= 0)
+	noClipping.push_back(*pBegin);
+    }
+  
+  m_selectedPeaks.clear();
+  m_selectedPeaks.assign(noClipping.begin(), noClipping.end());
 }
 
 FingersData *			FingersExtractor::GenerateFingersData(DepthGenerator & depthGen)
 {
   FingersData *			data;
-  list<HandPeak>::iterator	itBegin = m_selectedPeaks.begin();
-  list<HandPeak>::iterator	itEnd = m_selectedPeaks.end();
+  list<HandPeak>::iterator	begin = m_selectedPeaks.begin();
+  list<HandPeak>::iterator	end = m_selectedPeaks.end();
   
   data = new FingersData();
   data->Size = m_selectedPeaks.size();
@@ -292,15 +376,16 @@ FingersData *			FingersExtractor::GenerateFingersData(DepthGenerator & depthGen)
   data->HandAngle = m_handAngle;
   
   depthGen.ConvertProjectiveToRealWorld(1, &data->Hand, &data->Hand);
-  for (int i = 0; itBegin != itEnd; i++)
+  for (int i = 0; begin != end; i++)
     {
-      data->Fingers[i].X = itBegin->Position.X;
-      data->Fingers[i].Y = itBegin->Position.Y;
-      data->Fingers[i].Z = itBegin->Position.Z;
+      data->Fingers[i].X = begin->Position.X;
+      data->Fingers[i].Y = begin->Position.Y;
+      data->Fingers[i].Z = begin->Position.Z;
+      
       depthGen.ConvertProjectiveToRealWorld(1, &data->Fingers[i], &data->Fingers[i]);
-      ++itBegin;
+      ++begin;
     }
-  
+
   return data;
 }
 // #include <sys/time.h>
@@ -342,7 +427,7 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   // gettimeofday(&t4, NULL);
   SelectGroupBestPeaks();
   // gettimeofday(&t5, NULL);
-
+  
   // std::cout << "1 " << t2.tv_usec - t1.tv_usec << std::endl;
   // std::cout << "2 " << t3.tv_usec - t2.tv_usec << std::endl;
   // std::cout << "3 " << t4.tv_usec - t3.tv_usec << std::endl;
@@ -350,15 +435,27 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
 
   fingersData = GenerateFingersData(depthGen);
 
-  ClearAll();
+  Clear();
 
   return fingersData;
 }
 
-void			FingersExtractor::ClearAll(void)
+void			FingersExtractor::SetPersistence(int nbOfFrames)
+{
+  m_persitence = nbOfFrames;
+}
+
+void			FingersExtractor::Clear(void)
 {
   m_contour.clear();
   m_peaks.clear();
   m_peaksPerLocation.clear();
+}
+
+void			FingersExtractor::Reset(void)
+{
+  Clear();
+
+  m_persitence = NO_CLIPPING_MIN_FRAMES;
   m_selectedPeaks.clear();
 }
