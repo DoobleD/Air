@@ -38,6 +38,7 @@ namespace xn
     							 void * userCookie);
     virtual void			UnregisterFingersCallbacks(void);
     virtual void			SetPersitence(int nbOfFrames);
+    virtual void			SetSmoothing(bool b);
 
   private:
 
@@ -55,9 +56,6 @@ namespace xn
     Context				m_context;
     
     static FingersExtractor		m_extractor;
-
-    // Forbid access to certain hand methods
-    virtual XnStatus			SetSmoothing(XnFloat) {return 0;}
 
     // Hand callbacks 
     static void XN_CALLBACK_TYPE	HandCreate(xn::HandsGenerator & handGenerator,

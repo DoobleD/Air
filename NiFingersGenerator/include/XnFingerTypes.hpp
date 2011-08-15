@@ -1,6 +1,8 @@
 #ifndef _XN_FINGER_TYPES_HPP_
 #define _XN_FINGER_TYPES_HPP_
 
+#include <list>
+
 #include <XnTypes.h>
 
 
@@ -39,10 +41,13 @@ namespace xn
     Point3Df			Position;
     float			Angle;
     int				FramesVisible;
+    std::list<Point3Df>		Previous;
 
     HandPeak(void) {}
     HandPeak(Point3Df position, float angle) 
     {Position = position; Angle = angle; FramesVisible = 0;}
+    ~HandPeak(void)
+    {Previous.clear();}
   };
   
   struct			FingersData

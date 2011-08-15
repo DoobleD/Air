@@ -36,7 +36,8 @@ void			SessionListener::OnFocusStartDetected(const XnChar* strFocus,
 
 void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
 {
-  XnVBroadcaster &	broadcaster = g_NITE.getMainBroadcaster();
+  XnVBroadcaster &		broadcaster = g_NITE.getMainBroadcaster();
+  xn::FingersGenerator &	fingersGen = g_openNI.getFingersGenerator();
   
   std::cout << "Session start" << std::endl;
   m_sessionState = IN_SESSION;
@@ -44,11 +45,11 @@ void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
   for (int i = 0; g_eventListeners[i].name; i++)
     broadcaster.AddListener(g_eventListeners[i].listener);
 
-  g_openNI.getFingersGenerator().
-    RegisterFingersCallbacks(FingersListener::FingersCreate, 
-			     FingersListener::FingersUpdate,
-			     FingersListener::FingersDestroy, 
-			     NULL);
+  fingersGen.SetSmoothing(true);
+  fingersGen.RegisterFingersCallbacks(FingersListener::FingersCreate, 
+				      FingersListener::FingersUpdate,
+				      FingersListener::FingersDestroy, 
+				      NULL);
 }
 
 void			SessionListener::OnSessionEnd()

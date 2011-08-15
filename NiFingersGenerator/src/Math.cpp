@@ -157,3 +157,28 @@ Point2Df	math::PointRotate(Point2Df p, float angle, Point2Df centerOfRot)
 
   return rotated;
 }
+
+Point3Df		math::PointsCenterOfMass(const list<Point3Df> & points)
+{
+  list<Point3Df>::const_iterator	begin = points.begin();
+  list<Point3Df>::const_iterator	end = points.end();
+  float					xAv = 0;
+  float					yAv = 0;
+  float					zAv = 0;
+  float					size = points.size();
+  
+  while (begin != end)
+    {
+      xAv += begin->X;
+      yAv += begin->Y;
+      zAv += begin->Z;
+
+      ++begin;
+    }
+
+  xAv /= size;
+  yAv /= size;
+  zAv /= size;
+  
+  return Point3Df(xAv, yAv, zAv);
+}

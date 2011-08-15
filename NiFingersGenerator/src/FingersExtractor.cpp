@@ -10,6 +10,7 @@ list<HandPeak>	FingersExtractor::m_selectedPeaks;
 
 FingersExtractor::FingersExtractor(void) : m_persitence(NO_CLIPPING_MIN_FRAMES)
 {
+  m_smooth = false;
 }
 
 FingersExtractor::~FingersExtractor(void)
@@ -299,13 +300,37 @@ void					FingersExtractor::SelectGroupBestPeaks(void)
       ++locBegin;
     }
 
-  if (m_selectedPeaks.empty() || !m_persitence) // First detection or no persistence
-    m_selectedPeaks.assign(selected.begin(), selected.end());
-  else
-    AvoidClipping(selected);
+  if (!m_selectedPeaks.empty()) // Not first detecion 
+    NewPeaksFillWithPrevious(selected);
+
+  if (m_smooth)
+    SmoothPeaks(selected);
+
+  m_selectedPeaks.clear();
+  m_selectedPeaks.assign(selected.begin(), selected.end());
 }
 
-void				FingersExtractor::AvoidClipping(list<HandPeak> & selected)
+void				FingersExtractor::SmoothPeaks(list<HandPeak> & peaks)
+{
+  list<HandPeak>::iterator	begin = peaks.begin();
+  list<HandPeak>::iterator	end = peaks.end();
+  Point3Df			centerOfMass;
+
+  while (begin != end)
+    {
+      begin->Previous.push_back(begin->Position);
+      centerOfMass = math::PointsCenterOfMass(begin->Previous);
+      begin->Previous.pop_back();
+
+      begin->Position.X = centerOfMass.X;
+      begin->Position.Y = centerOfMass.Y;
+      begin->Position.Z = centerOfMass.Z;
+      
+      ++begin;
+    }
+}
+
+void				FingersExtractor::NewPeaksFillWithPrevious(list<HandPeak> & selected)
 {
   // Current frame peaks
   list<HandPeak>::iterator	sBegin = selected.begin();
@@ -315,7 +340,6 @@ void				FingersExtractor::AvoidClipping(list<HandPeak> & selected)
   list<HandPeak>::iterator	pBegin;
   list<HandPeak>::iterator	pEnd;
 
-  list<HandPeak>		noClipping;
   bool				found;
 
   while (sBegin != sEnd)
@@ -326,41 +350,35 @@ void				FingersExtractor::AvoidClipping(list<HandPeak> & selected)
 
       while (pBegin != pEnd && !found)
 	{
+	  // New peak found a corresponding previous one
       	  if (SameLocationPeaks(*sBegin, *pBegin))
 	    {
 	      sBegin->FramesVisible = pBegin->FramesVisible;
+	      sBegin->Previous = pBegin->Previous;
+	      sBegin->Previous.push_back(pBegin->Position);
+
+	      if (sBegin->Previous.size() == SMOOTH_NB_FRAMES)
+		sBegin->Previous.pop_front();
 	      if (sBegin->FramesVisible < m_persitence)
 		sBegin->FramesVisible++;
-	      
-	      noClipping.push_back(*sBegin);
 
-	      sBegin = selected.erase(sBegin);
 	      m_selectedPeaks.erase(pBegin);
 	      found = true;
 	    }
-
-	  pBegin++;
+	  ++pBegin;
 	}
-      
-      if (!found)
-	++sBegin;      
+      ++sBegin;      
     }
 
-  // New fingers appeared.
-  if (!selected.empty()) 
-    noClipping.insert(noClipping.end(), selected.begin(), selected.end());
-
-  // Some fingers disappeared. 
+  // If some fingers disappeared, keep it a few nb of frames (see m_persistence),
+  // to avoid clipping.
   for (pBegin = m_selectedPeaks.begin(),
        pEnd = m_selectedPeaks.end(); pBegin != pEnd; pBegin++)
     {
       pBegin->FramesVisible--;
       if (pBegin->FramesVisible >= 0)
-	noClipping.push_back(*pBegin);
+	selected.push_back(*pBegin);
     }
-  
-  m_selectedPeaks.clear();
-  m_selectedPeaks.assign(noClipping.begin(), noClipping.end());
 }
 
 FingersData *			FingersExtractor::GenerateFingersData(DepthGenerator & depthGen)
@@ -443,6 +461,11 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
 void			FingersExtractor::SetPersistence(int nbOfFrames)
 {
   m_persitence = nbOfFrames;
+}
+
+void			FingersExtractor::SetSmoothing(bool b)
+{
+  m_smooth = b;
 }
 
 void			FingersExtractor::Clear(void)

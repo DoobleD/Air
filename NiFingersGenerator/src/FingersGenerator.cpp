@@ -95,3 +95,8 @@ void		FingersGenerator::SetPersitence(int nbOfFrames)
 {
   m_extractor.SetPersistence(nbOfFrames);
 }
+
+void		FingersGenerator::SetSmoothing(bool b)
+{
+  m_extractor.SetSmoothing(b);
+}

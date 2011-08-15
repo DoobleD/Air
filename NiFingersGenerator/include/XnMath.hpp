@@ -41,6 +41,8 @@ namespace xn
     float		VectorsAngle(Vector3Df a, Vector3Df b);
 
     Point2Df		PointRotate(Point2Df p, float angle, Point2Df centerOfRot);
+
+    Point3Df		PointsCenterOfMass(const list<Point3Df> & points);
   }
 }
 
