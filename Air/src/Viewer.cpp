@@ -160,7 +160,9 @@ void			Viewer::initialize(void)
   m_imageData = new unsigned char[m_imageDataSize];
 
   // Create video mode
-  m_app.Create(sf::VideoMode(m_XRes, m_YRes, WINDOW_BPP), WINDOW_TITLE);
+  m_app.Create(sf::VideoMode(m_XRes, m_YRes, WINDOW_BPP), 
+	       WINDOW_TITLE,
+	       sf::Style::None);
 
 }
 

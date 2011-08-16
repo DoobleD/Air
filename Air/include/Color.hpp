@@ -14,6 +14,7 @@ namespace air
     static const Color  Red;
     static const Color  Green;
     static const Color  Blue;
+    static const Color  Yellow;
     static const Color  White;
 
     int			r;

@@ -29,7 +29,7 @@ void			FingersListener::showDebug(xn::FingersData * fingersData)
   g_viewer.addDisc(point.X, point.Y, 40, Color::Red);
 }
 
-void			FingersListener::drawAllFingers(xn::FingersData * fingersData)
+void			FingersListener::drawHandToScreen(xn::FingersData * fingersData)
 {
   XnPoint3D		point;
 
@@ -52,7 +52,7 @@ void			FingersListener::toScreenCoord(xn::FingersData * fingersData)
     }
   fingersData->Hand = CoordConverter::realWorldToScreenSize(fingersData->Hand);
 }
-#include <stdio.h>
+
 void XN_CALLBACK_TYPE	FingersListener::FingersUpdate(xn::FingersGenerator & gen,
 						       XnUserID id, 
 						       xn::FingersData * fingersData,
@@ -67,14 +67,11 @@ void XN_CALLBACK_TYPE	FingersListener::FingersUpdate(xn::FingersGenerator & gen,
   
   m_screen.clear();
   
-  if (m_mouseControl.isAMouseMode(*fingersData))
-    m_mouseControl.update(*fingersData);
-  else
+  if (!m_mouseControl.update(*fingersData))
     {
-      m_mouseControl.resetMode();
-      drawAllFingers(fingersData);
+      drawHandToScreen(fingersData);
     }
-  
+
   m_screen.display();  
 }
 

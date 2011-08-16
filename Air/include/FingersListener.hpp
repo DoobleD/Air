@@ -18,7 +18,7 @@ namespace air
     static MouseControl			m_mouseControl;
 
     static void				showDebug(xn::FingersData * fingersData);
-    static void				drawAllFingers(xn::FingersData * fingersData);
+    static void				drawHandToScreen(xn::FingersData * fingersData);
     static void				toScreenCoord(xn::FingersData * fingersData);
 
   public:
