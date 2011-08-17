@@ -17,6 +17,9 @@
 #define MAX_DEPTH	10000
 #define WINDOW_TITLE	"Air Viewer"
 #define WINDOW_BPP	32
+#define WINDOW_WIDTH	320
+#define WINDOW_HEIGHT	240
+
 
 using namespace std;
 

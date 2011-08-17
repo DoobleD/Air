@@ -13,6 +13,7 @@ Color		MouseControl::RightButtonColor = Color::Red;
 MouseControl::MouseControl(os::Screen & screen) : m_screen(screen), 
 						  m_pointerIsRequested(false),
 						  m_switchIsRequested(false),
+						  m_grabIsRequested(false),
 						  m_currentButton(BUTTON_LEFT),
 						  m_mode(MODE_NONE),
 						  m_resetRequested(0)
@@ -38,8 +39,17 @@ bool		MouseControl::isSwitchButton(const xn::FingersData & fingersData)
   return fingersData.Size == 2 && m_mode == MODE_POINTER;
 }
 
+bool		MouseControl::isGrab(const xn::FingersData & fingersData)
+{
+  return fingersData.Size == 0 && m_mode == MODE_PRESSED;
+}
+
 bool		MouseControl::isPointer(const xn::FingersData & fingersData)
 {
+  if (m_pointerIsRequested)
+    printf("true\n");
+  else
+    printf("false\n");
   // Already in pointer mode
   if (m_mode == MODE_POINTER)
     return true;
@@ -121,7 +131,24 @@ void		MouseControl::buttonRelease(void)
   else
     m_mouse.rightButtonRelease();
 
+  m_grabIsRequested = false;
+  
+  m_currentButton = BUTTON_LEFT;
+
   m_mode = MODE_RELEASED; // Useless for now, but could serve later
+}
+
+void		MouseControl::grab(const xn::FingersData & fingersData)
+{
+  if (!m_grabIsRequested)
+    {
+      m_grabIsRequested = true;
+      m_grabRequested.Reset();
+    }
+  else if (m_grabRequested.GetElapsedTime() > GRAB_GESTURE_TIME)
+    {
+      m_mouse.setPosition(fingersData.Hand.X, fingersData.Hand.Y);      
+    }
 }
 
 void		MouseControl::pointer(XnPoint3D * pointer)
@@ -145,7 +172,10 @@ void		MouseControl::pointer(XnPoint3D * pointer)
 bool		MouseControl::reset(void)
 {
   if (m_mode == MODE_NONE)
-    return true;
+    {
+      m_pointerIsRequested = false;
+      return true;
+    }
 
   if (m_resetRequested > RESET_GESTURE_FRAMES)
     {
@@ -204,7 +234,11 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
     {
       buttonPress();
     }
-  
+  else if (isGrab(fingersData))
+    {
+      grab(fingersData);
+    }
+
   if (isPointer(fingersData))
     {
       if (!isSwitch)

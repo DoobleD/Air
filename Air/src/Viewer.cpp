@@ -1,7 +1,10 @@
 #include "Viewer.hpp"
 #include "OpenNIBox.hpp"
+#include "OS/Screen.hpp"
+
 
 using namespace air;
+
 
 extern OpenNIBox	g_openNI;
 
@@ -150,6 +153,7 @@ void			Viewer::draw(void)
 void			Viewer::initialize(void)
 {
   xn::DepthMetaData	depthMD;
+  os::Screen		screen;
 
   g_openNI.getDepthGenerator().GetMetaData(depthMD);
 
@@ -164,6 +168,8 @@ void			Viewer::initialize(void)
 	       WINDOW_TITLE,
 	       sf::Style::None);
 
+  m_app.SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  m_app.SetPosition(screen.getResX() - WINDOW_WIDTH, 0);
 }
 
 void			Viewer::update(void)

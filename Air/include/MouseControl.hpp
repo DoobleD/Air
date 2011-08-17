@@ -15,8 +15,9 @@
 // Max time (in seconds) between two clicks for a double click
 #define DOUBLE_CLICK_TIME	0.5 
 
-// Min time (in seconds) required with the pointer gesture to enter pointer mode 
-#define POINTER_GESTURE_TIME	2 
+// Min time (either in seconds or frames) required with the gesture to process it
+#define POINTER_GESTURE_TIME	2
+#define GRAB_GESTURE_TIME	1
 #define SWITCH_GESTURE_TIME	0.5
 #define RESET_GESTURE_FRAMES	3
 
@@ -47,10 +48,12 @@ namespace air
     sf::Clock		m_buttonPressed;
     sf::Clock		m_pointerRequested;
     sf::Clock		m_switchRequested;
+    sf::Clock		m_grabRequested;
     char		m_resetRequested;
 
     bool		m_pointerIsRequested;
     bool		m_switchIsRequested;
+    bool		m_grabIsRequested;
 
     char		m_currentButton;
 
@@ -62,10 +65,12 @@ namespace air
     bool		isButtonRelease(const xn::FingersData & fingersData);
     bool		isSwitchButton(const xn::FingersData & fingersData);
     bool		isPointer(const xn::FingersData & fingersData);
+    bool		isGrab(const xn::FingersData & fingersData);
 
     void		buttonPress(void);
     void		buttonRelease(void);
     void		switchButton(void);
+    void		grab(const xn::FingersData & fingersData);
     void		pointer(XnPoint3D * pointer);
 
     bool		reset(void);
