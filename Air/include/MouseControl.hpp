@@ -17,6 +17,12 @@
 
 // Min time (in seconds) required with the pointer gesture to enter pointer mode 
 #define POINTER_GESTURE_TIME	2 
+#define SWITCH_GESTURE_TIME	0.5
+#define RESET_GESTURE_FRAMES	3
+
+// Buttons
+#define BUTTON_LEFT		0
+#define BUTTON_RIGHT		1
 
 // Modes
 #define MODE_NONE		0
@@ -40,8 +46,13 @@ namespace air
 
     sf::Clock		m_buttonPressed;
     sf::Clock		m_pointerRequested;
+    sf::Clock		m_switchRequested;
+    char		m_resetRequested;
 
     bool		m_pointerIsRequested;
+    bool		m_switchIsRequested;
+
+    char		m_currentButton;
 
     static Color	LeftButtonColor;
     static Color	RightButtonColor;
@@ -49,12 +60,18 @@ namespace air
     bool		isReset(const xn::FingersData & fingersData);
     bool		isButtonPress(const xn::FingersData & fingersData);
     bool		isButtonRelease(const xn::FingersData & fingersData);
+    bool		isSwitchButton(const xn::FingersData & fingersData);
     bool		isPointer(const xn::FingersData & fingersData);
 
-    void		buttonPress(const xn::FingersData & fingersData);
-    void		buttonRelease(const xn::FingersData & fingersData);
-    void		pointer(const xn::FingersData & fingersData);
-    void		reset(void);
+    void		buttonPress(void);
+    void		buttonRelease(void);
+    void		switchButton(void);
+    void		pointer(XnPoint3D * pointer);
+
+    bool		reset(void);
+    void		resetSwitch(void);
+
+    XnPoint3D *		getPointer(const xn::FingersData & fingersData);
 
   public:
     MouseControl(os::Screen & screen);
