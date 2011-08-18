@@ -11,7 +11,14 @@ namespace air
 
     class		Mouse : public IMouse
     {
+    private:
+      int		m_resX;
+      int		m_resY;
+
     public:
+      Mouse(void);
+      ~Mouse(void);
+
       void		setPosition(double x, double y);
       void		leftButtonPress(void);
       void		leftButtonRelease(void);

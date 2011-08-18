@@ -1,14 +1,31 @@
 #include <Windows.h>
 
 #include "OS/Mouse.hpp"
+#include "OS/Screen.hpp"
 
 
 using namespace air::os;
 
 
+Mouse::Mouse(void)
+{
+  Screen	screen;
+
+  m_resX = screen.getResX();
+  m_resY = screen.getResY();
+}
+
+Mouse::~Mouse(void)
+{
+}
+
 void		Mouse::setPosition(double x, double y)
 {
-  SetCursorPos((int) x, (int) y);
+  if (x >= 0 && x < m_resX &&
+      y >= 0 && y < m_resY)
+    {
+      SetCursorPos((int) x, (int) y);
+    }
 }
 
 void		Mouse::leftButtonPress(void)

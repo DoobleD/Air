@@ -83,8 +83,7 @@ void			FingersExtractor::ExtractHandContour(void)
   handWindow[0] = HAND_WINDOW_X_MAX - (int) m_distRatio * HAND_WINDOW_X_MAX;
   handWindow[1] = HAND_WINDOW_X_MAX - (int) m_distRatio * HAND_WINDOW_X_MAX;
 
-  depthMap += 479 * m_XRes;
-  for (int y = m_YRes; y > 0; y--)
+  for (int y = 0; y < m_YRes; y++)
     {
       for (int x = 0; x < m_XRes; x++)
 	{
@@ -100,7 +99,7 @@ void			FingersExtractor::ExtractHandContour(void)
 	    }
 	  depthMap++;
 	}
-      depthMap -= m_XRes * 2;
+
     }
 
   SortContourPoints(contour);
@@ -435,7 +434,7 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   // struct timeval t4;
   // struct timeval t5;
 
-  // gettimeofday(&t1, NULL);
+  // gettimeofday(&t1, NULL);  
   ExtractHandContour();
   SetHandCenterAndOrientation();
   // gettimeofday(&t2, NULL);

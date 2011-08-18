@@ -51,6 +51,8 @@ namespace air
     sf::Clock		m_grabRequested;
     char		m_resetRequested;
 
+    bool		m_pointerIsOut;
+
     bool		m_pointerIsRequested;
     bool		m_switchIsRequested;
     bool		m_grabIsRequested;

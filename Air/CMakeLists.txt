@@ -11,7 +11,7 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 endif()
   
 # Uncomment to compile in debug mod
-add_definitions(-DDEBUG_MOD -ggdb3)
+add_definitions(-DDEBUG_MOD)
 
 # Build path
 set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})

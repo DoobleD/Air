@@ -14,6 +14,7 @@ MouseControl::MouseControl(os::Screen & screen) : m_screen(screen),
 						  m_pointerIsRequested(false),
 						  m_switchIsRequested(false),
 						  m_grabIsRequested(false),
+						  m_pointerIsOut(false),
 						  m_currentButton(BUTTON_LEFT),
 						  m_mode(MODE_NONE),
 						  m_resetRequested(0)
@@ -46,10 +47,6 @@ bool		MouseControl::isGrab(const xn::FingersData & fingersData)
 
 bool		MouseControl::isPointer(const xn::FingersData & fingersData)
 {
-  if (m_pointerIsRequested)
-    printf("true\n");
-  else
-    printf("false\n");
   // Already in pointer mode
   if (m_mode == MODE_POINTER)
     return true;
@@ -86,8 +83,6 @@ void		MouseControl::switchButton(void)
     }
   else if (m_switchRequested.GetElapsedTime() > SWITCH_GESTURE_TIME)
     {
-      printf("SWITCH BUTTON\n");
-      
       if (m_currentButton == BUTTON_LEFT)
 	m_currentButton = BUTTON_RIGHT;
       else
@@ -99,7 +94,6 @@ void		MouseControl::switchButton(void)
 
 void		MouseControl::buttonPress(void)
 {
-  printf("Press!\n");
   if (m_currentButton == BUTTON_LEFT && 
       m_buttonPressed.GetElapsedTime() <= DOUBLE_CLICK_TIME)
     {
@@ -124,8 +118,6 @@ void		MouseControl::buttonPress(void)
 
 void		MouseControl::buttonRelease(void)
 {
-  printf("Release!\n");
-
   if (m_currentButton == BUTTON_LEFT)
     m_mouse.leftButtonRelease();
   else
@@ -155,17 +147,26 @@ void		MouseControl::pointer(XnPoint3D * pointer)
 {
   Color		buttonColor;
 
-  printf("MODE POINTER!\n");
+  if (pointer)
+    {
+      if (pointer->X > 10 && pointer->Y < 1430 &&
+	  pointer->Y > 10 && pointer->Y < 890)
+	{
+	  m_mouse.setPosition(pointer->X + 10, pointer->Y + 10); 
+	  
+	  if (m_currentButton == BUTTON_LEFT)
+	    buttonColor = LeftButtonColor;
+	  else
+	    buttonColor = RightButtonColor;
+	  
+	  m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, buttonColor);
 
-  m_mouse.setPosition(pointer->X, pointer->Y); 
-
-  if (m_currentButton == BUTTON_LEFT)
-    buttonColor = LeftButtonColor;
-  else
-    buttonColor = RightButtonColor;
-
-  m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, buttonColor);
-
+	  m_pointerIsOut = false;
+	}
+      else
+	m_pointerIsOut = true;
+    }
+  
   m_mode = MODE_POINTER;
 }
 
@@ -179,12 +180,14 @@ bool		MouseControl::reset(void)
 
   if (m_resetRequested > RESET_GESTURE_FRAMES)
     {
+      m_pointerIsOut = false;
+
       m_resetRequested = 0;
       m_pointerIsRequested = false;
       m_switchIsRequested = false;
       
       m_currentButton = BUTTON_LEFT;
-      
+     
       m_mode = MODE_NONE;
 
       return true;
@@ -224,26 +227,29 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
     {
       return !reset();
     }
-  
-  if (isSwitchButton(fingersData))
-    {
-      isSwitch = true;
-      switchButton();
-    }
-  else if (isButtonPress(fingersData))
-    {
-      buttonPress();
-    }
-  else if (isGrab(fingersData))
-    {
-      grab(fingersData);
-    }
 
+  if (!m_pointerIsOut)
+    {
+      if (isSwitchButton(fingersData))
+	{
+	  isSwitch = true;
+	  switchButton();
+	}
+      else if (isButtonPress(fingersData))
+	{
+	  buttonPress();
+	}
+      else if (isGrab(fingersData))
+	{
+	  grab(fingersData);
+	}
+    }
+      
   if (isPointer(fingersData))
     {
       if (!isSwitch)
 	resetSwitch();
-
+      
       if (isButtonRelease(fingersData))
 	buttonRelease();
       

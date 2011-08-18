@@ -40,7 +40,7 @@ void			FingersListener::drawHandToScreen(xn::FingersData * fingersData)
     }
   
   m_screen.drawRectangle(fingersData->Hand.X, fingersData->Hand.Y, 
-			 40, 40, Color::Blue);
+			 50, 50, Color::Blue);
 }
 
 void			FingersListener::toScreenCoord(xn::FingersData * fingersData)

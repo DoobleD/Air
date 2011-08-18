@@ -194,15 +194,22 @@ void			Viewer::clearShapes(void)
 
 void			Viewer::addPoint(int x, int y, const Color & color)
 {
-  m_points.push_back(ColoredPoint(sf::Vector2i(x, y), 
-				  sf::Color(color.r, color.g, color.b)));
+  if (x >= 0 && x < m_XRes && 
+      y >= 0 && y < m_YRes)
+    {
+      m_points.push_back(ColoredPoint(sf::Vector2i(x, y), 
+				      sf::Color(color.r, color.g, color.b)));
+    }
 }
-
 
 void			Viewer::addDisc(int x, int y, int d, const Color & color)
 {
-  m_shapes.push_back(sf::Shape::Circle(x, y, d / 2, 
-				       sf::Color(color.r, color.g, color.b)));
+  if (x >= 0 && x < m_XRes && 
+      y >= 0 && y < m_YRes)
+    {
+      m_shapes.push_back(sf::Shape::Circle(x, y, d / 2, 
+					   sf::Color(color.r, color.g, color.b)));
+    }
 }
 
 void			Viewer::clear(void)
