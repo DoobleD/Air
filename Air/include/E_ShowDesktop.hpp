@@ -2,18 +2,19 @@
 #define _E_SHOW_DESKTOP_HPP_
 
 // NITE headers
-#include <XnVPushDetector.h>
+#include <XnVCircleDetector.h>
 
 #include "OS/Keyboard.hpp"
 
 
-#define SD_MIN_SPEED			1.0f
+#define SD_MIN_RADIUS			60
+#define SD_MIN_TIME			1
 
 
 namespace air
 {
 
-  class					E_ShowDesktop : public XnVPushDetector
+  class					E_ShowDesktop : public XnVCircleDetector
   {
   private:
     static os::Keyboard			m_kb;
@@ -22,9 +23,10 @@ namespace air
     E_ShowDesktop(void);
     ~E_ShowDesktop(void);
     
-    static void XN_CALLBACK_TYPE	onPush(XnFloat velocity, 
-					       XnFloat angle, 
-					       void *userCxt);
+    static void XN_CALLBACK_TYPE	onCircle(XnFloat times, 
+						 XnBool confident,
+						 const XnVCircle * circle, 
+						 void * userCxt);
   };
   
 }

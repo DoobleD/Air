@@ -23,8 +23,11 @@
 #define VALLEY_RATIO_OF_HANDP		0.5
 #define VALLEY_AREA_MID_SIZE		10
 
-#define NO_CLIPPING_MIN_FRAMES		2
-#define SMOOTH_NB_FRAMES		2
+#define PERSISTENCE_FRAMES		2
+
+#define PREV_FINGERS_SAVE		1
+
+#define SMOOTH_DISTANCE			5
 
 
 using namespace std;
@@ -46,7 +49,7 @@ namespace xn
     int				m_XRes;
     int				m_YRes;
 
-    int				m_persitence;
+    int				m_persistence;
     bool			m_smooth;
 
     XnFloat			m_distRatio;
@@ -66,7 +69,7 @@ namespace xn
     bool			SameLocationPeaks(HandPeak a,HandPeak b);
     void			GroupPeaksByLocation(void);
     void			SelectGroupBestPeaks(void);
-    void			NewPeaksFillWithPrevious(list<HandPeak> & selected);
+    void			NewPeaksBindWithPrevious(list<HandPeak> & selected);
     void			SmoothPeaks(list<HandPeak> & peaks);
     FingersData *		GenerateFingersData(DepthGenerator & depthGen);
     void			Clear(void);

@@ -20,12 +20,20 @@ Screen::~Screen(void)
 
 int		Screen::getResX(void)
 {
-  return GetSystemMetrics(SM_CXFULLSCREEN);
+  RECT rc;
+
+  GetWindowRect(GetDesktopWindow(), &rc);
+  
+  return rc.right;
 }
 
 int		Screen::getResY(void)
 {
-  return GetSystemMetrics(SM_CYFULLSCREEN);
+  RECT rc;
+
+  GetWindowRect(GetDesktopWindow(), &rc);
+
+  return rc.bottom;
 }
 
 

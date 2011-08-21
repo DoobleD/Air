@@ -24,8 +24,6 @@ void XN_CALLBACK_TYPE		E_SwitchTab::onSwipe(XnFloat velocity,
 						     XnFloat angle, 
 						     void *userCxt)
 {
-  printf("SWITCH TAB!\n");
-
 #ifdef __unix__
   m_kb.keyPress(os::Keyboard::ShiftLeft);
   m_kb.keyPress(os::Keyboard::AltLeft);

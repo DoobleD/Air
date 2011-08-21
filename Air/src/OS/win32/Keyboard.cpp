@@ -11,6 +11,7 @@ int IKeyboard::ShiftLeft = VK_LSHIFT;
 int IKeyboard::SuperLeft = VK_LWIN;
 int IKeyboard::Escape = VK_ESCAPE;
 int IKeyboard::Tab = VK_TAB;
+int IKeyboard::F4 = VK_F4;
 int IKeyboard::F9 = VK_F9;
 int IKeyboard::F10 = VK_F10;
 int IKeyboard::D = VkKeyScan('D');

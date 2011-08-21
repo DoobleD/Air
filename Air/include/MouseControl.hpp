@@ -9,21 +9,26 @@
 #include "OS/Mouse.hpp"
 #include "OS/Screen.hpp"
 
+
 // Maximum number of fingers for mouse gestures
 #define	REQUIRED_MAX_FINGERS	2
 
 // Max time (in seconds) between two clicks for a double click
-#define DOUBLE_CLICK_TIME	0.5 
+#define DOUBLE_CLICK_TIME	0.5
 
 // Min time (either in seconds or frames) required with the gesture to process it
 #define POINTER_GESTURE_TIME	2
-#define GRAB_GESTURE_TIME	1
 #define SWITCH_GESTURE_TIME	0.5
-#define RESET_GESTURE_FRAMES	3
+#define GRAB_GESTURE_TIME	1
+#define SCROLL_GESTURE_TIME	1
 
 // Buttons
 #define BUTTON_LEFT		0
 #define BUTTON_RIGHT		1
+
+#define POINTER_OUT_MARGIN	0
+
+#define SPEED_UP_POINTER_FACTOR	1.25
 
 // Modes
 #define MODE_NONE		0
@@ -43,19 +48,18 @@ namespace air
     os::Mouse		m_mouse;
     os::Screen &	m_screen;
     
-    XnPoint3D		m_scrollPos;
-
     sf::Clock		m_buttonPressed;
     sf::Clock		m_pointerRequested;
     sf::Clock		m_switchRequested;
     sf::Clock		m_grabRequested;
-    char		m_resetRequested;
+    sf::Clock		m_scrollRequested;
 
     bool		m_pointerIsOut;
 
     bool		m_pointerIsRequested;
     bool		m_switchIsRequested;
     bool		m_grabIsRequested;
+    bool		m_scrollIsRequested;
 
     char		m_currentButton;
 
@@ -68,15 +72,16 @@ namespace air
     bool		isSwitchButton(const xn::FingersData & fingersData);
     bool		isPointer(const xn::FingersData & fingersData);
     bool		isGrab(const xn::FingersData & fingersData);
+    bool		isScroll(const xn::FingersData & fingersData);
 
     void		buttonPress(void);
     void		buttonRelease(void);
     void		switchButton(void);
     void		grab(const xn::FingersData & fingersData);
+    void		scroll(const XnPoint3D & pointer);
     void		pointer(XnPoint3D * pointer);
 
-    bool		reset(void);
-    void		resetSwitch(void);
+    void		reset(void);
 
     XnPoint3D *		getPointer(const xn::FingersData & fingersData);
 

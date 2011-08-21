@@ -1,3 +1,5 @@
+#include <SFML/System.hpp>
+
 #include "E_ShowDesktop.hpp"
 
 
@@ -7,26 +9,36 @@ using namespace air;
 os::Keyboard	E_ShowDesktop::m_kb;
 
 
-E_ShowDesktop::E_ShowDesktop(void) : XnVPushDetector("ShowDesktop")
+E_ShowDesktop::E_ShowDesktop(void) : XnVCircleDetector("ShowDesktop")
 {
-  RegisterPush(NULL, &E_ShowDesktop::onPush);
+  RegisterCircle(NULL, &E_ShowDesktop::onCircle);
 
-  SetPushMaximumAngleBetweenImmediateAndZ(15.f);
-  SetPushImmediateMinimumVelocity(SD_MIN_SPEED);
+  SetMinRadius(SD_MIN_RADIUS);
 }
 
 E_ShowDesktop::~E_ShowDesktop(void)
 {
 }
 
-void XN_CALLBACK_TYPE		E_ShowDesktop::onPush(XnFloat velocity, 
-						      XnFloat angle, 
-						      void *userCxt)
+void XN_CALLBACK_TYPE		E_ShowDesktop::onCircle(XnFloat times, 
+							XnBool confident,
+							const XnVCircle * circle, 
+							void * userCxt)
 {
-  printf("SHOW DESKTOP!\n");
-  
-  m_kb.keyPress(os::Keyboard::SuperLeft);
-  m_kb.keyPress(os::Keyboard::D);
-  m_kb.keyRelease(os::Keyboard::D);
-  m_kb.keyRelease(os::Keyboard::SuperLeft);
+  static bool			requested = false;
+  static sf::Clock		timer;
+
+  if (requested == true && timer.GetElapsedTime() > 5)
+    requested = false;
+
+  if (requested == false)
+    {
+      m_kb.keyPress(os::Keyboard::SuperLeft);
+      m_kb.keyPress(os::Keyboard::D);
+      m_kb.keyRelease(os::Keyboard::D);
+      m_kb.keyRelease(os::Keyboard::SuperLeft);
+
+      requested = true;
+      timer.Reset();
+    }
 }

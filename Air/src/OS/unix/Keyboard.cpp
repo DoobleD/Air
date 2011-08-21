@@ -11,6 +11,7 @@ int IKeyboard::ShiftLeft = XK_Shift_L;
 int IKeyboard::SuperLeft = XK_Super_L;
 int IKeyboard::Escape = XK_Escape;
 int IKeyboard::Tab = XK_Tab;
+int IKeyboard::F4 = XK_F4;
 int IKeyboard::F9 = XK_F9;
 int IKeyboard::F10 = XK_F10;
 int IKeyboard::D = XK_d;

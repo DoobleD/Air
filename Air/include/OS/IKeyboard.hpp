@@ -14,6 +14,7 @@ namespace air
       static int	SuperLeft;
       static int	Escape;
       static int	Tab;
+      static int	F4;
       static int	F9;
       static int	F10;
       static int	D;

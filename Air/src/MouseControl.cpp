@@ -1,4 +1,5 @@
 #include "MouseControl.hpp"
+#include "CoordConverter.hpp"
 
 #include "XnMath.hpp"
 
@@ -14,10 +15,10 @@ MouseControl::MouseControl(os::Screen & screen) : m_screen(screen),
 						  m_pointerIsRequested(false),
 						  m_switchIsRequested(false),
 						  m_grabIsRequested(false),
+						  m_scrollIsRequested(false),
 						  m_pointerIsOut(false),
 						  m_currentButton(BUTTON_LEFT),
-						  m_mode(MODE_NONE),
-						  m_resetRequested(0)
+						  m_mode(MODE_NONE)
 {
 }
 
@@ -43,6 +44,11 @@ bool		MouseControl::isSwitchButton(const xn::FingersData & fingersData)
 bool		MouseControl::isGrab(const xn::FingersData & fingersData)
 {
   return fingersData.Size == 0 && m_mode == MODE_PRESSED;
+}
+
+bool		MouseControl::isScroll(const xn::FingersData & fingersData)
+{
+  return (fingersData.Size == 0 && m_mode == MODE_NONE) || m_mode == MODE_SCROLL;
 }
 
 bool		MouseControl::isPointer(const xn::FingersData & fingersData)
@@ -71,7 +77,8 @@ bool		MouseControl::isPointer(const xn::FingersData & fingersData)
 
 bool		MouseControl::isReset(const xn::FingersData & fingersData)
 {
-  return fingersData.Size > REQUIRED_MAX_FINGERS;
+  return fingersData.Size > REQUIRED_MAX_FINGERS || 
+    (fingersData.Size == REQUIRED_MAX_FINGERS && m_mode != MODE_POINTER);
 }
 
 void		MouseControl::switchButton(void)
@@ -143,15 +150,40 @@ void		MouseControl::grab(const xn::FingersData & fingersData)
     }
 }
 
+void		MouseControl::scroll(const XnPoint3D & hand)
+{
+  if (!m_scrollIsRequested)
+    {
+      m_scrollIsRequested = true;
+      m_scrollRequested.Reset();
+    }
+  else if (m_scrollRequested.GetElapsedTime() > SCROLL_GESTURE_TIME)
+    {
+      m_mouse.setPosition(hand.X, hand.Y);
+      
+      if (m_mode == MODE_NONE)
+	{
+	  m_mouse.middleButtonPress();
+	  
+	  m_mode = MODE_SCROLL;
+	}
+    }
+}
+
 void		MouseControl::pointer(XnPoint3D * pointer)
 {
   Color		buttonColor;
+  static int	marginMaxX = m_screen.getResX() - POINTER_OUT_MARGIN;
+  static int	marginMaxY = m_screen.getResY() - POINTER_OUT_MARGIN;
 
   if (pointer)
     {
-      if (pointer->X > 10 && pointer->Y < 1430 &&
-	  pointer->Y > 10 && pointer->Y < 890)
-	{
+      // *pointer = CoordConverter::screenSizeToSpeedFactor(*pointer, 
+      // 							 SPEED_UP_POINTER_FACTOR);
+      
+      if (pointer->X >= POINTER_OUT_MARGIN && pointer->Y <= marginMaxX &&
+      	  pointer->Y >= POINTER_OUT_MARGIN && pointer->Y <= marginMaxY)
+      	{
 	  m_mouse.setPosition(pointer->X + 10, pointer->Y + 10); 
 	  
 	  if (m_currentButton == BUTTON_LEFT)
@@ -160,47 +192,42 @@ void		MouseControl::pointer(XnPoint3D * pointer)
 	    buttonColor = RightButtonColor;
 	  
 	  m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, buttonColor);
-
+	  
 	  m_pointerIsOut = false;
-	}
+      	}
       else
-	m_pointerIsOut = true;
+      	m_pointerIsOut = true;
     }
   
   m_mode = MODE_POINTER;
 }
 
-bool		MouseControl::reset(void)
+void		MouseControl::reset(void)
 {
-  if (m_mode == MODE_NONE)
-    {
-      m_pointerIsRequested = false;
-      return true;
-    }
+  // Reset all requests
+  m_pointerIsRequested = false;
+  m_switchIsRequested = false;
+  m_scrollIsRequested = false;
+  m_grabIsRequested = false;
 
-  if (m_resetRequested > RESET_GESTURE_FRAMES)
-    {
-      m_pointerIsOut = false;
-
-      m_resetRequested = 0;
-      m_pointerIsRequested = false;
-      m_switchIsRequested = false;
+  // No more pointer, so it can't be out
+  m_pointerIsOut = false;
       
-      m_currentButton = BUTTON_LEFT;
-     
-      m_mode = MODE_NONE;
-
-      return true;
+  // Reset actual mouse clicks
+  m_mouse.middleButtonRelease();
+  if (m_mode == MODE_PRESSED)
+    {
+      if (m_currentButton == BUTTON_LEFT)
+	m_mouse.leftButtonRelease();
+      else
+	m_mouse.rightButtonRelease();
     }
   
-  m_resetRequested++;
-
-  return false;
-}
-
-void		MouseControl::resetSwitch(void)
-{
-  m_switchIsRequested = false;
+  // Reset to left button
+  m_currentButton = BUTTON_LEFT;
+  
+  // Reset mode
+  m_mode = MODE_NONE;
 }
 
 XnPoint3D *	MouseControl::getPointer(const xn::FingersData & fingersData)
@@ -212,8 +239,15 @@ XnPoint3D *	MouseControl::getPointer(const xn::FingersData & fingersData)
     {
       XnPoint3D	*	p1 = &fingersData.Fingers[0];
       XnPoint3D	*	p2 = &fingersData.Fingers[1];
-
-      return (p1->X < p2->X ? p2 : p1);
+      
+      xn::Point2Df	f1(p1->X, p1->Y);
+      xn::Point2Df	f2(p2->X, p2->Y);
+      xn::Point2Df	h(fingersData.Hand.X, fingersData.Hand.Y);
+ 
+      if (xn::math::PointsDistance(h, f1) < xn::math::PointsDistance(h, f2))
+	return p2;
+      else
+	return p1;
     }
   
   return NULL;
@@ -225,7 +259,13 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
 
   if (isReset(fingersData))
     {
-      return !reset();
+      reset();
+      return false;
+    }
+
+  if (isScroll(fingersData))
+    {
+      scroll(fingersData.Hand);
     }
 
   if (!m_pointerIsOut)
@@ -248,7 +288,7 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
   if (isPointer(fingersData))
     {
       if (!isSwitch)
-	resetSwitch();
+	m_switchIsRequested = false;
       
       if (isButtonRelease(fingersData))
 	buttonRelease();

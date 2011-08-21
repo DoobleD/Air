@@ -8,7 +8,6 @@ namespace air
 
   struct			EventListener
   {
-    const char *		name;
     XnVMessageListener *	listener;
   };
 

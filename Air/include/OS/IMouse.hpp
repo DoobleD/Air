@@ -14,6 +14,8 @@ namespace air
       virtual void	leftButtonRelease(void) = 0;
       virtual void	rightButtonPress(void) = 0;
       virtual void	rightButtonRelease(void) = 0;
+      virtual void	middleButtonPress(void) = 0;
+      virtual void	middleButtonRelease(void) = 0;
       virtual void	wheelUp(void) = 0;
       virtual void	wheelDown(void) = 0;
     };

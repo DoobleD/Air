@@ -31,6 +31,8 @@ namespace air
       void		leftButtonRelease(void);
       void		rightButtonPress(void);
       void		rightButtonRelease(void);
+      void		middleButtonPress(void);
+      void		middleButtonRelease(void);
       void		wheelUp(void);
       void		wheelDown(void);
     };

@@ -165,8 +165,8 @@ void			Viewer::initialize(void)
 
   // Create video mode
   m_app.Create(sf::VideoMode(m_XRes, m_YRes, WINDOW_BPP), 
-	       WINDOW_TITLE,
-	       sf::Style::None);
+	       WINDOW_TITLE/*,
+	       sf::Style::None*/);
 
   m_app.SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
   m_app.SetPosition(screen.getResX() - WINDOW_WIDTH, 0);

@@ -24,8 +24,6 @@ void XN_CALLBACK_TYPE		E_MinimizeMaximize::onSwipeUp(XnFloat velocity,
 							      XnFloat angle, 
 							      void *userCxt)
 {
-  printf("MAXIMIZE!\n");
-
 #ifdef __unix__
   m_kb.keyPress(os::Keyboard::AltLeft);
   m_kb.keyPress(os::Keyboard::F10);
@@ -43,8 +41,6 @@ void XN_CALLBACK_TYPE		E_MinimizeMaximize::onSwipeDown(XnFloat velocity,
 								XnFloat angle, 
 								void *userCxt)
 {
-  printf("MINIMIZE!\n");
-
 #ifdef __unix__
   m_kb.keyPress(os::Keyboard::AltLeft);
   m_kb.keyPress(os::Keyboard::F9);

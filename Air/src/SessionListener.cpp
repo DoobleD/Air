@@ -42,7 +42,7 @@ void			SessionListener::OnSessionStart(const XnPoint3D& ptPosition)
   std::cout << "Session start" << std::endl;
   m_sessionState = IN_SESSION;
 
-  for (int i = 0; g_eventListeners[i].name; i++)
+  for (int i = 0; g_eventListeners[i].listener; i++)
     broadcaster.AddListener(g_eventListeners[i].listener);
 
   fingersGen.SetSmoothing(true);

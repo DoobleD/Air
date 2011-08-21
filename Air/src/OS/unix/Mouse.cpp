@@ -88,6 +88,16 @@ void		Mouse::rightButtonRelease(void)
   buttonRelease(Button2);
 }
 
+void		Mouse::middleButtonPress(void)
+{
+  buttonPress(Button3);
+}
+
+void		Mouse::middleButtonRelease(void)
+{
+  buttonRelease(Button3);
+}
+
 void		Mouse::wheelUp(void)
 {
   buttonPress(Button4);

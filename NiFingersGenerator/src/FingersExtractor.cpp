@@ -8,9 +8,9 @@ using namespace xn;
 list<HandPeak>	FingersExtractor::m_selectedPeaks;
 
 
-FingersExtractor::FingersExtractor(void) : m_persitence(NO_CLIPPING_MIN_FRAMES)
+FingersExtractor::FingersExtractor(void) : m_persistence(PERSISTENCE_FRAMES),
+					   m_smooth(false)
 {
-  m_smooth = false;
 }
 
 FingersExtractor::~FingersExtractor(void)
@@ -20,7 +20,7 @@ FingersExtractor::~FingersExtractor(void)
 bool		FingersExtractor::IsBorderPoint(int x, int y, 
 						const XnDepthPixel * depthMap)
 {
-  if (x < 0 || x > m_XRes || y < 0 || y > m_YRes)
+  if (x < 0 || x >= m_XRes || y < 0 || y >= m_YRes)
     return false;  
 
   if (depthMap == NULL)
@@ -36,7 +36,7 @@ bool		FingersExtractor::IsBorderPoint(int x, int y,
   if (x > 0 && 
       abs(*depthMap - *(depthMap - 1)) > CONTOUR_DEPTH_DISTANCE)
     return true;
-  if (x < m_XRes && 
+  if (x < m_XRes - 1 && 
 	  abs(*depthMap - *(depthMap + 1)) > CONTOUR_DEPTH_DISTANCE)
     return true;
 
@@ -47,7 +47,7 @@ bool		FingersExtractor::IsBorderPoint(int x, int y,
   if (y > 0 && 
       abs(*depthMap - *(depthMap - m_XRes)) > CONTOUR_DEPTH_DISTANCE)
     return true;
-  if (y < m_YRes && 
+  if (y < m_YRes - 1 && 
       abs(*depthMap - *(depthMap + m_XRes)) > CONTOUR_DEPTH_DISTANCE)
     return true;
 
@@ -59,7 +59,7 @@ bool		FingersExtractor::IsHandPoint(int x, int y,
 {
   int		depthDiff;
 
-  if (x < 0 || x > m_XRes || y < 0 || y > m_YRes)
+  if (x < 0 || x >= m_XRes || y < 0 || y >= m_YRes)
     return false;  
   
   if (depthMap == NULL)
@@ -83,9 +83,10 @@ void			FingersExtractor::ExtractHandContour(void)
   handWindow[0] = HAND_WINDOW_X_MAX - (int) m_distRatio * HAND_WINDOW_X_MAX;
   handWindow[1] = HAND_WINDOW_X_MAX - (int) m_distRatio * HAND_WINDOW_X_MAX;
 
-  for (int y = 0; y < m_YRes; y++)
+  depthMap += m_XRes * m_YRes - 1;
+  for (int y = m_YRes - 1; y >= 0; y--)
     {
-      for (int x = 0; x < m_XRes; x++)
+      for (int x = m_XRes - 1; x >= 0; x--)
 	{
 	  distanceToHandPos[0] = abs((int) (x - m_handPosition.X));
 	  distanceToHandPos[1] = abs((int) (y - m_handPosition.Y));
@@ -97,9 +98,8 @@ void			FingersExtractor::ExtractHandContour(void)
 		  IsBorderPoint(x, y, depthMap))
 		contour.push_back(Point3Df((float) x, (float) y, (float) *depthMap));
 	    }
-	  depthMap++;
+	  depthMap--;
 	}
-
     }
 
   SortContourPoints(contour);
@@ -299,8 +299,8 @@ void					FingersExtractor::SelectGroupBestPeaks(void)
       ++locBegin;
     }
 
-  if (!m_selectedPeaks.empty()) // Not first detecion 
-    NewPeaksFillWithPrevious(selected);
+  if (!m_selectedPeaks.empty()) // Not first detecion
+    NewPeaksBindWithPrevious(selected);
 
   if (m_smooth)
     SmoothPeaks(selected);
@@ -314,22 +314,38 @@ void				FingersExtractor::SmoothPeaks(list<HandPeak> & peaks)
   list<HandPeak>::iterator	begin = peaks.begin();
   list<HandPeak>::iterator	end = peaks.end();
   Point3Df			centerOfMass;
+  Point3Df			prev;
 
   while (begin != end)
     {
-      begin->Previous.push_back(begin->Position);
-      centerOfMass = math::PointsCenterOfMass(begin->Previous);
-      begin->Previous.pop_back();
-
-      begin->Position.X = centerOfMass.X;
-      begin->Position.Y = centerOfMass.Y;
-      begin->Position.Z = centerOfMass.Z;
+      if (!begin->Previous.empty())
+	{
+	  prev = begin->Previous.back();
+	  
+	  if (math::PointsDistance((Point2Df) begin->Position, 
+				   (Point2Df) prev) > SMOOTH_DISTANCE)
+	    {
+	      begin->Previous.push_back(begin->Position);
+	      centerOfMass = math::PointsCenterOfMass(begin->Previous);
+	      begin->Previous.pop_back();
+	      
+	      begin->Position.X = centerOfMass.X;
+	      begin->Position.Y = centerOfMass.Y;
+	      begin->Position.Z = centerOfMass.Z;
+	    }
+	  else
+	    {
+	      begin->Position.X = prev.X;
+	      begin->Position.Y = prev.Y;
+	      begin->Position.Z = prev.Z;	  
+	    }
+	}
       
       ++begin;
     }
 }
 
-void				FingersExtractor::NewPeaksFillWithPrevious(list<HandPeak> & selected)
+void				FingersExtractor::NewPeaksBindWithPrevious(list<HandPeak> & selected)
 {
   // Current frame peaks
   list<HandPeak>::iterator	sBegin = selected.begin();
@@ -356,9 +372,9 @@ void				FingersExtractor::NewPeaksFillWithPrevious(list<HandPeak> & selected)
 	      sBegin->Previous = pBegin->Previous;
 	      sBegin->Previous.push_back(pBegin->Position);
 
-	      if (sBegin->Previous.size() == SMOOTH_NB_FRAMES)
+	      if (sBegin->Previous.size() > PREV_FINGERS_SAVE)
 		sBegin->Previous.pop_front();
-	      if (sBegin->FramesVisible < m_persitence)
+	      if (sBegin->FramesVisible < m_persistence)
 		sBegin->FramesVisible++;
 
 	      m_selectedPeaks.erase(pBegin);
@@ -372,7 +388,7 @@ void				FingersExtractor::NewPeaksFillWithPrevious(list<HandPeak> & selected)
   // If some fingers disappeared, keep it a few nb of frames (see m_persistence),
   // to avoid clipping.
   for (pBegin = m_selectedPeaks.begin(),
-       pEnd = m_selectedPeaks.end(); pBegin != pEnd; pBegin++)
+	 pEnd = m_selectedPeaks.end(); pBegin != pEnd; pBegin++)
     {
       pBegin->FramesVisible--;
       if (pBegin->FramesVisible >= 0)
@@ -385,28 +401,36 @@ FingersData *			FingersExtractor::GenerateFingersData(DepthGenerator & depthGen)
   FingersData *			data;
   list<HandPeak>::iterator	begin = m_selectedPeaks.begin();
   list<HandPeak>::iterator	end = m_selectedPeaks.end();
+  int				i = 0;
   
   data = new FingersData();
-  data->Size = m_selectedPeaks.size();
-  data->Fingers = new XnVector3D[data->Size];
+  data->Fingers = new XnVector3D[m_selectedPeaks.size()];
   data->Hand = m_handCenter;
   data->HandAngle = m_handAngle;
   
   depthGen.ConvertProjectiveToRealWorld(1, &data->Hand, &data->Hand);
-  for (int i = 0; begin != end; i++)
+
+  while (begin != end)
     {
-      data->Fingers[i].X = begin->Position.X;
-      data->Fingers[i].Y = begin->Position.Y;
-      data->Fingers[i].Z = begin->Position.Z;
+      if (begin->Previous.size()) // Avoid some clipping false positive
+	{
+	  data->Fingers[i].X = begin->Position.X;
+	  data->Fingers[i].Y = begin->Position.Y;
+	  data->Fingers[i].Z = begin->Position.Z;
+	  
+	  depthGen.ConvertProjectiveToRealWorld(1, 
+						&data->Fingers[i], 
+						&data->Fingers[i]);
+	  i++;
+	}
       
-      depthGen.ConvertProjectiveToRealWorld(1, &data->Fingers[i], &data->Fingers[i]);
       ++begin;
     }
+  data->Size = i;
 
   return data;
 }
-// #include <sys/time.h>
-// #include <iostream>
+
 FingersData *		FingersExtractor::Extract(xn::Context & context,
 						  const XnPoint3D * handPosition)
 {
@@ -428,27 +452,11 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
   m_depthMap = depthGen.GetDepthMap();
   m_distRatio = projPos.Z / 4000;
 
-  // struct timeval t1;
-  // struct timeval t2;
-  // struct timeval t3;
-  // struct timeval t4;
-  // struct timeval t5;
-
-  // gettimeofday(&t1, NULL);  
   ExtractHandContour();
   SetHandCenterAndOrientation();
-  // gettimeofday(&t2, NULL);
   LocateContourPeaks();
-  // gettimeofday(&t3, NULL);
   GroupPeaksByLocation();
-  // gettimeofday(&t4, NULL);
   SelectGroupBestPeaks();
-  // gettimeofday(&t5, NULL);
-  
-  // std::cout << "1 " << t2.tv_usec - t1.tv_usec << std::endl;
-  // std::cout << "2 " << t3.tv_usec - t2.tv_usec << std::endl;
-  // std::cout << "3 " << t4.tv_usec - t3.tv_usec << std::endl;
-  // std::cout << "4 " << t5.tv_usec - t4.tv_usec << std::endl;
 
   fingersData = GenerateFingersData(depthGen);
 
@@ -459,7 +467,7 @@ FingersData *		FingersExtractor::Extract(xn::Context & context,
 
 void			FingersExtractor::SetPersistence(int nbOfFrames)
 {
-  m_persitence = nbOfFrames;
+  m_persistence = nbOfFrames;
 }
 
 void			FingersExtractor::SetSmoothing(bool b)
@@ -478,6 +486,6 @@ void			FingersExtractor::Reset(void)
 {
   Clear();
 
-  m_persitence = NO_CLIPPING_MIN_FRAMES;
+  m_persistence = PERSISTENCE_FRAMES;
   m_selectedPeaks.clear();
 }
