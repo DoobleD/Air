@@ -7,8 +7,8 @@
 using namespace air;
 
 
-Color		MouseControl::LeftButtonColor = Color::Yellow;
-Color		MouseControl::RightButtonColor = Color::Red;
+const Color &		MouseControl::LeftButtonColor = Color::Yellow;
+const Color &		MouseControl::RightButtonColor = Color::Red;
 
 
 MouseControl::MouseControl(os::Screen & screen) : m_screen(screen), 
@@ -172,7 +172,6 @@ void		MouseControl::scroll(const XnPoint3D & hand)
 
 void		MouseControl::pointer(XnPoint3D * pointer)
 {
-  Color		buttonColor;
   static int	marginMaxX = m_screen.getResX() - POINTER_OUT_MARGIN;
   static int	marginMaxY = m_screen.getResY() - POINTER_OUT_MARGIN;
 
@@ -187,11 +186,9 @@ void		MouseControl::pointer(XnPoint3D * pointer)
 	  m_mouse.setPosition(pointer->X + 10, pointer->Y + 10); 
 	  
 	  if (m_currentButton == BUTTON_LEFT)
-	    buttonColor = LeftButtonColor;
+	    m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, LeftButtonColor);
 	  else
-	    buttonColor = RightButtonColor;
-	  
-	  m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, buttonColor);
+	    m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, RightButtonColor);
 	  
 	  m_pointerIsOut = false;
       	}

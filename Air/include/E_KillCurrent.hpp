@@ -7,7 +7,7 @@
 #include "OS/Keyboard.hpp"
 
 
-#define KC_MIN_SPEED			0.75f
+#define KC_MIN_SPEED			0.65f
 
 
 namespace air

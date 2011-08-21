@@ -40,56 +40,57 @@
 
 namespace air
 {
-  class			MouseControl
+  class				MouseControl
   {
   private:
-    char		m_mode;
+    char			m_mode;
 
-    os::Mouse		m_mouse;
-    os::Screen &	m_screen;
+    os::Mouse			m_mouse;
+    os::Screen &		m_screen;
     
-    sf::Clock		m_buttonPressed;
-    sf::Clock		m_pointerRequested;
-    sf::Clock		m_switchRequested;
-    sf::Clock		m_grabRequested;
-    sf::Clock		m_scrollRequested;
+    sf::Clock			m_buttonPressed;
+    sf::Clock			m_pointerRequested;
+    sf::Clock			m_switchRequested;
+    sf::Clock			m_grabRequested;
+    sf::Clock			m_scrollRequested;
 
-    bool		m_pointerIsOut;
+    bool			m_pointerIsOut;
 
-    bool		m_pointerIsRequested;
-    bool		m_switchIsRequested;
-    bool		m_grabIsRequested;
-    bool		m_scrollIsRequested;
+    bool			m_pointerIsRequested;
+    bool			m_switchIsRequested;
+    bool			m_grabIsRequested;
+    bool			m_scrollIsRequested;
 
-    char		m_currentButton;
+    char			m_currentButton;
 
-    static Color	LeftButtonColor;
-    static Color	RightButtonColor;
+    static const Color & 	LeftButtonColor;
+    static const Color &	RightButtonColor;
 
-    bool		isReset(const xn::FingersData & fingersData);
-    bool		isButtonPress(const xn::FingersData & fingersData);
-    bool		isButtonRelease(const xn::FingersData & fingersData);
-    bool		isSwitchButton(const xn::FingersData & fingersData);
-    bool		isPointer(const xn::FingersData & fingersData);
-    bool		isGrab(const xn::FingersData & fingersData);
-    bool		isScroll(const xn::FingersData & fingersData);
+    bool			isReset(const xn::FingersData & fingersData);
+    bool			isButtonPress(const xn::FingersData & fingersData);
+    bool			isButtonRelease(const xn::FingersData & fingersData);
+    bool			isSwitchButton(const xn::FingersData & fingersData);
+    bool			isPointer(const xn::FingersData & fingersData);
+    bool			isGrab(const xn::FingersData & fingersData);
+    bool			isScroll(const xn::FingersData & fingersData);
 
-    void		buttonPress(void);
-    void		buttonRelease(void);
-    void		switchButton(void);
-    void		grab(const xn::FingersData & fingersData);
-    void		scroll(const XnPoint3D & pointer);
-    void		pointer(XnPoint3D * pointer);
+    void			buttonPress(void);
+    void			buttonRelease(void);
+    void			switchButton(void);
 
-    void		reset(void);
+    void			grab(const xn::FingersData & fingersData);
+    void			scroll(const XnPoint3D & pointer);
+    void			pointer(XnPoint3D * pointer);
 
-    XnPoint3D *		getPointer(const xn::FingersData & fingersData);
+    void			reset(void);
+
+    XnPoint3D *			getPointer(const xn::FingersData & fingersData);
 
   public:
     MouseControl(os::Screen & screen);
     ~MouseControl(void);
 
-    bool		update(const xn::FingersData & fingersData);
+    bool			update(const xn::FingersData & fingersData);
   };
 }
 

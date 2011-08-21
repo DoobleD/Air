@@ -1,6 +1,6 @@
 #include "OS/Mouse.hpp"
 
-#include <string.h>
+#include <X11/extensions/XTest.h>
 
 
 using namespace air::os;
@@ -9,9 +9,6 @@ using namespace air::os;
 Mouse::Mouse(void)
 {
   m_display = XOpenDisplay(0);
-  m_rootWindow = XRootWindow(m_display, DefaultScreen(m_display));
-
-  XSelectInput(m_display, m_rootWindow, KeyReleaseMask);
 }
 
 Mouse::~Mouse(void)
@@ -19,51 +16,23 @@ Mouse::~Mouse(void)
   XCloseDisplay(m_display);
 }
 
-void		Mouse::initializeButtonEvent(void)
-{
-  memset (&m_buttonEvent, 0, sizeof (m_buttonEvent));
-
-  m_buttonEvent.xbutton.same_screen = True;
-  m_buttonEvent.xbutton.subwindow = m_rootWindow;
-
-  while (m_buttonEvent.xbutton.subwindow)
-    {
-      m_buttonEvent.xbutton.window = m_buttonEvent.xbutton.subwindow;
-      XQueryPointer(m_display, m_buttonEvent.xbutton.window,
-		    &m_buttonEvent.xbutton.root, &m_buttonEvent.xbutton.subwindow,
-		    &m_buttonEvent.xbutton.x_root, &m_buttonEvent.xbutton.y_root,
-		    &m_buttonEvent.xbutton.x, &m_buttonEvent.xbutton.y,
-		    &m_buttonEvent.xbutton.state);
-    }
-}
-
 void		Mouse::setPosition(double x, double y)
 {
-  XWarpPointer(m_display, None, m_rootWindow, 0, 0, 0, 0, x, y);
+  XTestFakeMotionEvent(m_display, -1, x, y, CurrentTime);
   
   XFlush(m_display); 
 }
 
 void		Mouse::buttonPress(int button)
 {
-  initializeButtonEvent();
-  
-  m_buttonEvent.xbutton.button = button;
-  m_buttonEvent.type = ButtonPress;
-
-  XSendEvent(m_display, PointerWindow, True, ButtonPressMask, &m_buttonEvent);
+  XTestFakeButtonEvent(m_display, button, True, CurrentTime);
 
   XFlush(m_display);
 }
 
 void		Mouse::buttonRelease(int button)
 {
-  initializeButtonEvent();
-
-  m_buttonEvent.xbutton.button = button;
-  m_buttonEvent.type = ButtonRelease;
-
-  XSendEvent(m_display, PointerWindow, True, ButtonReleaseMask, &m_buttonEvent);
+  XTestFakeButtonEvent(m_display, button, False, CurrentTime);
 
   XFlush(m_display);
 }
@@ -80,22 +49,22 @@ void		Mouse::leftButtonRelease(void)
 
 void		Mouse::rightButtonPress(void)
 {
-  buttonPress(Button2);
+  buttonPress(Button3);
 }
 
 void		Mouse::rightButtonRelease(void)
 {
-  buttonRelease(Button2);
+  buttonRelease(Button3);
 }
 
 void		Mouse::middleButtonPress(void)
 {
-  buttonPress(Button3);
+  buttonPress(Button2);
 }
 
 void		Mouse::middleButtonRelease(void)
 {
-  buttonRelease(Button3);
+  buttonRelease(Button2);
 }
 
 void		Mouse::wheelUp(void)
