@@ -1,3 +1,10 @@
+/**
+ * Math.cpp
+ *
+ * @author Pierre Alletru
+ */
+
+
 #include <math.h>
 
 #include "XnMath.hpp"

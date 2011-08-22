@@ -1,3 +1,10 @@
+/**
+ * FingersGenerator.cpp
+ *
+ * @author Pierre Alletru
+ */
+
+
 #include "XnFingersGenerator.hpp"
 
 

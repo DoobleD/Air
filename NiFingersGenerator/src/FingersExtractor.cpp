@@ -1,3 +1,10 @@
+/**
+ * FingersExtractor.cpp
+ *
+ * @author Pierre Alletru
+ */
+
+
 #include "XnFingersExtractor.hpp"
 #include "XnMath.hpp"
 
