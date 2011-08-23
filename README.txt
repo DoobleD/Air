@@ -86,7 +86,7 @@ The installer automatically installs the prerequisites indicated in the requirem
 and intalls Air in C:\Program File\Air, by default.
 You can also remove Air by running the installer again, and choosing the remove option.
 
-Note : you may need to disconnect / reconnect you Kinect sensor after the installation of Air.
+IMPORTANT : you'll probably need to reboot your computer after installation, to install the drivers.
 
 Note : removing Air using the installer won't remove the SensorKinect, OpenNI and NITE packages.
 
