@@ -7,6 +7,9 @@
 
 Sources repository freely available at : https://github.com/DoobleD/Air
 
+Documentation can be found here : https://github.com/DoobleD/Air/tree/master/Air/doc
+		       and here : https://github.com/DoobleD/Air/tree/master/NiFingersGenerator/doc
+
 
 ##################
 # Ubuntu > 10.10 #
@@ -20,14 +23,16 @@ Requirements
 	sudo apt-get install libxtst-dev
 - SFML 1.6 library :				
 	sudo apt-get install libsfml-dev
-- SensorKinect driver for Kinect :		
-	https://github.com/avin2/SensorKinect/tree/unstable/Bin
 - OpenNI >= 1.3.2.3 unstable release :		
 	http://www.openni.org/downloadfiles/opennimodules/openni-binaries/20-latest-unstable
 - NITE >= 4.1.2 unstable release :		
 	http://www.openni.org/downloadfiles/opennimodules/openni-compliant-middleware-binaries/33-latest-unstable
+- SensorKinect driver for Kinect :		
+	https://github.com/avin2/SensorKinect/tree/unstable/Bin
 
 A key may be necessary when installing NITE on linux : 0KOIk2JeIBYClPWVnMoRKn5cdY4=
+
+You may need to disconnect and reconnect your Kinect device after OpenNI/NITE/SensorKinect installation.
 
 
 Possible additional requirements
@@ -78,8 +83,10 @@ A simple installer is available in installer/windows/build/,
 or here : https://github.com/DoobleD/Air/installer/windows/build/
 
 The installer automatically installs the prerequisites indicated in the requirements section below, 
-and intalls Air in C:\Program File\Air.
+and intalls Air in C:\Program File\Air, by default.
 You can also remove Air by running the installer again, and choosing the remove option.
+
+Note : you may need to disconnect / reconnect you Kinect sensor after the installation of Air.
 
 Note : removing Air using the installer won't remove the SensorKinect, OpenNI and NITE packages.
 
@@ -91,16 +98,18 @@ Requirements (only if no use of the installer)
 
 - SFML 1.6 library, c++ version :		
 	http://www.sfml-dev.org/download.php
-- SensorKinect driver for Kinect :		
-	https://github.com/avin2/SensorKinect/tree/unstable/Bin
 - OpenNI >= 1.3.2.3 unstable release :		
 	http://www.openni.org/downloadfiles/opennimodules/openni-binaries/20-latest-unstable
 - NITE >= 4.1.2 unstable release :		
 	http://www.openni.org/downloadfiles/opennimodules/openni-compliant-middleware-binaries/33-latest-unstable
+- SensorKinect driver for Kinect :		
+	https://github.com/avin2/SensorKinect/tree/unstable/Bin
 
 IMPORTANT : SFML libray has to be compiled with Visual Studio 2010, 
 	    since the latest available version on the website is compiled with VS 2008.
 	    To get VS 2010 : http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express
+
+You may need to disconnect and reconnect your Kinect device after OpenNI/NITE/SensorKinect installation.
 
 
 Compilation
