@@ -3,14 +3,18 @@ cmake_minimum_required(VERSION 2.8.3)
 # Project Name
 project(XnVFingersGenerator)
 
-# Build path
-set(LIBRARY_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
-
 # Detect the OS
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   set(WINDOWS 1)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   set(LINUX 1)
+endif()
+
+# Build path
+if (WINDOWS)
+  set(EXECUTABLE_OUTPUT_PATH bin/windows/${CMAKE_BUILD_TYPE})
+elseif (LINUX)
+  set(EXECUTABLE_OUTPUT_PATH bin/linux/${CMAKE_BUILD_TYPE})
 endif()
 
 # Includes

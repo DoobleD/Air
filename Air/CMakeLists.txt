@@ -14,7 +14,11 @@ endif()
 add_definitions(-DDEBUG_MOD)
 
 # Build path
-set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
+if (WINDOWS)
+  set(EXECUTABLE_OUTPUT_PATH bin/windows/${CMAKE_BUILD_TYPE})
+elseif (LINUX)
+  set(EXECUTABLE_OUTPUT_PATH bin/linux/${CMAKE_BUILD_TYPE})
+endif()
 
 # Find SFML. See FindSFML.cmake module for more information (location: AIR_DIR/cmake_modules/)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
