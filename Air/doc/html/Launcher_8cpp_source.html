@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/src/Launcher.cpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/src/Launcher.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,7 +57,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/src/Launcher.cpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/src/Launcher.cpp</h1>  </div>
 </div>
 <div class="contents">
 <a href="Launcher_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifdef DEBUG_MOD</span>
@@ -76,63 +76,72 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00014"></a>00014 
 <a name="l00015"></a>00015 <span class="keyword">using namespace </span>air;
 <a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="keyword">extern</span> <a class="code" href="classair_1_1OpenNIBox.html">OpenNIBox</a>        <a class="code" href="E__MouseMove_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>;
+<a name="l00017"></a>00017 <span class="keyword">extern</span> <a class="code" href="classair_1_1OpenNIBox.html">OpenNIBox</a>        <a class="code" href="CoordConverter_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>;
 <a name="l00018"></a>00018 <span class="keyword">extern</span> <a class="code" href="classair_1_1NITEBox.html">NITEBox</a>          <a class="code" href="globals_8cpp.html#a0ce661f9a8ce697b5d16ae15c42fa9ef">g_NITE</a>;
 <a name="l00019"></a>00019 
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="keywordtype">void</span>                    Launcher::initilize(<span class="keywordtype">void</span>)
 <a name="l00022"></a>00022 {
 <a name="l00023"></a>00023   <span class="comment">// Initialize OpenNI</span>
-<a name="l00024"></a>00024   <a class="code" href="E__MouseMove_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>.<a class="code" href="classair_1_1OpenNIBox.html#a1d704f43a9051324592ae8c664ee4459">initialize</a>();
+<a name="l00024"></a>00024   <a class="code" href="CoordConverter_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>.<a class="code" href="classair_1_1OpenNIBox.html#a1d704f43a9051324592ae8c664ee4459">initialize</a>();
 <a name="l00025"></a>00025 
 <a name="l00026"></a>00026   <span class="comment">// Initialize NITE</span>
 <a name="l00027"></a>00027   <a class="code" href="globals_8cpp.html#a0ce661f9a8ce697b5d16ae15c42fa9ef">g_NITE</a>.<a class="code" href="classair_1_1NITEBox.html#a5a130626bfdabdc7b3dd6f4d39974aea">initialize</a>(m_sessionListener);
-<a name="l00028"></a>00028 }
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="keywordtype">void</span>                    Launcher::run(<span class="keywordtype">void</span>)
-<a name="l00031"></a>00031 {
-<a name="l00032"></a>00032   <span class="comment">// Run OpenNI, updating NITE for each frame</span>
-<a name="l00033"></a>00033   <a class="code" href="E__MouseMove_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>.<a class="code" href="classair_1_1OpenNIBox.html#ac17da71a710c65a54dabf8d712f567ab">run</a>();
-<a name="l00034"></a>00034 }
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="keywordtype">void</span>                    Launcher::shutdown(<span class="keywordtype">void</span>)
-<a name="l00037"></a>00037 {
-<a name="l00038"></a>00038   <span class="comment">// Stop OpenNI</span>
-<a name="l00039"></a>00039   <a class="code" href="E__MouseMove_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>.<a class="code" href="classair_1_1OpenNIBox.html#abdf168b0b1044a122c6e08837fafcdc2">stop</a>();
-<a name="l00040"></a>00040 }
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="preprocessor">#ifdef DEBUG_MOD</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>  <span class="comment">// Initialize the viewer</span>
+<a name="l00031"></a>00031   <span class="keywordflow">try</span>
+<a name="l00032"></a>00032     {
+<a name="l00033"></a>00033       g_viewer.<a class="code" href="classair_1_1Viewer.html#a017e060ad98fde2ed99389faf1919e3e">initialize</a>();
+<a name="l00034"></a>00034     }
+<a name="l00035"></a>00035   <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::string &amp; e)
+<a name="l00036"></a>00036     {
+<a name="l00037"></a>00037       std::cerr &lt;&lt; <span class="stringliteral">&quot;Can&#39;t initialize the viewer.&quot;</span> &lt;&lt; std::endl;
+<a name="l00038"></a>00038     }
+<a name="l00039"></a>00039 <span class="preprocessor">#endif</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>}
 <a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="classair_1_1Launcher.html#a5a38dde64b3e12103c2427d849c505e6">00042</a> <span class="keywordtype">void</span>                    <a class="code" href="classair_1_1Launcher.html#a5a38dde64b3e12103c2427d849c505e6">Launcher::launch</a>(<span class="keywordtype">void</span>)
+<a name="l00042"></a>00042 <span class="keywordtype">void</span>                    Launcher::run(<span class="keywordtype">void</span>)
 <a name="l00043"></a>00043 {
-<a name="l00044"></a>00044   <span class="keywordflow">try</span>
+<a name="l00044"></a>00044   <span class="keywordflow">while</span> (TRUE)
 <a name="l00045"></a>00045     {
-<a name="l00046"></a>00046       <span class="comment">// Initilize OpenNI, Air and NITE components</span>
-<a name="l00047"></a>00047       initilize();
-<a name="l00048"></a>00048     }
-<a name="l00049"></a>00049   <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::string &amp; e)
-<a name="l00050"></a>00050     {
-<a name="l00051"></a>00051       std::cerr &lt;&lt; <span class="stringliteral">&quot;Can&#39;t initilize Kinect software.&quot;</span> &lt;&lt; std::endl 
-<a name="l00052"></a>00052                 &lt;&lt; <span class="stringliteral">&quot;Please check that a Kinect is connected to the computer, &quot;</span> 
-<a name="l00053"></a>00053                 &lt;&lt; <span class="stringliteral">&quot;and plugged to power outlet.&quot;</span> &lt;&lt; std::endl;
-<a name="l00054"></a>00054       <span class="keywordflow">throw</span>;
-<a name="l00055"></a>00055     }
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057 <span class="preprocessor">#ifdef DEBUG_MOD</span>
-<a name="l00058"></a>00058 <span class="preprocessor"></span>  <span class="keywordflow">try</span>
-<a name="l00059"></a>00059     {
-<a name="l00060"></a>00060       g_viewer.<a class="code" href="classair_1_1Viewer.html#aca2f38a51a4794b1d2383f32a13a4d70">launch</a>();
-<a name="l00061"></a>00061     }
-<a name="l00062"></a>00062   <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::string &amp; e)
-<a name="l00063"></a>00063     {
-<a name="l00064"></a>00064       std::cerr &lt;&lt; <span class="stringliteral">&quot;Can&#39;t run the viewer.&quot;</span> &lt;&lt; std::endl;
-<a name="l00065"></a>00065     }
-<a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
-<a name="l00067"></a>00067 <span class="preprocessor"></span>  
-<a name="l00068"></a>00068   <span class="comment">// Main loop</span>
-<a name="l00069"></a>00069   run();
-<a name="l00070"></a>00070   
-<a name="l00071"></a>00071   <span class="comment">// Clean up</span>
-<a name="l00072"></a>00072   shutdown();
-<a name="l00073"></a>00073 }
+<a name="l00046"></a>00046       <a class="code" href="CoordConverter_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>.<a class="code" href="classair_1_1OpenNIBox.html#afbd081d4219ef2740ebb5fb4f77daa2a">waitAndUpdate</a>();
+<a name="l00047"></a>00047       
+<a name="l00048"></a>00048       <a class="code" href="globals_8cpp.html#a0ce661f9a8ce697b5d16ae15c42fa9ef">g_NITE</a>.<a class="code" href="classair_1_1NITEBox.html#a1506bcf10536ef97ee8def804249917f">update</a>();
+<a name="l00049"></a>00049       
+<a name="l00050"></a>00050 <span class="preprocessor">#ifdef DEBUG_MOD</span>
+<a name="l00051"></a>00051 <span class="preprocessor"></span>      g_viewer.<a class="code" href="classair_1_1Viewer.html#a9b6e5366f68397d07a18a3880b3b8e9e">update</a>();
+<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span>    }
+<a name="l00054"></a>00054 }
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keywordtype">void</span>                    Launcher::shutdown(<span class="keywordtype">void</span>)
+<a name="l00057"></a>00057 {
+<a name="l00058"></a>00058   <span class="comment">// Stop OpenNI</span>
+<a name="l00059"></a>00059   <a class="code" href="CoordConverter_8cpp.html#a878e6119bb1cb1a74d65119f9fc9e063">g_openNI</a>.<a class="code" href="classair_1_1OpenNIBox.html#abdf168b0b1044a122c6e08837fafcdc2">stop</a>();
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classair_1_1Launcher.html#a5a38dde64b3e12103c2427d849c505e6">00062</a> <span class="keywordtype">void</span>                    <a class="code" href="classair_1_1Launcher.html#a5a38dde64b3e12103c2427d849c505e6">Launcher::launch</a>(<span class="keywordtype">void</span>)
+<a name="l00063"></a>00063 {
+<a name="l00064"></a>00064   <span class="keywordflow">try</span>
+<a name="l00065"></a>00065     {
+<a name="l00066"></a>00066       <span class="comment">// Initilize OpenNI, Air and NITE components</span>
+<a name="l00067"></a>00067       initilize();
+<a name="l00068"></a>00068     }
+<a name="l00069"></a>00069   <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::string &amp; e)
+<a name="l00070"></a>00070     {
+<a name="l00071"></a>00071       std::cerr &lt;&lt; <span class="stringliteral">&quot;Can&#39;t initilize Kinect software.&quot;</span> &lt;&lt; std::endl 
+<a name="l00072"></a>00072                 &lt;&lt; <span class="stringliteral">&quot;Please check that a Kinect is connected to the computer, &quot;</span> 
+<a name="l00073"></a>00073                 &lt;&lt; <span class="stringliteral">&quot;and plugged to power outlet.&quot;</span> &lt;&lt; std::endl;
+<a name="l00074"></a>00074       <span class="keywordflow">throw</span>;
+<a name="l00075"></a>00075     }
+<a name="l00076"></a>00076   
+<a name="l00077"></a>00077   <span class="comment">// Main loop</span>
+<a name="l00078"></a>00078   run();
+<a name="l00079"></a>00079   
+<a name="l00080"></a>00080   <span class="comment">// Clean up</span>
+<a name="l00081"></a>00081   shutdown();
+<a name="l00082"></a>00082 }
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -149,7 +158,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:23 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

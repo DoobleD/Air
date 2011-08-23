@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/src/win32/Mouse.cpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/src/OS/win32/Mouse.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,19 +57,110 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/src/win32/Mouse.cpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/src/OS/win32/Mouse.cpp</h1>  </div>
 </div>
 <div class="contents">
 <a href="win32_2Mouse_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &lt;Windows.h&gt;</span>
 <a name="l00002"></a>00002 
-<a name="l00003"></a>00003 <span class="preprocessor">#include &quot;Mouse.hpp&quot;</span>
-<a name="l00004"></a>00004 
-<a name="l00005"></a>00005 <span class="keyword">using namespace </span>air::os;
+<a name="l00003"></a>00003 <span class="preprocessor">#include &quot;OS/Mouse.hpp&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;OS/Screen.hpp&quot;</span>
+<a name="l00005"></a>00005 
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a8c667549eb88aa18fbcca42bf2c9ade2">Mouse::setPosition</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y)
-<a name="l00008"></a>00008 {
-<a name="l00009"></a>00009   SetCursorPos((<span class="keywordtype">int</span>) x, (<span class="keywordtype">int</span>) y);
-<a name="l00010"></a>00010 }
+<a name="l00007"></a>00007 <span class="keyword">using namespace </span>air::os;
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <a class="code" href="classair_1_1os_1_1Mouse.html#a4e8b739a3dc79d753088cc97ffed77b1">Mouse::Mouse</a>(<span class="keywordtype">void</span>)
+<a name="l00011"></a>00011 {
+<a name="l00012"></a>00012   <a class="code" href="classair_1_1os_1_1Screen.html">Screen</a>        screen;
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014   m_resX = screen.<a class="code" href="classair_1_1os_1_1Screen.html#a0473ffcf63929de3019d7ae1b0d424ba">getResX</a>();
+<a name="l00015"></a>00015   m_resY = screen.<a class="code" href="classair_1_1os_1_1Screen.html#a0072d3fb5d5d2973e4dabd25911fdaa8">getResY</a>();
+<a name="l00016"></a>00016 }
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <a class="code" href="classair_1_1os_1_1Mouse.html#aae4da73134bbeb5889eb9d78c90f86d8">Mouse::~Mouse</a>(<span class="keywordtype">void</span>)
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020 }
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a8c667549eb88aa18fbcca42bf2c9ade2">Mouse::setPosition</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y)
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024   <span class="keywordflow">if</span> (x &gt;= 0 &amp;&amp; x &lt; m_resX &amp;&amp;
+<a name="l00025"></a>00025       y &gt;= 0 &amp;&amp; y &lt; m_resY)
+<a name="l00026"></a>00026     {
+<a name="l00027"></a>00027       SetCursorPos((<span class="keywordtype">int</span>) x, (<span class="keywordtype">int</span>) y);
+<a name="l00028"></a>00028     }
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a75010efb1c19e428a9c500978202b2da">Mouse::leftButtonPress</a>(<span class="keywordtype">void</span>)
+<a name="l00032"></a>00032 {
+<a name="l00033"></a>00033   POINT         pos;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035   GetCursorPos(&amp;pos);
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037   mouse_event(MOUSEEVENTF_LEFTDOWN, pos.x, pos.y, 0, 0);
+<a name="l00038"></a>00038 }
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a716262ba58fa4474d3f52ca112c0fae9">Mouse::leftButtonRelease</a>(<span class="keywordtype">void</span>)
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042   POINT         pos;
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044   GetCursorPos(&amp;pos);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046   mouse_event(MOUSEEVENTF_LEFTUP, pos.x, pos.y, 0, 0);
+<a name="l00047"></a>00047 }
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a46e2fd89438db8a1b1b20c1e6bc65f0d">Mouse::rightButtonPress</a>(<span class="keywordtype">void</span>)
+<a name="l00050"></a>00050 {
+<a name="l00051"></a>00051   POINT         pos;
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053   GetCursorPos(&amp;pos);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055   mouse_event(MOUSEEVENTF_RIGHTDOWN, pos.x, pos.y, 0, 0);
+<a name="l00056"></a>00056 }
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a8d578f5426a20f55d050a567d2506269">Mouse::rightButtonRelease</a>(<span class="keywordtype">void</span>)
+<a name="l00059"></a>00059 {
+<a name="l00060"></a>00060   POINT         pos;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062   GetCursorPos(&amp;pos);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064   mouse_event(MOUSEEVENTF_RIGHTUP, pos.x, pos.y, 0, 0);
+<a name="l00065"></a>00065 }
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a22a297c9a82c184c720b459e0edc38f0">Mouse::middleButtonPress</a>(<span class="keywordtype">void</span>)
+<a name="l00068"></a>00068 {
+<a name="l00069"></a>00069   POINT         pos;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071   GetCursorPos(&amp;pos);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073   mouse_event(MOUSEEVENTF_MIDDLEDOWN, pos.x, pos.y, 0, 0);
+<a name="l00074"></a>00074 }
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#a91dea45f70e08fefbde712c4cc79b187">Mouse::middleButtonRelease</a>(<span class="keywordtype">void</span>)
+<a name="l00077"></a>00077 {
+<a name="l00078"></a>00078   POINT         pos;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080   GetCursorPos(&amp;pos);
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082   mouse_event(MOUSEEVENTF_MIDDLEUP, pos.x, pos.y, 0, 0);
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#adb84ab00fbcde778574cb46b579e8e88">Mouse::wheelUp</a>(<span class="keywordtype">void</span>)
+<a name="l00086"></a>00086 {
+<a name="l00087"></a>00087   POINT         pos;
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089   GetCursorPos(&amp;pos);
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091   mouse_event(MOUSEEVENTF_WHEEL, pos.x, pos.y, 120, 0);
+<a name="l00092"></a>00092 }
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 <span class="keywordtype">void</span>            <a class="code" href="classair_1_1os_1_1Mouse.html#acdad28e30f48cb00c437641d504a64a1">Mouse::wheelDown</a>(<span class="keywordtype">void</span>)
+<a name="l00095"></a>00095 {
+<a name="l00096"></a>00096   POINT         pos;
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098   GetCursorPos(&amp;pos);
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100   mouse_event(MOUSEEVENTF_WHEEL, pos.x, pos.y, -120, 0);
+<a name="l00101"></a>00101 }
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -86,7 +177,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

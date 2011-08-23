@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/include/Viewer.hpp File Reference</title>
+<title>Air: /home/dd/Desktop/Air/Air/include/Viewer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -62,18 +62,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Defines</a>  </div>
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/include/Viewer.hpp File Reference</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/include/Viewer.hpp File Reference</h1>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><code>#include &lt;SFML/System.hpp&gt;</code><br/>
+<div class="textblock"><code>#include &lt;list&gt;</code><br/>
 <code>#include &lt;SFML/Graphics.hpp&gt;</code><br/>
 <code>#include &lt;XnTypes.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="Color_8hpp_source.html">Color.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="Viewer_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1Viewer.html">air::Viewer</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>air::Viewer::ColoredPoint</b></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceair.html">air</a></td></tr>
@@ -82,6 +84,8 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8hpp.html#a5db49eeef5c9bb774f02996f684df238">MAX_DEPTH</a>&#160;&#160;&#160;10000</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8hpp.html#a3adf7b7b13572f2baf3379a8f2f4220a">WINDOW_TITLE</a>&#160;&#160;&#160;&quot;Air Viewer&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8hpp.html#ac2f055660c584969d6d8e8a002676f03">WINDOW_BPP</a>&#160;&#160;&#160;32</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8hpp.html#a498d9f026138406895e9a34b504ac6a6">WINDOW_WIDTH</a>&#160;&#160;&#160;320</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8hpp.html#a5473cf64fa979b48335079c99532e243">WINDOW_HEIGHT</a>&#160;&#160;&#160;240</td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="a5db49eeef5c9bb774f02996f684df238"></a><!-- doxytag: member="Viewer.hpp::MAX_DEPTH" ref="a5db49eeef5c9bb774f02996f684df238" args="" -->
@@ -95,7 +99,7 @@ Defines</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00012">12</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00019">19</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -110,7 +114,26 @@ Defines</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00014">14</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00023">23</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+
+<p>Referenced by <a class="el" href="Viewer_8cpp_source.html#l00153">air::Viewer::initialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5473cf64fa979b48335079c99532e243"></a><!-- doxytag: member="Viewer.hpp::WINDOW_HEIGHT" ref="a5473cf64fa979b48335079c99532e243" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WINDOW_HEIGHT&#160;&#160;&#160;240</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00026">26</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+
+<p>Referenced by <a class="el" href="Viewer_8cpp_source.html#l00153">air::Viewer::initialize()</a>.</p>
 
 </div>
 </div>
@@ -125,7 +148,26 @@ Defines</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00013">13</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00021">21</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+
+<p>Referenced by <a class="el" href="Viewer_8cpp_source.html#l00153">air::Viewer::initialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a498d9f026138406895e9a34b504ac6a6"></a><!-- doxytag: member="Viewer.hpp::WINDOW_WIDTH" ref="a498d9f026138406895e9a34b504ac6a6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WINDOW_WIDTH&#160;&#160;&#160;320</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="Viewer_8hpp_source.html#l00025">25</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+
+<p>Referenced by <a class="el" href="Viewer_8cpp_source.html#l00153">air::Viewer::initialize()</a>.</p>
 
 </div>
 </div>
@@ -144,7 +186,7 @@ Defines</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

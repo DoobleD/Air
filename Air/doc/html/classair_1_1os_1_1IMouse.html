@@ -90,11 +90,141 @@ Inheritance diagram for air::os::IMouse:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#ac1ffbb2719dba09203b17d385aaea12c">setPosition</a> (double x, double y)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#a2a4e58b42e48de6ca4fd64fe67c1d45f">leftButtonPress</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#a8fe8b19572e2f235f5f882158eb6d08d">leftButtonRelease</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#a0b187b850a08bf3d7259c3baa18e7e92">rightButtonPress</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#a3df66e39ec6aa267c23195bc9f3a8d3c">rightButtonRelease</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#abcaaf2e98907b06d2407d73df45d4626">middleButtonPress</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#a6071a15202558b82c4fa6d8e13313b7b">middleButtonRelease</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#ab30fb20a3b79ecde1248c2c7bed8c548">wheelUp</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IMouse.html#a3eb8bab519a960504de5292a3eb490c9">wheelDown</a> (void)=0</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="IMouse_8hpp_source.html#l00009">9</a> of file <a class="el" href="IMouse_8hpp_source.html">IMouse.hpp</a>.</p>
+<div class="textblock"><p>Interface for an object simulating mouse events. Since this is an interface, all methods a pure virtual, and therefore needs to be implemented by child classes.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Pierre Alletru </dd></dl>
+
+<p>Definition at line <a class="el" href="IMouse_8hpp_source.html#l00016">16</a> of file <a class="el" href="IMouse_8hpp_source.html">IMouse.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a2a4e58b42e48de6ca4fd64fe67c1d45f"></a><!-- doxytag: member="air::os::IMouse::leftButtonPress" ref="a2a4e58b42e48de6ca4fd64fe67c1d45f" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::leftButtonPress </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Press left button. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a75010efb1c19e428a9c500978202b2da">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#a99dc8b1e001c24807533e24738b05271">air::os::Mouse</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8fe8b19572e2f235f5f882158eb6d08d"></a><!-- doxytag: member="air::os::IMouse::leftButtonRelease" ref="a8fe8b19572e2f235f5f882158eb6d08d" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::leftButtonRelease </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Release left button. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a716262ba58fa4474d3f52ca112c0fae9">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#a3b4c746143687bf4d1a3e09a83975004">air::os::Mouse</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abcaaf2e98907b06d2407d73df45d4626"></a><!-- doxytag: member="air::os::IMouse::middleButtonPress" ref="abcaaf2e98907b06d2407d73df45d4626" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::middleButtonPress </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Press middle button. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a22a297c9a82c184c720b459e0edc38f0">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#ad1dd1ae32b50e861035aa474d4dfa6be">air::os::Mouse</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6071a15202558b82c4fa6d8e13313b7b"></a><!-- doxytag: member="air::os::IMouse::middleButtonRelease" ref="a6071a15202558b82c4fa6d8e13313b7b" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::middleButtonRelease </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Release middle button. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a91dea45f70e08fefbde712c4cc79b187">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#a5e19d34c81d8ead5e02ebe13fdaebdcd">air::os::Mouse</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b187b850a08bf3d7259c3baa18e7e92"></a><!-- doxytag: member="air::os::IMouse::rightButtonPress" ref="a0b187b850a08bf3d7259c3baa18e7e92" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::rightButtonPress </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Press right button. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a46e2fd89438db8a1b1b20c1e6bc65f0d">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#a9ba8809aa8d7b94f3e22b51e654b7c62">air::os::Mouse</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3df66e39ec6aa267c23195bc9f3a8d3c"></a><!-- doxytag: member="air::os::IMouse::rightButtonRelease" ref="a3df66e39ec6aa267c23195bc9f3a8d3c" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::rightButtonRelease </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Release right button. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a8d578f5426a20f55d050a567d2506269">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#a933d58ee6729ac70936365a6e9989e91">air::os::Mouse</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ac1ffbb2719dba09203b17d385aaea12c"></a><!-- doxytag: member="air::os::IMouse::setPosition" ref="ac1ffbb2719dba09203b17d385aaea12c" args="(double x, double y)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -119,13 +249,61 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Set the position of the mouse.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x position. </td></tr>
+    <tr><td class="paramname">y</td><td>The y position. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#a8c667549eb88aa18fbcca42bf2c9ade2">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#a15b0b4acc981d37f78f5effdb36a19c2">air::os::Mouse</a>.</p>
 
 </div>
 </div>
+<a class="anchor" id="a3eb8bab519a960504de5292a3eb490c9"></a><!-- doxytag: member="air::os::IMouse::wheelDown" ref="a3eb8bab519a960504de5292a3eb490c9" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::wheelDown </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Wheel down. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#acdad28e30f48cb00c437641d504a64a1">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#ace3ba592cd95fb689c6654f800b27a38">air::os::Mouse</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab30fb20a3b79ecde1248c2c7bed8c548"></a><!-- doxytag: member="air::os::IMouse::wheelUp" ref="ab30fb20a3b79ecde1248c2c7bed8c548" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IMouse::wheelUp </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Wheel up. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Mouse.html#adb84ab00fbcde778574cb46b579e8e88">air::os::Mouse</a>, and <a class="el" href="classair_1_1os_1_1Mouse.html#ac750e324743e0866b40b6e7ed16d7c2e">air::os::Mouse</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/dd/Desktop/Air/include/<a class="el" href="IMouse_8hpp_source.html">IMouse.hpp</a></li>
+<li>/home/dd/Desktop/Air/Air/include/OS/<a class="el" href="IMouse_8hpp_source.html">IMouse.hpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -142,7 +320,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

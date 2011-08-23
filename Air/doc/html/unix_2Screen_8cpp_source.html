@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/src/unix/Screen.cpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/src/OS/unix/Screen.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,40 +57,273 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/src/unix/Screen.cpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/src/OS/unix/Screen.cpp</h1>  </div>
 </div>
 <div class="contents">
-<a href="unix_2Screen_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;Screen.hpp&quot;</span>
+<a href="unix_2Screen_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;OS/Screen.hpp&quot;</span>
 <a name="l00002"></a>00002 
-<a name="l00003"></a>00003 <span class="comment">// No use of &#39;using namespace air::os&#39; to avoid conflict with a struct Screen form Xlib</span>
+<a name="l00003"></a>00003 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
 <a name="l00004"></a>00004 
-<a name="l00005"></a><a class="code" href="classair_1_1os_1_1Screen.html#ac5978753f8c0aa38640db1e0036c2ee2">00005</a> <a class="code" href="classair_1_1os_1_1Screen.html#ac5978753f8c0aa38640db1e0036c2ee2">air::os::Screen::Screen</a>(<span class="keywordtype">void</span>)
-<a name="l00006"></a>00006 {
-<a name="l00007"></a>00007   m_display = XOpenDisplay(0);
-<a name="l00008"></a>00008   m_rootWindow = XRootWindow(m_display, 0);
-<a name="l00009"></a>00009 }
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="classair_1_1os_1_1Screen.html#a6132345c9b12b69a7f1fa62ccd5c811a">00011</a> <a class="code" href="classair_1_1os_1_1Screen.html#a6132345c9b12b69a7f1fa62ccd5c811a">air::os::Screen::~Screen</a>(<span class="keywordtype">void</span>)
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 }
-<a name="l00014"></a>00014 
-<a name="l00015"></a><a class="code" href="classair_1_1os_1_1Screen.html#a0473ffcf63929de3019d7ae1b0d424ba">00015</a> <span class="keywordtype">int</span>                     <a class="code" href="classair_1_1os_1_1Screen.html#a0473ffcf63929de3019d7ae1b0d424ba">air::os::Screen::getResX</a>(<span class="keywordtype">void</span>)
-<a name="l00016"></a>00016 {
-<a name="l00017"></a>00017   XWindowAttributes     attributes;
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019   XGetWindowAttributes(m_display, m_rootWindow, &amp;attributes);
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021   <span class="keywordflow">return</span> attributes.width;
-<a name="l00022"></a>00022 }
-<a name="l00023"></a>00023 
-<a name="l00024"></a><a class="code" href="classair_1_1os_1_1Screen.html#a0072d3fb5d5d2973e4dabd25911fdaa8">00024</a> <span class="keywordtype">int</span>                     <a class="code" href="classair_1_1os_1_1Screen.html#a0072d3fb5d5d2973e4dabd25911fdaa8">air::os::Screen::getResY</a>(<span class="keywordtype">void</span>)
-<a name="l00025"></a>00025 {
-<a name="l00026"></a>00026   XWindowAttributes     attributes;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028   XGetWindowAttributes(m_display, m_rootWindow, &amp;attributes);
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030   <span class="keywordflow">return</span> attributes.height;
-<a name="l00031"></a>00031 }
+<a name="l00005"></a>00005 <span class="comment">// No use of &#39;using namespace air::os&#39; to avoid conflict with a struct Screen form Xlib</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a><a class="code" href="classair_1_1os_1_1Screen.html#a7670d4029625d65e6846842e9d8f6c02">00007</a> <a class="code" href="classair_1_1os_1_1Screen.html#a7670d4029625d65e6846842e9d8f6c02">air::os::Screen::Screen</a>(<span class="keywordtype">void</span>)
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009   m_display = XOpenDisplay(0);
+<a name="l00010"></a>00010   m_screen = DefaultScreen(m_display);
+<a name="l00011"></a>00011   m_rootWindow = DefaultRootWindow(m_display);
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013   m_threadRunning = <span class="keyword">false</span>;
+<a name="l00014"></a>00014 }
+<a name="l00015"></a>00015 
+<a name="l00016"></a><a class="code" href="classair_1_1os_1_1Screen.html#aca8e6d405d54bd0ea318564f11a68f00">00016</a> <a class="code" href="classair_1_1os_1_1Screen.html#aca8e6d405d54bd0ea318564f11a68f00">air::os::Screen::~Screen</a>(<span class="keywordtype">void</span>)
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018   <span class="keywordflow">if</span> (m_threadRunning)
+<a name="l00019"></a>00019     {
+<a name="l00020"></a>00020       m_threadRunning = <span class="keyword">false</span>;
+<a name="l00021"></a>00021       Wait();
+<a name="l00022"></a>00022     }
+<a name="l00023"></a>00023 }
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classair_1_1os_1_1Screen.html#a0473ffcf63929de3019d7ae1b0d424ba">00025</a> <span class="keywordtype">int</span>                     <a class="code" href="classair_1_1os_1_1Screen.html#a0473ffcf63929de3019d7ae1b0d424ba">air::os::Screen::getResX</a>(<span class="keywordtype">void</span>)
+<a name="l00026"></a>00026 {
+<a name="l00027"></a>00027   XWindowAttributes     attributes;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029   m_mutex.Lock();
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031   XGetWindowAttributes(m_display, m_rootWindow, &amp;attributes);
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033   m_mutex.Unlock();
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035   <span class="keywordflow">return</span> attributes.width;
+<a name="l00036"></a>00036 }
+<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="classair_1_1os_1_1Screen.html#a0072d3fb5d5d2973e4dabd25911fdaa8">00038</a> <span class="keywordtype">int</span>                     <a class="code" href="classair_1_1os_1_1Screen.html#a0072d3fb5d5d2973e4dabd25911fdaa8">air::os::Screen::getResY</a>(<span class="keywordtype">void</span>)
+<a name="l00039"></a>00039 {
+<a name="l00040"></a>00040   XWindowAttributes     attributes;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042   m_mutex.Lock();
+<a name="l00043"></a>00043       
+<a name="l00044"></a>00044   XGetWindowAttributes(m_display, m_rootWindow, &amp;attributes);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046   m_mutex.Unlock();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048   <span class="keywordflow">return</span> attributes.height;
+<a name="l00049"></a>00049 }
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="classair_1_1os_1_1Screen.html#a6941fa7dd557046177b1f73b88c2705f">00051</a> <span class="keywordtype">void</span>                    <a class="code" href="classair_1_1os_1_1Screen.html#a6941fa7dd557046177b1f73b88c2705f">air::os::Screen::clear</a>(<span class="keywordtype">void</span>)
+<a name="l00052"></a>00052 {
+<a name="l00053"></a>00053   m_mutex.Lock();
+<a name="l00054"></a>00054   
+<a name="l00055"></a>00055   std::list&lt;Rectangle&gt;::iterator        begin = m_rectangles.begin();
+<a name="l00056"></a>00056   std::list&lt;Rectangle&gt;::iterator        end = m_rectangles.end();
+<a name="l00057"></a>00057   
+<a name="l00058"></a>00058   <span class="keywordflow">while</span> (begin != end)
+<a name="l00059"></a>00059     {
+<a name="l00060"></a>00060       begin-&gt;erased = <span class="keyword">true</span>;
+<a name="l00061"></a>00061       ++begin;
+<a name="l00062"></a>00062     }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064   m_mutex.Unlock();
+<a name="l00065"></a>00065 }
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classair_1_1os_1_1Screen.html#abd09132ab5c947f0b4b6a9cea61cd7f6">00067</a> <span class="keywordtype">void</span>                    <a class="code" href="classair_1_1os_1_1Screen.html#abd09132ab5c947f0b4b6a9cea61cd7f6">air::os::Screen::drawRectangle</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, 
+<a name="l00068"></a>00068                                                        <span class="keywordtype">int</span> sizeX, <span class="keywordtype">int</span> sizeY, 
+<a name="l00069"></a>00069                                                        <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">air::Color</a> &amp; color)
+<a name="l00070"></a>00070 {
+<a name="l00071"></a>00071   <span class="keywordflow">if</span> (x &gt;= 0 &amp;&amp; x &lt; getResX() &amp;&amp;
+<a name="l00072"></a>00072       y &gt;= 0 &amp;&amp; y &lt; getResY())
+<a name="l00073"></a>00073     {
+<a name="l00074"></a>00074       Rectangle         rect;
+<a name="l00075"></a>00075       
+<a name="l00076"></a>00076       rect.x = x;
+<a name="l00077"></a>00077       rect.y = y;
+<a name="l00078"></a>00078       rect.sizeX = sizeX;
+<a name="l00079"></a>00079       rect.sizeY = sizeY;
+<a name="l00080"></a>00080       rect.color = color;
+<a name="l00081"></a>00081       
+<a name="l00082"></a>00082       m_mutex.Lock();
+<a name="l00083"></a>00083       
+<a name="l00084"></a>00084       m_rectangles.push_back(rect);
+<a name="l00085"></a>00085       
+<a name="l00086"></a>00086       m_mutex.Unlock();
+<a name="l00087"></a>00087     }
+<a name="l00088"></a>00088 }
+<a name="l00089"></a>00089 
+<a name="l00090"></a><a class="code" href="classair_1_1os_1_1Screen.html#af776865d7e24fec19f102d1b12905c90">00090</a> <span class="keywordtype">void</span>                    <a class="code" href="classair_1_1os_1_1Screen.html#af776865d7e24fec19f102d1b12905c90">air::os::Screen::display</a>(<span class="keywordtype">void</span>)
+<a name="l00091"></a>00091 {
+<a name="l00092"></a>00092   <span class="keywordflow">if</span> (!m_threadRunning)
+<a name="l00093"></a>00093     {
+<a name="l00094"></a>00094       m_threadRunning = <span class="keyword">true</span>;
+<a name="l00095"></a>00095       Launch();
+<a name="l00096"></a>00096     }
+<a name="l00097"></a>00097 }
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 <span class="keywordtype">void</span>                    air::os::Screen::initializeXComponents(<span class="keywordtype">void</span>)
+<a name="l00100"></a>00100 {
+<a name="l00101"></a>00101   <span class="keywordtype">int</span>                   resX = getResX();
+<a name="l00102"></a>00102   <span class="keywordtype">int</span>                   resY = getResY();
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104   m_mutex.Lock();
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106   m_pixmapBuffer = XCreatePixmap(m_display, m_rootWindow,
+<a name="l00107"></a>00107                                  resX, resY, 
+<a name="l00108"></a>00108                                  DefaultDepth(m_display, m_screen));
+<a name="l00109"></a>00109   
+<a name="l00110"></a>00110   m_colorMap = DefaultColormap(m_display, m_screen);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112   buildGraphicContext();
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114   m_mutex.Unlock();
+<a name="l00115"></a>00115 }
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117 <span class="keywordtype">void</span>                    air::os::Screen::buildGraphicContext(<span class="keywordtype">void</span>)
+<a name="l00118"></a>00118 {
+<a name="l00119"></a>00119   XGCValues             gcVal;
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121   gcVal.function        = GXcopy;
+<a name="l00122"></a>00122   gcVal.plane_mask      = AllPlanes;
+<a name="l00123"></a>00123   gcVal.foreground      = WhitePixel(m_display, 0);
+<a name="l00124"></a>00124   gcVal.background      = BlackPixel(m_display, 0);
+<a name="l00125"></a>00125   gcVal.line_width      = 1;
+<a name="l00126"></a>00126   gcVal.line_style      = LineSolid;
+<a name="l00127"></a>00127   gcVal.cap_style       = CapButt;
+<a name="l00128"></a>00128   gcVal.join_style      = JoinMiter;
+<a name="l00129"></a>00129   gcVal.fill_style      = FillOpaqueStippled;
+<a name="l00130"></a>00130   gcVal.fill_rule       = WindingRule;
+<a name="l00131"></a>00131   gcVal.graphics_exposures = False;
+<a name="l00132"></a>00132   gcVal.clip_x_origin   = 0;
+<a name="l00133"></a>00133   gcVal.clip_y_origin   = 0;
+<a name="l00134"></a>00134   gcVal.clip_mask       = None;
+<a name="l00135"></a>00135   gcVal.subwindow_mode  = IncludeInferiors;
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137   m_gc = XCreateGC(m_display, m_pixmapBuffer, 
+<a name="l00138"></a>00138                    GCFunction | GCPlaneMask |  GCForeground | 
+<a name="l00139"></a>00139                    GCBackground | GCLineWidth | GCLineStyle |
+<a name="l00140"></a>00140                    GCCapStyle  | GCJoinStyle  |  GCFillStyle  |  
+<a name="l00141"></a>00141                    GCFillRule | GCClipXOrigin |  GCClipYOrigin  |  
+<a name="l00142"></a>00142                    GCClipMask  | GCSubwindowMode | GCGraphicsExposures, 
+<a name="l00143"></a>00143                    &amp;gcVal);
+<a name="l00144"></a>00144 }
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 Window                  air::os::Screen::createInvisibleWin(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, 
+<a name="l00147"></a>00147                                                             <span class="keywordtype">int</span> sizeX, <span class="keywordtype">int</span> sizeY)
+<a name="l00148"></a>00148 {
+<a name="l00149"></a>00149   XSetWindowAttributes  attr;
+<a name="l00150"></a>00150   <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>         mask;
+<a name="l00151"></a>00151   Visual                visual;
+<a name="l00152"></a>00152   
+<a name="l00153"></a>00153   attr.background_pixmap = None;
+<a name="l00154"></a>00154   attr.override_redirect = True;
+<a name="l00155"></a>00155   attr.backing_store = NotUseful;
+<a name="l00156"></a>00156   attr.save_under = False;
+<a name="l00157"></a>00157   
+<a name="l00158"></a>00158   mask = (CWBackPixmap | CWOverrideRedirect | CWBackingStore | CWSaveUnder);
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160   visual.visualid = CopyFromParent;
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162   <span class="keywordflow">return</span> XCreateWindow(m_display, m_rootWindow, x, y, sizeX, sizeY,
+<a name="l00163"></a>00163                        0, DefaultDepth(m_display, m_screen), 
+<a name="l00164"></a>00164                        InputOutput, &amp;visual, mask, &amp;attr);
+<a name="l00165"></a>00165 }
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167 <span class="keywordtype">void</span>                    air::os::Screen::restoreOSScreen(<span class="keywordtype">void</span>)
+<a name="l00168"></a>00168 {
+<a name="l00169"></a>00169   std::list&lt;Rectangle&gt;::iterator        begin = m_rectangles.begin();
+<a name="l00170"></a>00170   std::list&lt;Rectangle&gt;::iterator        end = m_rectangles.end();
+<a name="l00171"></a>00171   Window                                refreshWin;
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173   <span class="keywordflow">while</span> (begin != end)
+<a name="l00174"></a>00174     {
+<a name="l00175"></a>00175       <span class="comment">// To redraw the drawn part of the screen, an invisible window of the desired </span>
+<a name="l00176"></a>00176       <span class="comment">// size and placed at a given location is created, and is &#39;activated&#39;</span>
+<a name="l00177"></a>00177       <span class="comment">// (XMapWindow) quickly to generate a refresh event at this place on the screen.</span>
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179       refreshWin = createInvisibleWin(begin-&gt;x, begin-&gt;y, begin-&gt;sizeX, begin-&gt;sizeY);
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181       XMapWindow(m_display, refreshWin);
+<a name="l00182"></a>00182       XUnmapWindow(m_display, refreshWin);
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184       XDestroyWindow(m_display, refreshWin);
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186       <span class="keywordflow">if</span> (begin-&gt;erased)
+<a name="l00187"></a>00187         begin = m_rectangles.erase(begin);
+<a name="l00188"></a>00188       <span class="keywordflow">else</span>
+<a name="l00189"></a>00189         ++begin;
+<a name="l00190"></a>00190     }
+<a name="l00191"></a>00191 }
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193 <span class="keywordtype">void</span>                    air::os::Screen::paintRectangles(<span class="keywordtype">void</span>)
+<a name="l00194"></a>00194 {
+<a name="l00195"></a>00195   std::list&lt;Rectangle&gt;::iterator        begin = m_rectangles.begin();
+<a name="l00196"></a>00196   std::list&lt;Rectangle&gt;::iterator        end = m_rectangles.end();
+<a name="l00197"></a>00197   XColor                                xcolor;
+<a name="l00198"></a>00198 
+<a name="l00199"></a>00199   <span class="keywordflow">while</span> (begin != end)
+<a name="l00200"></a>00200     {
+<a name="l00201"></a>00201       <span class="comment">// Create XColor</span>
+<a name="l00202"></a>00202       XParseColor(m_display, m_colorMap, 
+<a name="l00203"></a>00203                   begin-&gt;color.getRGBString().c_str(), &amp;xcolor);
+<a name="l00204"></a>00204       XAllocColor(m_display, m_colorMap, &amp;xcolor);
+<a name="l00205"></a>00205       XSetForeground(m_display, m_gc, xcolor.pixel);
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207       <span class="comment">// Draw to buffer</span>
+<a name="l00208"></a>00208       XFillRectangle(m_display, m_pixmapBuffer, m_gc, 
+<a name="l00209"></a>00209                      0, 0, begin-&gt;sizeX, begin-&gt;sizeY);
+<a name="l00210"></a>00210 
+<a name="l00211"></a>00211       <span class="comment">// Past buffer to entire window</span>
+<a name="l00212"></a>00212       XCopyArea(m_display, m_pixmapBuffer, m_rootWindow, m_gc, 
+<a name="l00213"></a>00213                 0, 0, begin-&gt;sizeX, begin-&gt;sizeY, begin-&gt;x, begin-&gt;y);
+<a name="l00214"></a>00214 
+<a name="l00215"></a>00215       <span class="comment">// Free color</span>
+<a name="l00216"></a>00216       XFreeColors(m_display, m_colorMap, &amp;xcolor.pixel, 1, 0);  
+<a name="l00217"></a>00217 
+<a name="l00218"></a>00218       ++begin;
+<a name="l00219"></a>00219     }
+<a name="l00220"></a>00220 }
+<a name="l00221"></a>00221 
+<a name="l00222"></a>00222 <span class="keywordtype">void</span>                    air::os::Screen::paintAll(<span class="keywordtype">void</span>)
+<a name="l00223"></a>00223 {
+<a name="l00224"></a>00224   paintRectangles();
+<a name="l00225"></a>00225   <span class="comment">// In future: paintCircles, paintPoints, etc</span>
+<a name="l00226"></a>00226 }
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228 <span class="keywordtype">void</span>                    air::os::Screen::destroyXComponents(<span class="keywordtype">void</span>)
+<a name="l00229"></a>00229 {
+<a name="l00230"></a>00230   m_mutex.Lock();
+<a name="l00231"></a>00231 
+<a name="l00232"></a>00232   XFreePixmap(m_display, m_pixmapBuffer);
+<a name="l00233"></a>00233   XFreeGC(m_display, m_gc);
+<a name="l00234"></a>00234   XFreeColormap(m_display, m_colorMap);
+<a name="l00235"></a>00235   XCloseDisplay(m_display);
+<a name="l00236"></a>00236 
+<a name="l00237"></a>00237   m_mutex.Unlock();
+<a name="l00238"></a>00238 }
+<a name="l00239"></a>00239 
+<a name="l00240"></a>00240 <span class="keywordtype">void</span>                    air::os::Screen::Run(<span class="keywordtype">void</span>)
+<a name="l00241"></a>00241 {
+<a name="l00242"></a>00242   sf::Clock             clock;
+<a name="l00243"></a>00243   <span class="keywordtype">float</span>                 fps = 1.f / <a class="code" href="unix_2Screen_8hpp.html#a1b58ef4cc79d63e8fdf4eaf35574dfd4">_FPS</a>;
+<a name="l00244"></a>00244 
+<a name="l00245"></a>00245   initializeXComponents();
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247   <span class="keywordflow">while</span> (m_threadRunning)
+<a name="l00248"></a>00248     {
+<a name="l00249"></a>00249       clock.Reset();
+<a name="l00250"></a>00250 
+<a name="l00251"></a>00251       m_mutex.Lock();
+<a name="l00252"></a>00252 
+<a name="l00253"></a>00253       restoreOSScreen();
+<a name="l00254"></a>00254       paintAll();
+<a name="l00255"></a>00255 
+<a name="l00256"></a>00256       XFlush(m_display);
+<a name="l00257"></a>00257       
+<a name="l00258"></a>00258       m_mutex.Unlock();
+<a name="l00259"></a>00259       
+<a name="l00260"></a>00260       sf::Sleep(fps - clock.GetElapsedTime());
+<a name="l00261"></a>00261     }
+<a name="l00262"></a>00262 
+<a name="l00263"></a>00263   destroyXComponents();
+<a name="l00264"></a>00264 }
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -107,7 +340,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

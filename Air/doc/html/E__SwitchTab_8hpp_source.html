@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/include/E_SwitchTab.hpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/include/E_SwitchTab.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,34 +57,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/include/E_SwitchTab.hpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/include/E_SwitchTab.hpp</h1>  </div>
 </div>
 <div class="contents">
 <a href="E__SwitchTab_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _E_SWITCH_TAB_HPP_</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _E_SWITCH_TAB_HPP_</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="comment">// NITE headers</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;XnVCircleDetector.h&gt;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>air
-<a name="l00008"></a>00008 {
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 <span class="comment">// NITE header</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;XnVSwipeDetector.h&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="Keyboard_8hpp.html">OS/Keyboard.hpp</a>&quot;</span>
 <a name="l00009"></a>00009 
-<a name="l00010"></a><a class="code" href="classair_1_1E__SwitchTab.html">00010</a>   <span class="keyword">class                                 </span><a class="code" href="classair_1_1E__SwitchTab.html">E_SwitchTab</a> : <span class="keyword">public</span> XnVCircleDetector
-<a name="l00011"></a>00011   {
-<a name="l00012"></a>00012   <span class="keyword">public</span>:
-<a name="l00013"></a>00013     <a class="code" href="classair_1_1E__SwitchTab.html#ad9767d069eae7333ae0a69c3bb3b14d8">E_SwitchTab</a>();
-<a name="l00014"></a>00014     <a class="code" href="classair_1_1E__SwitchTab.html#aa504cf2c8bcda102daffde020bd04046">~E_SwitchTab</a>();
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016     <span class="keyword">static</span> <span class="keywordtype">void</span> XN_CALLBACK_TYPE        <a class="code" href="classair_1_1E__SwitchTab.html#a1c724c4a84891143ac7f68ff2c2d1e98">onCircle</a>(XnFloat times, 
-<a name="l00017"></a>00017                                                  XnBool confident, 
-<a name="l00018"></a>00018                                                  <span class="keyword">const</span> XnVCircle *circle, 
-<a name="l00019"></a>00019                                                  <span class="keywordtype">void</span> *userCxt);
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021   };
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 }
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="preprocessor">#endif //_E_SWITCH_TAB_HPP_</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="comment">// Required minimum movement speed</span>
+<a name="l00012"></a><a class="code" href="E__SwitchTab_8hpp.html#a9bd5ce0ccb04866ccc04c04aad378a3e">00012</a> <span class="preprocessor">#define ST_MIN_SPEED                    1.35 // m/s</span>
+<a name="l00013"></a>00013 <span class="preprocessor"></span>
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">namespace </span>air
+<a name="l00016"></a>00016 {
+<a name="l00017"></a>00017 
+<a name="l00025"></a><a class="code" href="classair_1_1E__SwitchTab.html">00025</a>   <span class="keyword">class                                 </span><a class="code" href="classair_1_1E__SwitchTab.html">E_SwitchTab</a> : <span class="keyword">public</span> XnVSwipeDetector
+<a name="l00026"></a>00026   {
+<a name="l00027"></a>00027   <span class="keyword">private</span>:
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     <span class="comment">// A keyboard object, used to send keyboard events to OS.</span>
+<a name="l00030"></a>00030     <span class="keyword">static</span> <a class="code" href="classair_1_1os_1_1Keyboard.html">os::Keyboard</a>                 m_kb;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032   <span class="keyword">public</span>:
+<a name="l00033"></a>00033     
+<a name="l00037"></a>00037     <a class="code" href="classair_1_1E__SwitchTab.html#ada6f9fc1207d0b26710fab6405c951bc">E_SwitchTab</a>(<span class="keywordtype">void</span>);
+<a name="l00038"></a>00038     
+<a name="l00042"></a>00042     <a class="code" href="classair_1_1E__SwitchTab.html#abc185ef11b40b40a70d78e45f45f83aa">~E_SwitchTab</a>(<span class="keywordtype">void</span>);
+<a name="l00043"></a>00043 
+<a name="l00054"></a>00054     <span class="keyword">static</span> <span class="keywordtype">void</span> XN_CALLBACK_TYPE        <a class="code" href="classair_1_1E__SwitchTab.html#a745f0865cfb0367de9dbbe50cf9441c9">onSwipe</a>(XnFloat velocity, 
+<a name="l00055"></a>00055                                                 XnFloat angle, 
+<a name="l00056"></a>00056                                                 <span class="keywordtype">void</span> *userCxt);
+<a name="l00057"></a>00057   };
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 }
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 <span class="preprocessor">#endif //_E_SWITCH_TAB_HPP_</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -101,7 +114,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:23 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

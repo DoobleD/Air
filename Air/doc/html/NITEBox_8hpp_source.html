@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/include/NITEBox.hpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/include/NITEBox.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,39 +57,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/include/NITEBox.hpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/include/NITEBox.hpp</h1>  </div>
 </div>
 <div class="contents">
 <a href="NITEBox_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _NITE_BOX_HPP_</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _NITE_BOX_HPP_</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="comment">// NITE headers</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;XnVNite.h&gt;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="comment">// Air headers</span>
-<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="SessionListener_8hpp.html">SessionListener.hpp</a>&quot;</span>
-<a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="keyword">namespace </span>air
-<a name="l00011"></a>00011 {
-<a name="l00017"></a><a class="code" href="classair_1_1NITEBox.html">00017</a>   <span class="keyword">class                         </span><a class="code" href="classair_1_1NITEBox.html">NITEBox</a>
-<a name="l00018"></a>00018   {
-<a name="l00019"></a>00019   <span class="keyword">private</span>:
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021     XnVSessionManager           m_session;
-<a name="l00022"></a>00022     XnVBroadcaster              m_mainBroadcaster;
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 <span class="comment">// NITE header</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;XnVNite.h&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="comment">// Air header</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="SessionListener_8hpp.html">SessionListener.hpp</a>&quot;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>air
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014 
+<a name="l00020"></a><a class="code" href="classair_1_1NITEBox.html">00020</a>   <span class="keyword">class                         </span><a class="code" href="classair_1_1NITEBox.html">NITEBox</a>
+<a name="l00021"></a>00021   {
+<a name="l00022"></a>00022   <span class="keyword">private</span>:
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024   <span class="keyword">public</span>:
-<a name="l00025"></a>00025 
-<a name="l00032"></a>00032     <span class="keywordtype">void</span>                        <a class="code" href="classair_1_1NITEBox.html#a5a130626bfdabdc7b3dd6f4d39974aea">initialize</a>(<a class="code" href="classair_1_1SessionListener.html">SessionListener</a> &amp; sessionListener);
-<a name="l00033"></a>00033 
-<a name="l00038"></a>00038     XnVSessionManager &amp;         <a class="code" href="classair_1_1NITEBox.html#a0e652e62a2aab9643d4443db809d0f10">getSession</a>(<span class="keywordtype">void</span>);
+<a name="l00024"></a>00024     <span class="comment">// The NITE&#39;s session object.</span>
+<a name="l00025"></a>00025     XnVSessionManager           m_session;
+<a name="l00026"></a>00026     <span class="comment">// Used to broadcast events to all NITE&#39;s listener (see SessionListener.hpp).</span>
+<a name="l00027"></a>00027     XnVBroadcaster              m_mainBroadcaster;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029   <span class="keyword">public</span>:
+<a name="l00030"></a>00030 
+<a name="l00038"></a>00038     <span class="keywordtype">void</span>                        <a class="code" href="classair_1_1NITEBox.html#a5a130626bfdabdc7b3dd6f4d39974aea">initialize</a>(<a class="code" href="classair_1_1SessionListener.html">SessionListener</a> &amp; sessionListener);
 <a name="l00039"></a>00039 
-<a name="l00046"></a>00046     XnVBroadcaster &amp;            <a class="code" href="classair_1_1NITEBox.html#a6adffa0e6feaf987d4d6202ed78af6dd">getMainBroadcaster</a>(<span class="keywordtype">void</span>);
-<a name="l00047"></a>00047   };
-<a name="l00048"></a>00048   
-<a name="l00049"></a>00049 }
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="preprocessor">#endif //_NITE_BOX_HPP_</span>
+<a name="l00045"></a>00045     XnVSessionManager &amp;         <a class="code" href="classair_1_1NITEBox.html#a0e652e62a2aab9643d4443db809d0f10">getSession</a>(<span class="keywordtype">void</span>);
+<a name="l00046"></a>00046 
+<a name="l00054"></a>00054     XnVBroadcaster &amp;            <a class="code" href="classair_1_1NITEBox.html#a6adffa0e6feaf987d4d6202ed78af6dd">getMainBroadcaster</a>(<span class="keywordtype">void</span>);
+<a name="l00055"></a>00055 
+<a name="l00060"></a>00060     <span class="keywordtype">void</span>                        <a class="code" href="classair_1_1NITEBox.html#a1506bcf10536ef97ee8def804249917f">update</a>(<span class="keywordtype">void</span>);
+<a name="l00061"></a>00061   };
+<a name="l00062"></a>00062   
+<a name="l00063"></a>00063 }
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 <span class="preprocessor">#endif //_NITE_BOX_HPP_</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -106,7 +113,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:23 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

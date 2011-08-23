@@ -79,76 +79,76 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1E__SwitchTab.html#ad9767d069eae7333ae0a69c3bb3b14d8">E_SwitchTab</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1E__SwitchTab.html#aa504cf2c8bcda102daffde020bd04046">~E_SwitchTab</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1E__SwitchTab.html#ada6f9fc1207d0b26710fab6405c951bc">E_SwitchTab</a> (void)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1E__SwitchTab.html#abc185ef11b40b40a70d78e45f45f83aa">~E_SwitchTab</a> (void)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void XN_CALLBACK_TYPE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1E__SwitchTab.html#a1c724c4a84891143ac7f68ff2c2d1e98">onCircle</a> (XnFloat times, XnBool confident, const XnVCircle *circle, void *userCxt)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void XN_CALLBACK_TYPE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1E__SwitchTab.html#a745f0865cfb0367de9dbbe50cf9441c9">onSwipe</a> (XnFloat velocity, XnFloat angle, void *userCxt)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="E__SwitchTab_8hpp_source.html#l00010">10</a> of file <a class="el" href="E__SwitchTab_8hpp_source.html">E_SwitchTab.hpp</a>.</p>
+<div class="textblock"><p>Event class. Associate left/right swipe gesture to the action of switching between the current running applications. Inherit from XnVSwipeDetector, since it must detect swipe gestures.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Pierre Alletru </dd></dl>
+
+<p>Definition at line <a class="el" href="E__SwitchTab_8hpp_source.html#l00025">25</a> of file <a class="el" href="E__SwitchTab_8hpp_source.html">E_SwitchTab.hpp</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad9767d069eae7333ae0a69c3bb3b14d8"></a><!-- doxytag: member="air::E_SwitchTab::E_SwitchTab" ref="ad9767d069eae7333ae0a69c3bb3b14d8" args="()" -->
+<a class="anchor" id="ada6f9fc1207d0b26710fab6405c951bc"></a><!-- doxytag: member="air::E_SwitchTab::E_SwitchTab" ref="ada6f9fc1207d0b26710fab6405c951bc" args="(void)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">E_SwitchTab::E_SwitchTab </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Default constructor. </p>
 
-<p>Definition at line <a class="el" href="E__SwitchTab_8cpp_source.html#l00005">5</a> of file <a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a>.</p>
+<p>Definition at line <a class="el" href="E__SwitchTab_8cpp_source.html#l00010">10</a> of file <a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a>.</p>
 
-<p>References <a class="el" href="E__SwitchTab_8cpp_source.html#l00014">onCircle()</a>.</p>
+<p>References <a class="el" href="E__SwitchTab_8cpp_source.html#l00023">onSwipe()</a>, and <a class="el" href="E__SwitchTab_8hpp_source.html#l00012">ST_MIN_SPEED</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa504cf2c8bcda102daffde020bd04046"></a><!-- doxytag: member="air::E_SwitchTab::~E_SwitchTab" ref="aa504cf2c8bcda102daffde020bd04046" args="()" -->
+<a class="anchor" id="abc185ef11b40b40a70d78e45f45f83aa"></a><!-- doxytag: member="air::E_SwitchTab::~E_SwitchTab" ref="abc185ef11b40b40a70d78e45f45f83aa" args="(void)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">E_SwitchTab::~E_SwitchTab </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Destructor. </p>
 
-<p>Definition at line <a class="el" href="E__SwitchTab_8cpp_source.html#l00010">10</a> of file <a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a>.</p>
+<p>Definition at line <a class="el" href="E__SwitchTab_8cpp_source.html#l00019">19</a> of file <a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a1c724c4a84891143ac7f68ff2c2d1e98"></a><!-- doxytag: member="air::E_SwitchTab::onCircle" ref="a1c724c4a84891143ac7f68ff2c2d1e98" args="(XnFloat times, XnBool confident, const XnVCircle *circle, void *userCxt)" -->
+<a class="anchor" id="a745f0865cfb0367de9dbbe50cf9441c9"></a><!-- doxytag: member="air::E_SwitchTab::onSwipe" ref="a745f0865cfb0367de9dbbe50cf9441c9" args="(XnFloat velocity, XnFloat angle, void *userCxt)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void XN_CALLBACK_TYPE E_SwitchTab::onCircle </td>
+          <td class="memname">void XN_CALLBACK_TYPE E_SwitchTab::onSwipe </td>
           <td>(</td>
           <td class="paramtype">XnFloat&#160;</td>
-          <td class="paramname"><em>times</em>, </td>
+          <td class="paramname"><em>velocity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">XnBool&#160;</td>
-          <td class="paramname"><em>confident</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const XnVCircle *&#160;</td>
-          <td class="paramname"><em>circle</em>, </td>
+          <td class="paramtype">XnFloat&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -164,16 +164,27 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>OpenNI callback called when a swipe left or swipe right gesture is recognized. Perform an 'Alt + Tab' keyboard event to switch current applications.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">velocity</td><td>Velocity of the swipe movement. </td></tr>
+    <tr><td class="paramname">angle</td><td>The angle of the movement, with respect to the X axis (horizontal). </td></tr>
+    <tr><td class="paramname">userCxt</td><td>A pointer to some user data. Required by OpenNI, but always NULL in this case. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Definition at line <a class="el" href="E__SwitchTab_8cpp_source.html#l00014">14</a> of file <a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a>.</p>
+<p>Definition at line <a class="el" href="E__SwitchTab_8cpp_source.html#l00023">23</a> of file <a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="E__SwitchTab_8cpp_source.html#l00005">E_SwitchTab()</a>.</p>
+<p>References <a class="el" href="IKeyboard_8hpp_source.html#l00021">air::os::IKeyboard::AltLeft</a>, <a class="el" href="unix_2Keyboard_8cpp_source.html#l00032">air::os::Keyboard::keyPress()</a>, <a class="el" href="unix_2Keyboard_8cpp_source.html#l00043">air::os::Keyboard::keyRelease()</a>, <a class="el" href="IKeyboard_8hpp_source.html#l00022">air::os::IKeyboard::ShiftLeft</a>, and <a class="el" href="IKeyboard_8hpp_source.html#l00025">air::os::IKeyboard::Tab</a>.</p>
+
+<p>Referenced by <a class="el" href="E__SwitchTab_8cpp_source.html#l00010">E_SwitchTab()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/dd/Desktop/Air/include/<a class="el" href="E__SwitchTab_8hpp_source.html">E_SwitchTab.hpp</a></li>
-<li>/home/dd/Desktop/Air/src/<a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a></li>
+<li>/home/dd/Desktop/Air/Air/include/<a class="el" href="E__SwitchTab_8hpp_source.html">E_SwitchTab.hpp</a></li>
+<li>/home/dd/Desktop/Air/Air/src/<a class="el" href="E__SwitchTab_8cpp_source.html">E_SwitchTab.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -190,7 +201,7 @@ Static Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

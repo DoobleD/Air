@@ -78,12 +78,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structair_1_1EventListener.html#a8fad28b71f0c584651179aaa0f7149a5">name</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">XnVMessageListener *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structair_1_1EventListener.html#a965efb2d92fe3cd62acd300107b46c5c">listener</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="EventListener_8hpp_source.html#l00009">9</a> of file <a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a>.</p>
+<div class="textblock"><p>Holds a pointer to a XnVMessageListener object. Any class inheriting from XnVMessageListener is an event class.</p>
+<p>The structure is used (mainly in <a class="el" href="globals_8cpp.html">globals.cpp</a>) to define a global array of all the NITE event liseteners (e.g <a class="el" href="classair_1_1E__ShowDesktop.html">E_ShowDesktop</a>, E_SwitchApp, ...).</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Pierre Alletru </dd></dl>
+
+<p>Definition at line <a class="el" href="EventListener_8hpp_source.html#l00021">21</a> of file <a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a>.</p>
 </div><hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a965efb2d92fe3cd62acd300107b46c5c"></a><!-- doxytag: member="air::EventListener::listener" ref="a965efb2d92fe3cd62acd300107b46c5c" args="" -->
 <div class="memitem">
@@ -96,27 +98,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="EventListener_8hpp_source.html#l00012">12</a> of file <a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8fad28b71f0c584651179aaa0f7149a5"></a><!-- doxytag: member="air::EventListener::name" ref="a8fad28b71f0c584651179aaa0f7149a5" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* <a class="el" href="structair_1_1EventListener.html#a8fad28b71f0c584651179aaa0f7149a5">air::EventListener::name</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="EventListener_8hpp_source.html#l00011">11</a> of file <a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a>.</p>
+<p>Definition at line <a class="el" href="EventListener_8hpp_source.html#l00026">26</a> of file <a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/dd/Desktop/Air/include/<a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a></li>
+<li>/home/dd/Desktop/Air/Air/include/<a class="el" href="EventListener_8hpp_source.html">EventListener.hpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -133,7 +120,7 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

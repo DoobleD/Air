@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/include/IScreen.hpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/include/OS/IScreen.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,26 +57,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/include/IScreen.hpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/include/OS/IScreen.hpp</h1>  </div>
 </div>
 <div class="contents">
 <a href="IScreen_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ISCREEN_H_</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ISCREEN_H_</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="keyword">namespace </span>air
-<a name="l00005"></a>00005 {
-<a name="l00006"></a>00006   <span class="keyword">namespace </span>os
-<a name="l00007"></a>00007   {
-<a name="l00008"></a><a class="code" href="classair_1_1os_1_1IScreen.html">00008</a>     <span class="keyword">class               </span><a class="code" href="classair_1_1os_1_1IScreen.html">IScreen</a>
-<a name="l00009"></a>00009     {
-<a name="l00010"></a>00010     <span class="keyword">public</span>:
-<a name="l00011"></a>00011       <span class="keyword">virtual</span> <span class="keywordtype">int</span>       <a class="code" href="classair_1_1os_1_1IScreen.html#a44640847b9871f449e9c77f3f5e3c0da">getResX</a>(<span class="keywordtype">void</span>) = 0;
-<a name="l00012"></a>00012       <span class="keyword">virtual</span> <span class="keywordtype">int</span>       <a class="code" href="classair_1_1os_1_1IScreen.html#a86d09dd23bed0c8674412d7c0e3eaf7a">getResY</a>(<span class="keywordtype">void</span>) = 0;
-<a name="l00013"></a>00013     };
-<a name="l00014"></a>00014   }
-<a name="l00015"></a>00015 }
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="preprocessor">#endif //_ISCREEN_H_</span>
+<a name="l00004"></a>00004 
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;Color.hpp&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>air
+<a name="l00009"></a>00009 {
+<a name="l00010"></a>00010   <span class="keyword">namespace </span>os
+<a name="l00011"></a>00011   {
+<a name="l00012"></a>00012 
+<a name="l00020"></a><a class="code" href="classair_1_1os_1_1IScreen.html">00020</a>     <span class="keyword">class               </span><a class="code" href="classair_1_1os_1_1IScreen.html">IScreen</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a>00022     <span class="keyword">public</span>:
+<a name="l00023"></a>00023 
+<a name="l00029"></a>00029       <span class="keyword">virtual</span> <span class="keywordtype">int</span>       <a class="code" href="classair_1_1os_1_1IScreen.html#a44640847b9871f449e9c77f3f5e3c0da">getResX</a>(<span class="keywordtype">void</span>) = 0;
+<a name="l00030"></a>00030 
+<a name="l00036"></a>00036       <span class="keyword">virtual</span> <span class="keywordtype">int</span>       <a class="code" href="classair_1_1os_1_1IScreen.html#a86d09dd23bed0c8674412d7c0e3eaf7a">getResY</a>(<span class="keywordtype">void</span>) = 0;
+<a name="l00037"></a>00037 
+<a name="l00047"></a>00047       <span class="keyword">virtual</span> <span class="keywordtype">void</span>      <a class="code" href="classair_1_1os_1_1IScreen.html#ae1b7856e399e78563733d5e684c59e44">drawRectangle</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, 
+<a name="l00048"></a>00048                                       <span class="keywordtype">int</span> sizeX, <span class="keywordtype">int</span> sizeY,
+<a name="l00049"></a>00049                                       <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">air::Color</a> &amp; color) = 0;
+<a name="l00050"></a>00050       
+<a name="l00054"></a>00054       <span class="keyword">virtual</span> <span class="keywordtype">void</span>      <a class="code" href="classair_1_1os_1_1IScreen.html#a9aec3e760b4fbf57a9f6213a11659ecc">clear</a>(<span class="keywordtype">void</span>) = 0;
+<a name="l00055"></a>00055 
+<a name="l00059"></a>00059       <span class="keyword">virtual</span> <span class="keywordtype">void</span>      <a class="code" href="classair_1_1os_1_1IScreen.html#af4c112c802c8b143207a25ea6dfffa87">display</a>(<span class="keywordtype">void</span>) = 0;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     };
+<a name="l00062"></a>00062   }
+<a name="l00063"></a>00063 }
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 <span class="preprocessor">#endif //_ISCREEN_H_</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -93,7 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:23 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

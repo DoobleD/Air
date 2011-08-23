@@ -91,11 +91,114 @@ Inheritance diagram for air::os::IScreen:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IScreen.html#a44640847b9871f449e9c77f3f5e3c0da">getResX</a> (void)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IScreen.html#a86d09dd23bed0c8674412d7c0e3eaf7a">getResY</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IScreen.html#ae1b7856e399e78563733d5e684c59e44">drawRectangle</a> (int x, int y, int sizeX, int sizeY, const <a class="el" href="structair_1_1Color.html">air::Color</a> &amp;color)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IScreen.html#a9aec3e760b4fbf57a9f6213a11659ecc">clear</a> (void)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classair_1_1os_1_1IScreen.html#af4c112c802c8b143207a25ea6dfffa87">display</a> (void)=0</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="IScreen_8hpp_source.html#l00008">8</a> of file <a class="el" href="IScreen_8hpp_source.html">IScreen.hpp</a>.</p>
+<div class="textblock"><p>Interface for an object offering methods related to the OS screen. Since this is an interface, all methods a pure virtual, and therefore needs to be implemented by child classes.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Pierre Alletru </dd></dl>
+
+<p>Definition at line <a class="el" href="IScreen_8hpp_source.html#l00020">20</a> of file <a class="el" href="IScreen_8hpp_source.html">IScreen.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a9aec3e760b4fbf57a9f6213a11659ecc"></a><!-- doxytag: member="air::os::IScreen::clear" ref="a9aec3e760b4fbf57a9f6213a11659ecc" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IScreen::clear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Clear the previsouly drawn shapes. So restore screen. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Screen.html#a6941fa7dd557046177b1f73b88c2705f">air::os::Screen</a>, and <a class="el" href="classair_1_1os_1_1Screen.html#a9eb4207dc8db3eaeee497153ba959240">air::os::Screen</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af4c112c802c8b143207a25ea6dfffa87"></a><!-- doxytag: member="air::os::IScreen::display" ref="af4c112c802c8b143207a25ea6dfffa87" args="(void)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IScreen::display </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Actually draw the shapes to the screen. </p>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Screen.html#af776865d7e24fec19f102d1b12905c90">air::os::Screen</a>, and <a class="el" href="classair_1_1os_1_1Screen.html#a9ad8b67f8ce3391034ac54eee628e3db">air::os::Screen</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae1b7856e399e78563733d5e684c59e44"></a><!-- doxytag: member="air::os::IScreen::drawRectangle" ref="ae1b7856e399e78563733d5e684c59e44" args="(int x, int y, int sizeX, int sizeY, const air::Color &amp;color)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void air::os::IScreen::drawRectangle </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sizeX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sizeY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structair_1_1Color.html">air::Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Draw a filled rectangle on screen.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x position of the top left corner of the rectangle. </td></tr>
+    <tr><td class="paramname">x</td><td>The y position of the top left corner of the rectangle. </td></tr>
+    <tr><td class="paramname">sizeX</td><td>The width of the rectangle. </td></tr>
+    <tr><td class="paramname">sizeY</td><td>The height of the rectangle. </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classair_1_1os_1_1Screen.html#abd09132ab5c947f0b4b6a9cea61cd7f6">air::os::Screen</a>, and <a class="el" href="classair_1_1os_1_1Screen.html#ad39327d0358d72410f72ffc0e04f4ed7">air::os::Screen</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a44640847b9871f449e9c77f3f5e3c0da"></a><!-- doxytag: member="air::os::IScreen::getResX" ref="a44640847b9871f449e9c77f3f5e3c0da" args="(void)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -110,6 +213,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Get the x resolution of the screen.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The x resolution of the screen. </dd></dl>
 
 <p>Implemented in <a class="el" href="classair_1_1os_1_1Screen.html#a0473ffcf63929de3019d7ae1b0d424ba">air::os::Screen</a>, and <a class="el" href="classair_1_1os_1_1Screen.html#adb5008ac60edb3b116320c0f136de1af">air::os::Screen</a>.</p>
 
@@ -129,13 +234,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Get the y resolution of the screen.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The y resolution of the screen. </dd></dl>
 
 <p>Implemented in <a class="el" href="classair_1_1os_1_1Screen.html#a0072d3fb5d5d2973e4dabd25911fdaa8">air::os::Screen</a>, and <a class="el" href="classair_1_1os_1_1Screen.html#a3419cc02c3bd0d106181c80fe790a16e">air::os::Screen</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/dd/Desktop/Air/include/<a class="el" href="IScreen_8hpp_source.html">IScreen.hpp</a></li>
+<li>/home/dd/Desktop/Air/Air/include/OS/<a class="el" href="IScreen_8hpp_source.html">IScreen.hpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -152,7 +259,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jul 17 2011 20:26:31 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:24 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
