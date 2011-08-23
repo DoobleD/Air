@@ -6,11 +6,13 @@
 #include "SessionListener.hpp"
 
 
+// Path the a default configuration file. Actually not used in the current version.
 #define DEFAULT_CONF_FILE	"./conf/default.xml"
 
 
 namespace air
 {
+
   /**
    * Launch Air: initialize OpenNI & NITE, and start main loop.
    * Also launch the viewer when DEBUG_MOD is defined.
@@ -30,7 +32,8 @@ namespace air
     void			initilize(void);
 
     /**
-     * Run Air. Essentially run OpenNI, updating (NITE) session for each frame
+     * Air main loop. Essentially wait for OpenNI data, and
+     * update NITE's session for each frame.
      */
     void			run(void);
 

@@ -137,7 +137,7 @@ void		MouseControl::buttonRelease(void)
   m_mode = MODE_RELEASED; // Useless for now, but could serve later
 }
 
-void		MouseControl::grab(const xn::FingersData & fingersData)
+void		MouseControl::grab(const XnPoint3D & pointer)
 {
   if (!m_grabIsRequested)
     {
@@ -146,11 +146,11 @@ void		MouseControl::grab(const xn::FingersData & fingersData)
     }
   else if (m_grabRequested.GetElapsedTime() > GRAB_GESTURE_TIME)
     {
-      m_mouse.setPosition(fingersData.Hand.X, fingersData.Hand.Y);      
+      m_mouse.setPosition(pointer.X, pointer.Y);      
     }
 }
 
-void		MouseControl::scroll(const XnPoint3D & hand)
+void		MouseControl::scroll(const XnPoint3D & pointer)
 {
   if (!m_scrollIsRequested)
     {
@@ -159,7 +159,7 @@ void		MouseControl::scroll(const XnPoint3D & hand)
     }
   else if (m_scrollRequested.GetElapsedTime() > SCROLL_GESTURE_TIME)
     {
-      m_mouse.setPosition(hand.X, hand.Y);
+      m_mouse.setPosition(pointer.X, pointer.Y);
       
       if (m_mode == MODE_NONE)
 	{
@@ -278,7 +278,7 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
 	}
       else if (isGrab(fingersData))
 	{
-	  grab(fingersData);
+	  grab(fingersData.Hand);
 	}
     }
       

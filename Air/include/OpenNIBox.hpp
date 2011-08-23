@@ -1,11 +1,13 @@
 #ifndef _OPEN_NI_BOX_HPP_
 #define _OPEN_NI_BOX_HPP_
 
-// OpenNI headers
+
+// OpenNI header
 #include <XnCppWrapper.h>
 
-// Fingers generator module OpenNI-compliant
+// Fingers generator OpenNI-compliant module
 #include "XnFingersGenerator.hpp"
+
 
 namespace air
 {
@@ -45,16 +47,23 @@ namespace air
 
     /**
      * Get the context.
-     * @return OpenNI context object.
+     *
+     * @return A reference to the OpenNI context object.
      */    
     xn::Context &		getContext(void);
 
     /**
      * Get the depth generator.
-     * @return OpenNI depth generator object.
+     *
+     * @return A reference to the OpenNI depth generator object.
      */
     xn::DepthGenerator &	getDepthGenerator(void);
 
+    /**
+     * Get the fingers generator.
+     *
+     * @return A reference to the FingersGenerator object.
+     */    
     xn::FingersGenerator &	getFingersGenerator(void);
   };
 
