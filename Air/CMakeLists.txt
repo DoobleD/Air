@@ -45,14 +45,17 @@ endif()
 # Lib path
 link_directories(
 			${SFML_LIBRARY_DIRS}
-			../NiFingersGenerator/bin
 )
 if (WINDOWS)
   link_directories(
 			$ENV{OPEN_NI_LIB} 
 		 	$ENV{XN_NITE_INSTALL_PATH}/Lib 
-			../NiFingersGenerator/bin/bin/Release
-			../NiFingersGenerator/bin/bin/Debug
+			../NiFingersGenerator/bin/windows/bin/Release
+			../NiFingersGenerator/bin/windows/bin/Debug
+  )
+elseif (LINUX)
+  link_directories(
+  			../NiFingersGenerator/bin/linux/
   )
 endif ()
 

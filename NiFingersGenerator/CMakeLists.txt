@@ -12,9 +12,9 @@ endif()
 
 # Build path
 if (WINDOWS)
-  set(EXECUTABLE_OUTPUT_PATH bin/windows/${CMAKE_BUILD_TYPE})
+  set(LIBRARY_OUTPUT_PATH bin/windows/${CMAKE_BUILD_TYPE})
 elseif (LINUX)
-  set(EXECUTABLE_OUTPUT_PATH bin/linux/${CMAKE_BUILD_TYPE})
+  set(LIBRARY_OUTPUT_PATH bin/linux/${CMAKE_BUILD_TYPE})
 endif()
 
 # Includes
