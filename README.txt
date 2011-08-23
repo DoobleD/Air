@@ -1,3 +1,13 @@
+ ------------------------------------------------------------------------------------------------------------------
+|														   |
+|							 Air							   |
+|														   |
+ ------------------------------------------------------------------------------------------------------------------
+
+
+Sources repository freely available at : https://github.com/DoobleD/Air
+
+
 ##################
 # Ubuntu > 10.10 #
 ##################
@@ -55,7 +65,7 @@ Command-line is : ./Air
 Installer
 ---------
 
-A simple installer is available in installer/windows/, or here : https://github.com/DoobleD/Air/installer/windows/
+A simple installer is available in installer/windows/build/, or here : https://github.com/DoobleD/Air/installer/windows/build/
 
 The installer automatically installs the prerequisites indicated in the requirements section below, and intalls Air in C:\Program File\Air.
 You can also remove Air by running the installer again, and choosing the remove option.
