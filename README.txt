@@ -4,11 +4,13 @@
 |														   |
  ------------------------------------------------------------------------------------------------------------------
 
+Website : http://doobled.github.com/Air/
 
 Sources repository freely available at : https://github.com/DoobleD/Air
 
-Documentation can be found here : https://github.com/DoobleD/Air/tree/master/Air/doc
-		       and here : https://github.com/DoobleD/Air/tree/master/NiFingersGenerator/doc
+Documentation of the two parts of the project can be found 
+					here : http://doobled.github.com/Air/NiFingersGenerator/annotated.html
+					and here : http://doobled.github.com/Air/Air/annotated.html
 
 
 ##################
