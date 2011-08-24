@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /home/dd/Desktop/Air/Air/src/E_SwitchTab.cpp Source File</title>
+<title>Air: /tmp/Air/Air/src/E_SwitchApp.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,32 +57,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/home/dd/Desktop/Air/Air/src/E_SwitchTab.cpp</h1>  </div>
+<h1>/tmp/Air/Air/src/E_SwitchApp.cpp</h1>  </div>
 </div>
 <div class="contents">
-<a href="E__SwitchTab_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;E_SwitchTab.hpp&quot;</span>
+<a href="E__SwitchApp_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;E_SwitchApp.hpp&quot;</span>
 <a name="l00002"></a>00002 
 <a name="l00003"></a>00003  
 <a name="l00004"></a>00004 <span class="keyword">using namespace </span>air;
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <a class="code" href="classair_1_1os_1_1Keyboard.html">os::Keyboard</a>    E_SwitchTab::m_kb;
+<a name="l00007"></a>00007 <a class="code" href="classair_1_1os_1_1Keyboard.html">os::Keyboard</a>    E_SwitchApp::m_kb;
 <a name="l00008"></a>00008 
 <a name="l00009"></a>00009 
-<a name="l00010"></a><a class="code" href="classair_1_1E__SwitchTab.html#ada6f9fc1207d0b26710fab6405c951bc">00010</a> <a class="code" href="classair_1_1E__SwitchTab.html#ada6f9fc1207d0b26710fab6405c951bc">E_SwitchTab::E_SwitchTab</a>(<span class="keywordtype">void</span>) : XnVSwipeDetector(true, <span class="stringliteral">&quot;SwitchTab&quot;</span>)
+<a name="l00010"></a><a class="code" href="classair_1_1E__SwitchApp.html#afe30b459dbf09d019bad85f47977314a">00010</a> <a class="code" href="classair_1_1E__SwitchApp.html#afe30b459dbf09d019bad85f47977314a">E_SwitchApp::E_SwitchApp</a>(<span class="keywordtype">void</span>) : XnVSwipeDetector(true, <span class="stringliteral">&quot;SwitchApp&quot;</span>)
 <a name="l00011"></a>00011 {
-<a name="l00012"></a>00012   RegisterSwipeLeft(NULL, &amp;<a class="code" href="classair_1_1E__SwitchTab.html#a745f0865cfb0367de9dbbe50cf9441c9">E_SwitchTab::onSwipe</a>);
-<a name="l00013"></a>00013   RegisterSwipeRight(NULL, &amp;<a class="code" href="classair_1_1E__SwitchTab.html#a745f0865cfb0367de9dbbe50cf9441c9">E_SwitchTab::onSwipe</a>);
+<a name="l00012"></a>00012   RegisterSwipeLeft(NULL, &amp;<a class="code" href="classair_1_1E__SwitchApp.html#ae1badd4102e41c7663634017c6ce0ec5">E_SwitchApp::onSwipe</a>);
+<a name="l00013"></a>00013   RegisterSwipeRight(NULL, &amp;<a class="code" href="classair_1_1E__SwitchApp.html#ae1badd4102e41c7663634017c6ce0ec5">E_SwitchApp::onSwipe</a>);
 <a name="l00014"></a>00014 
-<a name="l00015"></a>00015   SetMotionSpeedThreshold(<a class="code" href="E__SwitchTab_8hpp.html#a9bd5ce0ccb04866ccc04c04aad378a3e">ST_MIN_SPEED</a>);
+<a name="l00015"></a>00015   SetMotionSpeedThreshold(<a class="code" href="E__SwitchApp_8hpp.html#a706e93a0bfd576d40c958f5a1b5b20bc">SA_MIN_SPEED</a>);
 <a name="l00016"></a>00016   SetSteadyMaxStdDev(10.f);
 <a name="l00017"></a>00017 }
 <a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classair_1_1E__SwitchTab.html#abc185ef11b40b40a70d78e45f45f83aa">00019</a> <a class="code" href="classair_1_1E__SwitchTab.html#abc185ef11b40b40a70d78e45f45f83aa">E_SwitchTab::~E_SwitchTab</a>(<span class="keywordtype">void</span>)
+<a name="l00019"></a><a class="code" href="classair_1_1E__SwitchApp.html#ae00b960a38b1458b68f6d9fcbd5d3987">00019</a> <a class="code" href="classair_1_1E__SwitchApp.html#ae00b960a38b1458b68f6d9fcbd5d3987">E_SwitchApp::~E_SwitchApp</a>(<span class="keywordtype">void</span>)
 <a name="l00020"></a>00020 {
 <a name="l00021"></a>00021 }
 <a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="classair_1_1E__SwitchTab.html#a745f0865cfb0367de9dbbe50cf9441c9">00023</a> <span class="keywordtype">void</span> XN_CALLBACK_TYPE           <a class="code" href="classair_1_1E__SwitchTab.html#a745f0865cfb0367de9dbbe50cf9441c9">E_SwitchTab::onSwipe</a>(XnFloat velocity, 
+<a name="l00023"></a><a class="code" href="classair_1_1E__SwitchApp.html#ae1badd4102e41c7663634017c6ce0ec5">00023</a> <span class="keywordtype">void</span> XN_CALLBACK_TYPE           <a class="code" href="classair_1_1E__SwitchApp.html#ae1badd4102e41c7663634017c6ce0ec5">E_SwitchApp::onSwipe</a>(XnFloat velocity, 
 <a name="l00024"></a>00024                                                      XnFloat angle, 
 <a name="l00025"></a>00025                                                      <span class="keywordtype">void</span> *userCxt)
 <a name="l00026"></a>00026 {
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue Aug 23 2011 18:53:23 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Aug 24 2011 20:38:17 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
