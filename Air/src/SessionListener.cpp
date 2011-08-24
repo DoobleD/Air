@@ -12,7 +12,9 @@ extern air::Viewer	g_viewer;
 #include "EventListener.hpp"
 #include "FingersListener.hpp"
 
+
 using namespace air;
+
 
 extern NITEBox		g_NITE;
 extern OpenNIBox	g_openNI;

@@ -306,7 +306,7 @@ void					FingersExtractor::SelectGroupBestPeaks(void)
       ++locBegin;
     }
 
-  if (!m_selectedPeaks.empty()) // Not first detecion
+  if (!m_selectedPeaks.empty()) // Not first detection
     NewPeaksBindWithPrevious(selected);
 
   if (m_smooth)
