@@ -50,6 +50,7 @@ if (WINDOWS)
   link_directories(
 			$ENV{OPEN_NI_LIB} 
 		 	$ENV{XN_NITE_INSTALL_PATH}/Lib 
+			../NiFingersGenerator/bin/windows/
 			../NiFingersGenerator/bin/windows/Release
 			../NiFingersGenerator/bin/windows/Debug
   )
