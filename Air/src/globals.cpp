@@ -11,7 +11,7 @@ air::Viewer	g_viewer;
 #include "EventListener.hpp"
 
 #include "E_ShowDesktop.hpp"
-#include "E_SwitchTab.hpp"
+#include "E_SwitchApp.hpp"
 #include "E_MinimizeMaximize.hpp"
 #include "E_KillCurrent.hpp"
 
@@ -25,7 +25,7 @@ NITEBox		g_NITE;
 EventListener	g_eventListeners[] =
   {
     {new E_MinimizeMaximize()},
-    {new E_SwitchTab()},
+    {new E_SwitchApp()},
     {new E_ShowDesktop()},
     {new E_KillCurrent()},
     {NULL}

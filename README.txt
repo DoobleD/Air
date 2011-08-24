@@ -81,8 +81,8 @@ Command-line is : ./Air
 Installer
 ---------
 
-A simple installer is available in installer/windows/build/, 
-or here : https://github.com/DoobleD/Air/installer/windows/build/
+A simple installer is available in installer/windows/
+or here : https://github.com/DoobleD/Air/ (click on "Downloads" button).
 
 The installer automatically installs the prerequisites indicated in the requirements section below, 
 and intalls Air in C:\Program File\Air, by default.
@@ -93,6 +93,9 @@ IMPORTANT : you'll probably need to reboot your computer after installation, to 
 Note : removing Air using the installer won't remove the SensorKinect, OpenNI and NITE packages.
 
 Note : the installer was built with a trial version of the "Advanced Installer" tool.
+
+Note : if, during installation, you have messages indication that 
+       OpenNI/NITE/SensorKinect did not installed correctly, please ignore them.
 
 
 Requirements (only if no use of the installer)
