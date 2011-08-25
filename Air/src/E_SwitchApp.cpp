@@ -34,7 +34,7 @@ void XN_CALLBACK_TYPE		E_SwitchApp::onSwipe(XnFloat velocity,
   m_kb.keyRelease(os::Keyboard::AltLeft);
   m_kb.keyRelease(os::Keyboard::ShiftLeft);
 #elif defined _WIN32
-  m_kb.keyPress(os::Keyboard::ShiftLeft);
+  //  m_kb.keyPress(os::Keyboard::ShiftLeft);
   m_kb.keyPress(os::Keyboard::AltLeft);
 
   Sleep(1);
@@ -45,6 +45,6 @@ void XN_CALLBACK_TYPE		E_SwitchApp::onSwipe(XnFloat velocity,
   Sleep(1);
 
   m_kb.keyRelease(os::Keyboard::AltLeft);
-  m_kb.keyRelease(os::Keyboard::ShiftLeft);  
+  //  m_kb.keyRelease(os::Keyboard::ShiftLeft);  
 #endif
 }
