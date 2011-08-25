@@ -9,7 +9,7 @@ Website : http://doobled.github.com/Air/
 
 Repository : https://github.com/DoobleD/Air
 
-User guide : https://github.com/DoobleD/Air/tree/master/documentation
+User guide : https://github.com/DoobleD/Air/tree/master/documentation or click on the "Downloads" button above.
 
 Technical documentation of the two parts of the project :
 
