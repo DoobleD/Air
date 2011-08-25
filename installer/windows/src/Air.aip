@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="8.4" version="8.4" Modules="professional" RootPath="." Language="en" Id="{8F6594A3-F60D-44BB-A028-8FD3FA2EE245}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="8.4" version="8.4" Modules="professional" RootPath="." Language="en" Id="{582963B8-342C-4111-A566-2E98632C1B2F}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="ALLUSERS" Value="2"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="Manufacturer" Value="Air" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1033:{0E066A6A-EEFD-4F5B-86D6-F7211AAFF47B} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{307A5909-1F77-4C98-9BB9-027854A359A5} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Air" ValueLocId="*"/>
     <ROW Property="ProductVersion" Value="1.0.0"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
-    <ROW Property="UpgradeCode" Value="{8576EF11-DA2C-499D-9047-15A7211F05A3}"/>
+    <ROW Property="UpgradeCode" Value="{AB6D2BF7-C36D-47BC-88D0-F80874769F56}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT64" MultiBuildValue="DefaultBuild:Windows XP/Vista/Windows7 x64" ValueLocId="-"/>
@@ -48,51 +48,51 @@
     <ROW Directory="libs_vc2005_Dir" Directory_Parent="extlibs_Dir" DefaultDir="libs-v~1|libs-vc2005"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
-    <ROW Component="AI_ExePath" ComponentId="{A376982C-5ECA-48F6-B4B4-A5E3B3D35B3A}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
-    <ROW Component="Air.exe" ComponentId="{3FA95164-3DB5-4E2F-9823-9C2CFD798FC9}" Directory_="APPDIR" Attributes="0" KeyPath="Air.exe"/>
-    <ROW Component="Audio.hpp" ComponentId="{D05723D7-83BF-4B77-956F-5C66F5E2F298}" Directory_="SFML_Dir" Attributes="0" KeyPath="Audio.hpp" Type="0"/>
-    <ROW Component="AudioResource.hpp" ComponentId="{34B8DF97-8C26-44E6-9248-6F5D81DAAFD4}" Directory_="Audio_Dir" Attributes="0" KeyPath="AudioResource.hpp" Type="0"/>
-    <ROW Component="Clock.hpp" ComponentId="{D397713D-4E27-4647-AAAA-415428CE81F3}" Directory_="System_Dir" Attributes="0" KeyPath="Clock.hpp" Type="0"/>
-    <ROW Component="Color.hpp" ComponentId="{92F8FDF4-37AE-4F09-8495-623F40F900A9}" Directory_="Graphics_Dir" Attributes="0" KeyPath="Color.hpp" Type="0"/>
-    <ROW Component="Context.hpp" ComponentId="{FB689B97-352C-499C-8D14-BCA3F35EA318}" Directory_="Window_Dir" Attributes="0" KeyPath="Context.hpp" Type="0"/>
-    <ROW Component="Ftp.hpp" ComponentId="{1F8FFA05-A521-4113-B5B2-435AFD5D0AB2}" Directory_="Network_Dir" Attributes="0" KeyPath="Ftp.hpp" Type="0"/>
-    <ROW Component="Mutex.hpp" ComponentId="{9CAF71B8-2AF8-4658-80F7-170212D1AF41}" Directory_="Unix_1_Dir" Attributes="0" KeyPath="Mutex.hpp_1" Type="0"/>
-    <ROW Component="Mutex.hpp_1" ComponentId="{78A88FB2-9D22-492C-9403-E8959B1D3C77}" Directory_="Win32_1_Dir" Attributes="0" KeyPath="Mutex.hpp_2" Type="0"/>
-    <ROW Component="NITE" ComponentId="{17C21282-AFEF-42CA-BD51-C637C94CD6B4}" Directory_="APPDIR" Attributes="4" KeyPath="NITE" Options="2"/>
-    <ROW Component="OpenNI" ComponentId="{44C2F96D-22F1-463D-8597-1E1C1AAECABE}" Directory_="APPDIR" Attributes="4" KeyPath="OpenNI" Options="2"/>
-    <ROW Component="SFML.chm" ComponentId="{6B328526-62E4-4CE6-8116-487F962184FA}" Directory_="doc_Dir" Attributes="0" KeyPath="SFML.chm" Type="1"/>
-    <ROW Component="SFML.htm" ComponentId="{540F0684-9827-40FF-8EDD-8501D40DB562}" Directory_="doc_Dir" Attributes="0" KeyPath="SFML.htm" Type="0"/>
-    <ROW Component="SensorKinect" ComponentId="{77AEEC53-CBB6-47B5-ABBB-DCEE49C67239}" Directory_="APPDIR" Attributes="4" KeyPath="SensorKinect" Options="2"/>
-    <ROW Component="SocketHelper.hpp" ComponentId="{9279071A-D5A7-4278-B988-637B7438CA18}" Directory_="Unix_Dir" Attributes="0" KeyPath="SocketHelper.hpp_1" Type="0"/>
-    <ROW Component="SocketHelper.hpp_1" ComponentId="{597ACBFE-384D-4E04-BFCB-045DD5834AFA}" Directory_="Win32_Dir" Attributes="0" KeyPath="SocketHelper.hpp_2" Type="0"/>
-    <ROW Component="al.h" ComponentId="{FDE3F691-EDBB-4E36-9ABD-CC215C8E1B67}" Directory_="AL_Dir" Attributes="0" KeyPath="al.h" Type="0"/>
-    <ROW Component="annotated.htm" ComponentId="{D8A5104E-2D24-4B05-9F5F-CD676F9D95CF}" Directory_="html_Dir" Attributes="0" KeyPath="annotated.htm" Type="0"/>
-    <ROW Component="autohint.h" ComponentId="{C0AA119F-D9DC-4855-89E8-809529419C23}" Directory_="internal_Dir" Attributes="0" KeyPath="autohint.h" Type="0"/>
-    <ROW Component="freetype.h" ComponentId="{43891A55-3ECF-425B-92F4-FCBDF357D87C}" Directory_="freetype_Dir" Attributes="0" KeyPath="freetype.h" Type="0"/>
-    <ROW Component="freetype.lib" ComponentId="{F013EA0D-A9C4-4667-B944-7BD4A1292FA2}" Directory_="libs_vc2005_Dir" Attributes="0" KeyPath="freetype.lib" Type="0"/>
-    <ROW Component="ft2build.h" ComponentId="{DB9B29E5-39AD-49C3-9C70-F719DB7DE5DE}" Directory_="headers_Dir" Attributes="0" KeyPath="ft2build.h_1" Type="0"/>
-    <ROW Component="ftccache.h" ComponentId="{6935D9F2-B1CD-409C-AB9A-0A92BECAA651}" Directory_="cache_Dir" Attributes="0" KeyPath="ftccache.h" Type="0"/>
-    <ROW Component="ftconfig.h" ComponentId="{B44E8118-F4D8-4C4D-9D71-D6EE4B4D2A03}" Directory_="config_Dir" Attributes="0" KeyPath="ftconfig.h" Type="0"/>
-    <ROW Component="libsndfile_1.dll" ComponentId="{1D6D970B-E49D-474F-9C7E-D5E0267469BD}" Directory_="bin_Dir" Attributes="0" KeyPath="libsndfile_1.dll"/>
-    <ROW Component="license.txt" ComponentId="{3AF9E9D1-BA47-46EA-84A3-3693E8B60DC6}" Directory_="SFML_1.6_Dir" Attributes="0" KeyPath="license.txt" Type="0"/>
-    <ROW Component="openal32.dll" ComponentId="{B5A8ABB3-D56C-457B-9D50-4F6C7635CC60}" Directory_="bin_Dir" Attributes="0" KeyPath="openal32.dll"/>
-    <ROW Component="sfml_audio.dll" ComponentId="{70164AB4-85BB-4BA6-95F7-2B081823C178}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_audio.dll"/>
-    <ROW Component="sfml_audio_d.dll" ComponentId="{B222449D-C88F-4444-9EA9-38B2D0ED6AE3}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_audio_d.dll"/>
-    <ROW Component="sfml_audio_d.ilk" ComponentId="{5F1363E3-3A79-4646-8F8E-6E6257704F19}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_audio_d.ilk" Type="0"/>
-    <ROW Component="sfml_graphics.dll" ComponentId="{8A5F22F1-5CCD-4A43-8DA5-9F7A9AB7B7D9}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_graphics.dll"/>
-    <ROW Component="sfml_graphics_d.dll" ComponentId="{55C662A0-C6C8-48A2-B028-E7E98CE5B299}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_graphics_d.dll"/>
-    <ROW Component="sfml_network.dll" ComponentId="{C8D01921-5D4E-4071-816F-48F0D0D0F7D3}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_network.dll"/>
-    <ROW Component="sfml_network_d.dll" ComponentId="{EB750445-6BD9-4F4E-922C-622647B2773D}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_network_d.dll"/>
-    <ROW Component="sfml_system.dll" ComponentId="{3CBFC56E-B00E-4593-B755-71BB27E2D76B}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_system.dll"/>
-    <ROW Component="sfml_system_d.dll" ComponentId="{E88A9A20-7C2B-4723-A16D-30593590D427}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_system_d.dll"/>
-    <ROW Component="sfml_window.dll" ComponentId="{8C66D006-D7EC-44C5-9FB8-96D0A0CD68BB}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_window.dll"/>
-    <ROW Component="sfml_window_d.dll" ComponentId="{FC97EBFF-AAA9-40FD-83AB-1CD4D0DB9487}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_window_d.dll"/>
+    <ROW Component="AI_ExePath" ComponentId="{9B89A595-D36A-4BC3-8411-D17AFA092A81}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
+    <ROW Component="Air.exe" ComponentId="{017A279B-40CC-446E-8D13-9B3710093C5A}" Directory_="APPDIR" Attributes="0" KeyPath="Air.exe"/>
+    <ROW Component="Audio.hpp" ComponentId="{BF025EFD-70DD-48FA-95C1-771058AAA1E2}" Directory_="SFML_Dir" Attributes="0" KeyPath="Audio.hpp" Type="0"/>
+    <ROW Component="AudioResource.hpp" ComponentId="{ABE13F2F-0C90-4484-ABFA-A5A2EE1B7FB0}" Directory_="Audio_Dir" Attributes="0" KeyPath="AudioResource.hpp" Type="0"/>
+    <ROW Component="Clock.hpp" ComponentId="{B45A962E-C27F-4FC5-A4A9-0B57ED8CCCDC}" Directory_="System_Dir" Attributes="0" KeyPath="Clock.hpp" Type="0"/>
+    <ROW Component="Color.hpp" ComponentId="{BB25CD13-3F87-46B5-BFF3-78630C36B4E0}" Directory_="Graphics_Dir" Attributes="0" KeyPath="Color.hpp" Type="0"/>
+    <ROW Component="Context.hpp" ComponentId="{5B23FE5A-BEDA-4AB4-A9BC-229C552E271C}" Directory_="Window_Dir" Attributes="0" KeyPath="Context.hpp" Type="0"/>
+    <ROW Component="Ftp.hpp" ComponentId="{8EAB5D2B-84F2-4D42-8BCA-8922CF201F52}" Directory_="Network_Dir" Attributes="0" KeyPath="Ftp.hpp" Type="0"/>
+    <ROW Component="Mutex.hpp" ComponentId="{F66F8EE2-947E-4761-B25C-6E969C29EF7A}" Directory_="Unix_1_Dir" Attributes="0" KeyPath="Mutex.hpp_1" Type="0"/>
+    <ROW Component="Mutex.hpp_1" ComponentId="{23DE5816-D8E8-463F-ACE2-BF5E1431C5BB}" Directory_="Win32_1_Dir" Attributes="0" KeyPath="Mutex.hpp_2" Type="0"/>
+    <ROW Component="NITE" ComponentId="{C341D923-856F-4CDB-91CC-475AB7CC7775}" Directory_="APPDIR" Attributes="4" KeyPath="NITE" Options="2"/>
+    <ROW Component="OpenNI" ComponentId="{74B3E8F3-4352-4A05-9906-AE432376AA01}" Directory_="APPDIR" Attributes="4" KeyPath="OpenNI" Options="2"/>
+    <ROW Component="SFML.chm" ComponentId="{E251FFA6-F219-4DE8-9199-5DB2242CCA81}" Directory_="doc_Dir" Attributes="0" KeyPath="SFML.chm" Type="1"/>
+    <ROW Component="SFML.htm" ComponentId="{D04738A1-9584-42FE-A83E-5BBD5F3C16F9}" Directory_="doc_Dir" Attributes="0" KeyPath="SFML.htm" Type="0"/>
+    <ROW Component="SensorKinect" ComponentId="{1620C406-0888-4579-B262-0E61A2F0E2B1}" Directory_="APPDIR" Attributes="4" KeyPath="SensorKinect" Options="2"/>
+    <ROW Component="SocketHelper.hpp" ComponentId="{7E056B5A-9860-4AE5-85ED-65A5A4A51DC6}" Directory_="Unix_Dir" Attributes="0" KeyPath="SocketHelper.hpp_1" Type="0"/>
+    <ROW Component="SocketHelper.hpp_1" ComponentId="{6308CC5C-F427-49C3-8507-100DE1005C12}" Directory_="Win32_Dir" Attributes="0" KeyPath="SocketHelper.hpp_2" Type="0"/>
+    <ROW Component="al.h" ComponentId="{41F18F56-BFC8-401D-B5E1-28DEA9962B2D}" Directory_="AL_Dir" Attributes="0" KeyPath="al.h" Type="0"/>
+    <ROW Component="annotated.htm" ComponentId="{1CAE28DE-433A-4BEA-A80B-4A78F1C1C9EC}" Directory_="html_Dir" Attributes="0" KeyPath="annotated.htm" Type="0"/>
+    <ROW Component="autohint.h" ComponentId="{201323BE-57D9-4E70-9004-24962D201175}" Directory_="internal_Dir" Attributes="0" KeyPath="autohint.h" Type="0"/>
+    <ROW Component="freetype.h" ComponentId="{E6C7FDD1-D9B6-4A6E-A0AB-A8327D634A26}" Directory_="freetype_Dir" Attributes="0" KeyPath="freetype.h" Type="0"/>
+    <ROW Component="freetype.lib" ComponentId="{551CEB69-838E-430B-838D-981610A49D53}" Directory_="libs_vc2005_Dir" Attributes="0" KeyPath="freetype.lib" Type="0"/>
+    <ROW Component="ft2build.h" ComponentId="{9F1C36B5-075D-46A4-935A-75BB971ED2F6}" Directory_="headers_Dir" Attributes="0" KeyPath="ft2build.h_1" Type="0"/>
+    <ROW Component="ftccache.h" ComponentId="{74F33EC8-B83A-4ABB-88B0-18F83A935766}" Directory_="cache_Dir" Attributes="0" KeyPath="ftccache.h" Type="0"/>
+    <ROW Component="ftconfig.h" ComponentId="{D5487D1D-3B1A-45C1-BD3F-CDB0F2AB05D0}" Directory_="config_Dir" Attributes="0" KeyPath="ftconfig.h" Type="0"/>
+    <ROW Component="libsndfile_1.dll" ComponentId="{6BF8040F-EB7B-4345-96A9-EEE0868E6AE2}" Directory_="bin_Dir" Attributes="0" KeyPath="libsndfile_1.dll"/>
+    <ROW Component="license.txt" ComponentId="{8334E5B9-3D46-4083-96B6-0D4110C891E8}" Directory_="SFML_1.6_Dir" Attributes="0" KeyPath="license.txt" Type="0"/>
+    <ROW Component="openal32.dll" ComponentId="{D23CFC45-A232-43F2-931B-2E90346405F4}" Directory_="bin_Dir" Attributes="0" KeyPath="openal32.dll"/>
+    <ROW Component="sfml_audio.dll" ComponentId="{FC635BD0-0328-49F1-83B6-718510ADDF82}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_audio.dll"/>
+    <ROW Component="sfml_audio_d.dll" ComponentId="{47CEC268-6F69-49C9-96D4-026CFE3653F8}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_audio_d.dll"/>
+    <ROW Component="sfml_audio_d.ilk" ComponentId="{C748524D-7217-44A0-A733-CC0530F1F008}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_audio_d.ilk" Type="0"/>
+    <ROW Component="sfml_graphics.dll" ComponentId="{E5533FCE-4E38-40E2-8441-65E79B23EF90}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_graphics.dll"/>
+    <ROW Component="sfml_graphics_d.dll" ComponentId="{F83F6E70-2F9C-44FE-9138-0B137F0C3D1A}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_graphics_d.dll"/>
+    <ROW Component="sfml_network.dll" ComponentId="{9B38CE17-D636-4C66-A865-847C2637A926}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_network.dll"/>
+    <ROW Component="sfml_network_d.dll" ComponentId="{D8EB7865-969F-4D08-981B-784134133D4D}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_network_d.dll"/>
+    <ROW Component="sfml_system.dll" ComponentId="{F67FF598-8FFE-444B-9B79-086E033F3F43}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_system.dll"/>
+    <ROW Component="sfml_system_d.dll" ComponentId="{FB32D08C-AB89-4771-9FA3-0BC7F389BF29}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_system_d.dll"/>
+    <ROW Component="sfml_window.dll" ComponentId="{5E8AC954-8141-4727-8DE9-35B3035ADD84}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_window.dll"/>
+    <ROW Component="sfml_window_d.dll" ComponentId="{4DFFE141-BA05-4F65-A3FF-7BE7653FBEF1}" Directory_="lib_Dir" Attributes="0" KeyPath="sfml_window_d.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="3" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath Air.exe Audio.hpp AudioResource.hpp Clock.hpp Color.hpp Context.hpp Ftp.hpp Mutex.hpp Mutex.hpp_1 SFML.chm SFML.htm SocketHelper.hpp SocketHelper.hpp_1 al.h annotated.htm autohint.h freetype.h freetype.lib ft2build.h ftccache.h ftconfig.h libsndfile_1.dll license.txt openal32.dll sfml_audio.dll sfml_audio_d.dll sfml_audio_d.ilk sfml_graphics.dll sfml_graphics_d.dll sfml_network.dll sfml_network_d.dll sfml_system.dll sfml_system_d.dll sfml_window.dll sfml_window_d.dll"/>
-    <ROW Feature="NITE" Feature_Parent="MainFeature" Title="NITE" Description="NITE" Display="7" Level="1" Attributes="0" Components="NITE"/>
-    <ROW Feature="OpenNI" Feature_Parent="MainFeature" Title="OpenNI" Description="OpenNI" Display="5" Level="1" Attributes="0" Components="OpenNI"/>
-    <ROW Feature="SensorKinect" Feature_Parent="MainFeature" Title="SensorKinect" Description="SensorKinect" Display="3" Level="1" Attributes="0" Components="SensorKinect"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath Air.exe Audio.hpp AudioResource.hpp Clock.hpp Color.hpp Context.hpp Ftp.hpp Mutex.hpp Mutex.hpp_1 SFML.chm SFML.htm SocketHelper.hpp SocketHelper.hpp_1 al.h annotated.htm autohint.h freetype.h freetype.lib ft2build.h ftccache.h ftconfig.h libsndfile_1.dll license.txt openal32.dll sfml_audio.dll sfml_audio_d.dll sfml_audio_d.ilk sfml_graphics.dll sfml_graphics_d.dll sfml_network.dll sfml_network_d.dll sfml_system.dll sfml_system_d.dll sfml_window.dll sfml_window_d.dll"/>
+    <ROW Feature="NITE" Title="NITE" Description="NITE" Display="5" Level="1" Attributes="0" Components="NITE"/>
+    <ROW Feature="OpenNI" Title="OpenNI" Description="OpenNI" Display="3" Level="1" Attributes="0" Components="OpenNI"/>
+    <ROW Feature="SensorKinect" Title="SensorKinect" Description="SensorKinect" Display="7" Level="1" Attributes="0" Components="SensorKinect"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -694,11 +694,8 @@
     <ROW File="tttypes.h" Component_="autohint.h" FileName="tttypes.h" Attributes="0" SourcePath="SFML-1.6\extlibs\headers\freetype\internal\tttypes.h" SelfReg="false" NextFile="t1tables.h"/>
     <ROW File="ttunpat.h" Component_="freetype.h" FileName="ttunpat.h" Attributes="0" SourcePath="SFML-1.6\extlibs\headers\freetype\ttunpat.h" SelfReg="false" NextFile="ft2build.h_1"/>
   </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
-    <ROW BootstrOptKey="GlobalOptions" GeneralOptions="o" Options="2" EulaPathLocId="*" IntroTextPathLocId="*"/>
-  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder=".." PackageFileName="AirInstaller-Win32" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\install"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder=".." PackageFileName="AirInstaller-Win32" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install"/>
     <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
@@ -781,6 +778,9 @@
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiEnvComponent">
+    <ROW Environment="Path" Name="=-*Path" Value="[~];C:\Program Files\SFML-1.6\lib" Component_="Air.exe"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
@@ -832,14 +832,14 @@
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
-    <ROW PrereqKey="NITE" DisplayName="NITE" VersionMin="1.4.1.2" SetupFileUrl="NITE-Win32-1.4.1.2-Dev.msi" Location="0" ExactSize="0" Win9xVersions="Windows 9x/ME" WinNT64Versions="Windows XP/Vista/Windows7 x64" Operator="0" Options="z" TargetName="NITE-Win32-1.4.1.2-Dev.msi" Type="1" Feature="NITE"/>
-    <ROW PrereqKey="OpenNI" DisplayName="OpenNI" VersionMin="1.3.2.3" SetupFileUrl="OpenNI-Win32-1.3.2.3-Dev.msi" Location="0" ExactSize="0" Win9xVersions="Windows 9x/ME" WinNT64Versions="Windows XP/Vista/Windows7 x64" Operator="0" Options="z" TargetName="OpenNI-Win32-1.3.2.3-Dev.msi" Type="1" Feature="OpenNI"/>
-    <ROW PrereqKey="SensorKinect" DisplayName="SensorKinect" SetupFileUrl="SensorKinect-Win-OpenSource32-5.0.1.msi" Location="0" ExactSize="0" Win9xVersions="Windows 9x/ME" WinNT64Versions="Windows XP/Vista/Windows7 x64" Operator="1" Options="z" TargetName="SensorKinect-Win-OpenSource32-5.0.1.msi" Type="1" Feature="SensorKinect"/>
+    <ROW PrereqKey="NITE" DisplayName="NITE" VersionMin="1.4.1.2" SetupFileUrl="NITE-Win32-1.4.1.2-Dev.msi" Location="0" ExactSize="0" Win9xVersions="Windows 9x/ME" WinNT64Versions="Windows XP/Vista/Windows7 x64" Operator="1" TargetName="NITE-Win32-1.4.1.2-Dev.msi" Type="1" Feature="NITE"/>
+    <ROW PrereqKey="OpenNI" DisplayName="OpenNI" VersionMin="1.3.2.3" SetupFileUrl="OpenNI-Win32-1.3.2.3-Dev.msi" Location="0" ExactSize="0" Win9xVersions="Windows 9x/ME" WinNT64Versions="Windows XP/Vista/Windows7 x64" Operator="1" TargetName="OpenNI-Win32-1.3.2.3-Dev.msi" Type="1" Feature="OpenNI"/>
+    <ROW PrereqKey="SensorKinect" DisplayName="SensorKinect" SetupFileUrl="SensorKinect-Win-OpenSource32-5.0.1.msi" Location="0" ExactSize="0" Win9xVersions="Windows 9x/ME" WinNT64Versions="Windows XP/Vista/Windows7 x64" Operator="1" TargetName="SensorKinect-Win-OpenSource32-5.0.1.msi" Type="1" Feature="SensorKinect"/>
     <ATTRIBUTE name="PrereqsOrder" value="OpenNI NITE SensorKinect"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
-    <ROW SearchKey="SystemFolder_file.dll" Prereq="NITE" SearchType="0" SearchString="[SystemFolder]file.dll" VerMin="1.0" Order="1" Property="PREREQSEARCH"/>
-    <ROW SearchKey="SystemFolder_file.dll_1" Prereq="OpenNI" SearchType="0" SearchString="[SystemFolder]file.dll" VerMin="1.0" Order="1" Property="PREREQSEARCH_1"/>
+    <ROW SearchKey="SystemFolder_file.dll" Prereq="OpenNI" SearchType="0" SearchString="[SystemFolder]file.dll" VerMin="1.0" Order="1" Property="PREREQSEARCH"/>
+    <ROW SearchKey="SystemFolder_file.dll_1" Prereq="NITE" SearchType="0" SearchString="[SystemFolder]file.dll" VerMin="1.0" Order="1" Property="PREREQSEARCH_1"/>
     <ROW SearchKey="SystemFolder_file.dll_2" Prereq="SensorKinect" SearchType="0" SearchString="[SystemFolder]file.dll" VerMin="1.0" Order="1" Property="PREREQSEARCH_2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">

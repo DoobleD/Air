@@ -16,7 +16,7 @@ Technical documentation of the two parts of the project :
 	NiFingersGenerator :	http://doobled.github.com/Air/NiFingersGenerator/annotated.html
 	Air :			http://doobled.github.com/Air/Air/annotated.html
 
-Windows installer : click on the "Downloads" button above.
+Windows installer : click on the "Downloads" button above. Visual Studio 2010 required to run Air.
 
 Video : click on the "Downloads" button above.
 
@@ -92,13 +92,14 @@ Installer
 A simple installer is available in installer/windows/
 or here : https://github.com/DoobleD/Air/ (click on "Downloads" button).
 
-The installer automatically installs the prerequisites indicated in the requirements section below, 
+IMPORTANT : Visual Studio 2010 is REQUIRED to run Air. The installer does NOT install it.
+
+The installer automatically installs the other prerequisites indicated in the requirements section below, 
 and intalls Air in C:\Program File\Air, by default.
-You can also remove Air by running the installer again, and choosing the remove option.
+You can also remove Air by running the installer again, and choosing the remove option. 
+Removing Air using the installer won't remove the SensorKinect, OpenNI and NITE packages.
 
 IMPORTANT : you'll probably need to reboot your computer after installation, to install the drivers.
-
-Note : removing Air using the installer won't remove the SensorKinect, OpenNI and NITE packages.
 
 Note : the installer was built with a trial version of the "Advanced Installer" tool.
 
@@ -109,6 +110,8 @@ Note : if, during installation, you have messages indication that
 Requirements (only if no use of the installer)
 ----------------------------------------------
 
+- Visual Studio 2010 :
+	http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express
 - SFML 1.6 library, c++ version :		
 	http://www.sfml-dev.org/download.php
 - OpenNI >= 1.3.2.3 unstable release :		
@@ -120,7 +123,6 @@ Requirements (only if no use of the installer)
 
 IMPORTANT : SFML libray has to be compiled with Visual Studio 2010, 
 	    since the latest available version on the website is compiled with VS 2008.
-	    To get VS 2010 : http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express
 
 You may need to disconnect and reconnect your Kinect device after OpenNI/NITE/SensorKinect installation.
 
@@ -157,9 +159,9 @@ Run
 
 -> If you used the installer :
    
-   - Double click on C:\Program Files\Air\bin\Air.exe or 
-     click on Windows -> All Programs -> Air -> Air.exe, or 
-     click on the shortcut Air.exe on your desktop
+   - Double click on C:\Program Files\Air\Air.exe 
+     or double click on the Air.exe shortcut on desktop
+     or click on Windows -> All Programs -> Air -> Air.exe
 
 -> If you compiled the project by yourself :
 
