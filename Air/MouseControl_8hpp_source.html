@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Air: /tmp/Air/Air/include/MouseControl.hpp Source File</title>
+<title>Air: /home/dd/Desktop/Air/Air/include/MouseControl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -57,7 +57,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>/tmp/Air/Air/include/MouseControl.hpp</h1>  </div>
+<h1>/home/dd/Desktop/Air/Air/include/MouseControl.hpp</h1>  </div>
 </div>
 <div class="contents">
 <a href="MouseControl_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _MOUSE_CONTROL_HPP_</span>
@@ -76,7 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00014"></a><a class="code" href="MouseControl_8hpp.html#a78772482d5941b2aec0a1e5f3868225a">00014</a> <span class="preprocessor">#define REQUIRED_MAX_FINGERS    2</span>
 <a name="l00015"></a>00015 <span class="preprocessor"></span>
 <a name="l00016"></a>00016 <span class="comment">// Maximum time (in seconds) between two clicks for a double click.</span>
-<a name="l00017"></a><a class="code" href="MouseControl_8hpp.html#a57d072d31a252776915a82bdc5072ec7">00017</a> <span class="preprocessor">#define DOUBLE_CLICK_TIME       0.5</span>
+<a name="l00017"></a><a class="code" href="MouseControl_8hpp.html#a57d072d31a252776915a82bdc5072ec7">00017</a> <span class="preprocessor">#define DOUBLE_CLICK_TIME       0.6</span>
 <a name="l00018"></a>00018 <span class="preprocessor"></span>
 <a name="l00019"></a>00019 <span class="comment">// Minimum time (either in seconds or frames) required to gestures </span>
 <a name="l00020"></a>00020 <span class="comment">// before processing it.</span>
@@ -93,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a><a class="code" href="MouseControl_8hpp.html#a0a0eacab9572c986504c9ba9b17c4198">00031</a> <span class="preprocessor">#define POINTER_OUT_MARGIN      0</span>
 <a name="l00032"></a>00032 <span class="preprocessor"></span>
 <a name="l00033"></a>00033 <span class="comment">// Factor used to speed pointer movement.</span>
-<a name="l00034"></a><a class="code" href="MouseControl_8hpp.html#ae884092a82b9e6d22b269f50198821ac">00034</a> <span class="preprocessor">#define SPEED_UP_POINTER_FACTOR 1.25</span>
+<a name="l00034"></a><a class="code" href="MouseControl_8hpp.html#ae884092a82b9e6d22b269f50198821ac">00034</a> <span class="preprocessor">#define SPEED_UP_POINTER_FACTOR 1</span>
 <a name="l00035"></a>00035 <span class="preprocessor"></span>
 <a name="l00036"></a>00036 <span class="comment">// Modes. A mode states which is the current action performed.</span>
 <a name="l00037"></a><a class="code" href="MouseControl_8hpp.html#a711fffeb11b40c66d48792fcd6664aa7">00037</a> <span class="preprocessor">#define MODE_NONE               0</span>
@@ -101,8 +101,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00039"></a><a class="code" href="MouseControl_8hpp.html#a918ed8e54e48be17b40da51d786619ea">00039</a> <span class="preprocessor"></span><span class="preprocessor">#define MODE_PRESSED            2</span>
 <a name="l00040"></a><a class="code" href="MouseControl_8hpp.html#a13a3430c70b4883e8a35e07a4f9f3f6e">00040</a> <span class="preprocessor"></span><span class="preprocessor">#define MODE_RELEASED           3</span>
 <a name="l00041"></a><a class="code" href="MouseControl_8hpp.html#a889e4df8fa0fe0bd936f4d55900a4c23">00041</a> <span class="preprocessor"></span><span class="preprocessor">#define MODE_SCROLL             4</span>
-<a name="l00042"></a>00042 <span class="preprocessor"></span>
-<a name="l00043"></a>00043 
+<a name="l00042"></a><a class="code" href="MouseControl_8hpp.html#a42a6dee41c4b7709f3dadf6fff6467a5">00042</a> <span class="preprocessor"></span><span class="preprocessor">#define MODE_SWITCH             5</span>
+<a name="l00043"></a>00043 <span class="preprocessor"></span>
 <a name="l00044"></a>00044 <span class="keyword">namespace </span>air
 <a name="l00045"></a>00045 {
 <a name="l00046"></a>00046 
@@ -123,9 +123,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00068"></a>00068     <span class="comment">// to avoid undesired mixed behaviour.</span>
 <a name="l00069"></a>00069     sf::Clock                   m_buttonPressed;
 <a name="l00070"></a>00070     sf::Clock                   m_pointerRequested;
-<a name="l00071"></a>00071     sf::Clock                   m_switchRequested;
-<a name="l00072"></a>00072     sf::Clock                   m_grabRequested;
-<a name="l00073"></a>00073     sf::Clock                   m_scrollRequested;
+<a name="l00071"></a>00071     sf::Clock                   m_grabRequested;
+<a name="l00072"></a>00072     sf::Clock                   m_scrollRequested;
+<a name="l00073"></a>00073     sf::Clock                   m_switchRequested;
 <a name="l00074"></a>00074 
 <a name="l00075"></a>00075     <span class="comment">// State wheter or not the pointer is out of the detection area </span>
 <a name="l00076"></a>00076     <span class="comment">// (see POINTER_OUT_MARGIN).</span>
@@ -134,17 +134,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00079"></a>00079     <span class="comment">// States if some actions are &quot;requested&quot; (means, the corresponding gestures has</span>
 <a name="l00080"></a>00080     <span class="comment">// been recognized).</span>
 <a name="l00081"></a>00081     <span class="keywordtype">bool</span>                        m_pointerIsRequested;
-<a name="l00082"></a>00082     <span class="keywordtype">bool</span>                        m_switchIsRequested;
-<a name="l00083"></a>00083     <span class="keywordtype">bool</span>                        m_grabIsRequested;
-<a name="l00084"></a>00084     <span class="keywordtype">bool</span>                        m_scrollIsRequested;
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="comment">// The current mouse button selected (see defines above).</span>
-<a name="l00087"></a>00087     <span class="keywordtype">char</span>                        m_currentButton;
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089     <span class="comment">// The colors to use when adding a shape to screen, depending of</span>
-<a name="l00090"></a>00090     <span class="comment">// which is the current mouse button used.</span>
-<a name="l00091"></a>00091     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">Color</a> &amp;        LeftButtonColor;
-<a name="l00092"></a>00092     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">Color</a> &amp;        RightButtonColor;
+<a name="l00082"></a>00082     <span class="keywordtype">bool</span>                        m_grabIsRequested;
+<a name="l00083"></a>00083     <span class="keywordtype">bool</span>                        m_scrollIsRequested;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="comment">// The current mouse button selected (see defines above).</span>
+<a name="l00086"></a>00086     <span class="keywordtype">char</span>                        m_currentButton;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088     <span class="comment">// The colors to use when adding a shape to screen, depending of</span>
+<a name="l00089"></a>00089     <span class="comment">// which is the current mouse button used.</span>
+<a name="l00090"></a>00090     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">Color</a> &amp;        LeftButtonColor;
+<a name="l00091"></a>00091     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">Color</a> &amp;        RightButtonColor;
+<a name="l00092"></a>00092     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structair_1_1Color.html">Color</a> &amp;        PressedButtonColor;
 <a name="l00093"></a>00093     
 <a name="l00102"></a>00102     <span class="keywordtype">bool</span>                        isReset(<span class="keyword">const</span> xn::FingersData &amp; fingersData);
 <a name="l00103"></a>00103 
@@ -152,7 +152,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00113"></a>00113 
 <a name="l00122"></a>00122     <span class="keywordtype">bool</span>                        isButtonRelease(<span class="keyword">const</span> xn::FingersData &amp; fingersData);
 <a name="l00123"></a>00123 
-<a name="l00132"></a>00132     <span class="keywordtype">bool</span>                        isSwitchButton(<span class="keyword">const</span> xn::FingersData &amp; fingersData);
+<a name="l00132"></a>00132     <span class="keywordtype">bool</span>                        isSwitch(<span class="keyword">const</span> xn::FingersData &amp; fingersData);
 <a name="l00133"></a>00133 
 <a name="l00142"></a>00142     <span class="keywordtype">bool</span>                        isPointer(<span class="keyword">const</span> xn::FingersData &amp; fingersData);
 <a name="l00143"></a>00143 
@@ -166,7 +166,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00174"></a>00174 
 <a name="l00178"></a>00178     <span class="keywordtype">void</span>                        switchButton(<span class="keywordtype">void</span>);
 <a name="l00179"></a>00179 
-<a name="l00185"></a>00185     <span class="keywordtype">void</span>                        grab(<span class="keyword">const</span> XnPoint3D &amp; pointer);
+<a name="l00185"></a>00185     <span class="keywordtype">void</span>                        grab(<span class="keyword">const</span> XnPoint3D * pointer);
 <a name="l00186"></a>00186 
 <a name="l00193"></a>00193     <span class="keywordtype">void</span>                        scroll(<span class="keyword">const</span> XnPoint3D &amp; pointer);
 <a name="l00194"></a>00194 
@@ -203,7 +203,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Aug 24 2011 20:38:17 for Air by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 25 2011 13:33:37 for Air by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
