@@ -23,7 +23,7 @@
 // Selection criterion of contour peaks and valley
 #define PEAK_VECTORS_LENGTH_MAX		25 // The length of contour vectors
 #define PEAK_LOCATION_LENGTH_MAX	25 // The width of a finger peaks location
-#define PEAK_SELECTION_ANGLE		70 // Contour peaks & valley max angle
+#define PEAK_SELECTION_ANGLE		60 // Contour peaks & valley max angle
 
 // Defines the ratio of hand points for a valley
 #define VALLEY_RATIO_OF_HANDP		0.5

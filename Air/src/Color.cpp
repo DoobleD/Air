@@ -13,7 +13,8 @@ const Color Color::Blue = Color(0, 0, 255);
 const Color Color::Cyan = Color(0, 255, 255);
 const Color Color::Yellow = Color(255, 255, 0);
 const Color Color::Magenta = Color(255, 0, 255);
-const Color Color::White = Color(255, 255, 254);
+const Color Color::White = Color(255, 255, 255);
+const Color Color::Grey = Color(127, 127, 127);
 
 
 Color::Color(int _r, int _g, 

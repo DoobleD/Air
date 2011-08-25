@@ -24,6 +24,7 @@ namespace air
     static const Color  Yellow;
     static const Color  Magenta;
     static const Color  White;
+    static const Color  Grey;
 
     // red, green, blue, and alpha (transparency) values.
     int			r;

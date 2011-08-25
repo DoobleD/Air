@@ -9,11 +9,11 @@ using namespace air;
 
 const Color &		MouseControl::LeftButtonColor = Color::Yellow;
 const Color &		MouseControl::RightButtonColor = Color::Red;
+const Color &		MouseControl::PressedButtonColor = Color::Grey;
 
 
 MouseControl::MouseControl(os::Screen & screen) : m_screen(screen), 
 						  m_pointerIsRequested(false),
-						  m_switchIsRequested(false),
 						  m_grabIsRequested(false),
 						  m_scrollIsRequested(false),
 						  m_pointerIsOut(false),
@@ -26,9 +26,10 @@ MouseControl::~MouseControl(void)
 {
 }
 
-bool		MouseControl::isButtonPress(const xn::FingersData & fingersData)
+bool		MouseControl::isSwitch(const xn::FingersData & fingersData)
 {
-  return fingersData.Size == 0 && m_mode == MODE_POINTER;
+  return fingersData.Size == 0 && m_mode == MODE_POINTER || 
+    fingersData.Size == 1 && m_mode == MODE_SWITCH;
 }
 
 bool		MouseControl::isButtonRelease(const xn::FingersData & fingersData)
@@ -36,14 +37,14 @@ bool		MouseControl::isButtonRelease(const xn::FingersData & fingersData)
   return fingersData.Size == 1 && m_mode == MODE_PRESSED;
 }
 
-bool		MouseControl::isSwitchButton(const xn::FingersData & fingersData)
+bool		MouseControl::isButtonPress(const xn::FingersData & fingersData)
 {
   return fingersData.Size == 2 && m_mode == MODE_POINTER;
 }
 
 bool		MouseControl::isGrab(const xn::FingersData & fingersData)
 {
-  return fingersData.Size == 0 && m_mode == MODE_PRESSED;
+  return fingersData.Size == 2 && m_mode == MODE_PRESSED;
 }
 
 bool		MouseControl::isScroll(const xn::FingersData & fingersData)
@@ -51,10 +52,23 @@ bool		MouseControl::isScroll(const xn::FingersData & fingersData)
   return (fingersData.Size == 0 && m_mode == MODE_NONE) || m_mode == MODE_SCROLL;
 }
 
+bool		MouseControl::isReset(const xn::FingersData & fingersData)
+{
+  if (fingersData.Size > REQUIRED_MAX_FINGERS)
+    return true;
+
+  if (fingersData.Size == REQUIRED_MAX_FINGERS && 
+      m_mode != MODE_POINTER && m_mode != MODE_PRESSED && m_mode != MODE_RELEASED)
+    return true;
+
+  return false;
+    
+}
+
 bool		MouseControl::isPointer(const xn::FingersData & fingersData)
 {
-  // Already in pointer mode
-  if (m_mode == MODE_POINTER)
+  // Already in pointer mode or button pressed
+  if (m_mode == MODE_POINTER || m_mode == MODE_PRESSED)
     return true;
 
   // Pointer gesture
@@ -75,27 +89,23 @@ bool		MouseControl::isPointer(const xn::FingersData & fingersData)
   return false;
 }
 
-bool		MouseControl::isReset(const xn::FingersData & fingersData)
-{
-  return fingersData.Size > REQUIRED_MAX_FINGERS || 
-    (fingersData.Size == REQUIRED_MAX_FINGERS && m_mode != MODE_POINTER);
-}
-
 void		MouseControl::switchButton(void)
 {
-  if (!m_switchIsRequested)
+  if (m_mode == MODE_POINTER)
     {
-      m_switchIsRequested = true;
+      m_mode = MODE_SWITCH;
+
       m_switchRequested.Reset();
     }
-  else if (m_switchRequested.GetElapsedTime() > SWITCH_GESTURE_TIME)
+  else if (m_mode == MODE_SWITCH && 
+	   m_switchRequested.GetElapsedTime() > SWITCH_GESTURE_TIME)
     {
       if (m_currentButton == BUTTON_LEFT)
 	m_currentButton = BUTTON_RIGHT;
       else
 	m_currentButton = BUTTON_LEFT;
-      
-      m_switchIsRequested = false;
+
+      m_mode = MODE_POINTER;
     }
 }
 
@@ -119,7 +129,7 @@ void		MouseControl::buttonPress(void)
 	m_mouse.rightButtonPress();
     }
 
-  m_mode = MODE_PRESSED;  
+  m_mode = MODE_PRESSED;
   m_buttonPressed.Reset();
 }
 
@@ -137,7 +147,7 @@ void		MouseControl::buttonRelease(void)
   m_mode = MODE_RELEASED; // Useless for now, but could serve later
 }
 
-void		MouseControl::grab(const XnPoint3D & pointer)
+void		MouseControl::grab(const XnPoint3D * pointer)
 {
   if (!m_grabIsRequested)
     {
@@ -146,7 +156,7 @@ void		MouseControl::grab(const XnPoint3D & pointer)
     }
   else if (m_grabRequested.GetElapsedTime() > GRAB_GESTURE_TIME)
     {
-      m_mouse.setPosition(pointer.X, pointer.Y);      
+      m_mouse.setPosition(pointer->X, pointer->Y);      
     }
 }
 
@@ -183,9 +193,13 @@ void		MouseControl::pointer(XnPoint3D * pointer)
       if (pointer->X >= POINTER_OUT_MARGIN && pointer->Y <= marginMaxX &&
       	  pointer->Y >= POINTER_OUT_MARGIN && pointer->Y <= marginMaxY)
       	{
-	  m_mouse.setPosition(pointer->X + 10, pointer->Y + 10); 
-	  
-	  if (m_currentButton == BUTTON_LEFT)
+	  if (m_mode != MODE_PRESSED)
+	    m_mouse.setPosition(pointer->X + 10, pointer->Y + 10); 
+
+	  // Draw a colored rectangle at the pointer location on screen
+	  if (m_mode == MODE_PRESSED)
+	    m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, PressedButtonColor);
+	  else if (m_currentButton == BUTTON_LEFT)
 	    m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, LeftButtonColor);
 	  else
 	    m_screen.drawRectangle(pointer->X, pointer->Y, 20, 20, RightButtonColor);
@@ -196,14 +210,14 @@ void		MouseControl::pointer(XnPoint3D * pointer)
       	m_pointerIsOut = true;
     }
   
-  m_mode = MODE_POINTER;
+  if (m_mode != MODE_PRESSED)
+    m_mode = MODE_POINTER;
 }
 
 void		MouseControl::reset(void)
 {
   // Reset all requests
   m_pointerIsRequested = false;
-  m_switchIsRequested = false;
   m_scrollIsRequested = false;
   m_grabIsRequested = false;
 
@@ -252,7 +266,7 @@ XnPoint3D *	MouseControl::getPointer(const xn::FingersData & fingersData)
 
 bool		MouseControl::update(const xn::FingersData & fingersData)
 {
-  bool		isSwitch = false;
+  XnPoint3D *	pPointer = NULL;
 
   if (isReset(fingersData))
     {
@@ -267,9 +281,8 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
 
   if (!m_pointerIsOut)
     {
-      if (isSwitchButton(fingersData))
+      if (isSwitch(fingersData))
 	{
-	  isSwitch = true;
 	  switchButton();
 	}
       else if (isButtonPress(fingersData))
@@ -278,19 +291,21 @@ bool		MouseControl::update(const xn::FingersData & fingersData)
 	}
       else if (isGrab(fingersData))
 	{
-	  grab(fingersData.Hand);
+	  pPointer = getPointer(fingersData);
+
+	  grab(pPointer);
 	}
     }
       
   if (isPointer(fingersData))
     {
-      if (!isSwitch)
-	m_switchIsRequested = false;
-      
       if (isButtonRelease(fingersData))
 	buttonRelease();
       
-      pointer(getPointer(fingersData));
+      if (!pPointer)
+	pPointer = getPointer(fingersData);
+
+      pointer(pPointer);
     }
 
   return true;

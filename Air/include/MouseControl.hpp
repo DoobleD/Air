@@ -14,7 +14,7 @@
 #define	REQUIRED_MAX_FINGERS	2
 
 // Maximum time (in seconds) between two clicks for a double click.
-#define DOUBLE_CLICK_TIME	0.5
+#define DOUBLE_CLICK_TIME	0.6
 
 // Minimum time (either in seconds or frames) required to gestures 
 // before processing it.
@@ -31,7 +31,7 @@
 #define POINTER_OUT_MARGIN	0
 
 // Factor used to speed pointer movement.
-#define SPEED_UP_POINTER_FACTOR	1.25
+#define SPEED_UP_POINTER_FACTOR	1
 
 // Modes. A mode states which is the current action performed.
 #define MODE_NONE		0
@@ -39,7 +39,7 @@
 #define MODE_PRESSED		2
 #define MODE_RELEASED		3
 #define MODE_SCROLL		4
-
+#define MODE_SWITCH		5
 
 namespace air
 {
@@ -68,9 +68,9 @@ namespace air
     // to avoid undesired mixed behaviour.
     sf::Clock			m_buttonPressed;
     sf::Clock			m_pointerRequested;
-    sf::Clock			m_switchRequested;
     sf::Clock			m_grabRequested;
     sf::Clock			m_scrollRequested;
+    sf::Clock			m_switchRequested;
 
     // State wheter or not the pointer is out of the detection area 
     // (see POINTER_OUT_MARGIN).
@@ -79,7 +79,6 @@ namespace air
     // States if some actions are "requested" (means, the corresponding gestures has
     // been recognized).
     bool			m_pointerIsRequested;
-    bool			m_switchIsRequested;
     bool			m_grabIsRequested;
     bool			m_scrollIsRequested;
 
@@ -90,6 +89,7 @@ namespace air
     // which is the current mouse button used.
     static const Color & 	LeftButtonColor;
     static const Color &	RightButtonColor;
+    static const Color &	PressedButtonColor;
     
     /**
      * Search for a reset gesture.
@@ -129,7 +129,7 @@ namespace air
      *
      * @return true if the gesture is found, false otherwise.
      */
-    bool			isSwitchButton(const xn::FingersData & fingersData);
+    bool			isSwitch(const xn::FingersData & fingersData);
 
     /**
      * Search for a pointer gesture.
@@ -182,7 +182,7 @@ namespace air
      *
      * @param pointer		The position of the pointer.
      */
-    void			grab(const XnPoint3D & pointer);
+    void			grab(const XnPoint3D * pointer);
 
     /**
      * Perform a scroll action. Equivalent to hold the middle button (the wheel) 

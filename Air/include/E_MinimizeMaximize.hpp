@@ -9,7 +9,7 @@
 
 
 // Required minimum movement speed
-#define MM_MIN_SPEED			1.15 // m/s
+#define MM_MIN_SPEED			1.1 // m/s
 
 
 namespace air
